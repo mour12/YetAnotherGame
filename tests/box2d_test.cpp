@@ -127,8 +127,8 @@ TEST(box2d_test, test_area)
   Point2D p4 = { 3.3f, 4.4f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p3, p4 };
-  EXPECT_FLOAT_EQ(b1.area(), 4.0);
-  EXPECT_FLOAT_EQ(b2.area(), 4.84);
+  EXPECT_FLOAT_EQ(b1.Area(), 4.0);
+  EXPECT_FLOAT_EQ(b2.Area(), 4.84);
 }
 
 TEST(box2d_test, test_perimeter)
@@ -139,6 +139,6 @@ TEST(box2d_test, test_perimeter)
   Point2D p4 = { 3.3f, 4.4f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p3, p4 };
-  EXPECT_FLOAT_EQ(b1.perimeter(), 8.0);
-  EXPECT_FLOAT_EQ(b2.perimeter(), 8.8);
+  EXPECT_FLOAT_EQ(b1.Perimeter(), 8.0);
+  EXPECT_FLOAT_EQ(b2.Perimeter(), 8.8);
 }
