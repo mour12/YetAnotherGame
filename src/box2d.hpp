@@ -75,7 +75,7 @@ public:
 
   bool operator < (Box2D const & obj) const
   {
-    return (this->area() < obj.area()) ? true : false;//TODO: Implement comparison using epsilon
+    return (this->Area() < obj.Area()) ? true : false;//TODO: Implement comparison using epsilon
   }
 
   Point2D operator [] (unsigned int index) const
