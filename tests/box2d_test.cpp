@@ -161,3 +161,21 @@ TEST(box2d_test, test_perimeter)
   EXPECT_FLOAT_EQ(b1.Perimeter(), 8.0f);
   EXPECT_FLOAT_EQ(b2.Perimeter(), 8.8f);
 }
+
+TEST(box2d_test, test_intersection)
+{
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 3.0f, 4.0f };
+  Point2D p3 = { 1.1f, 2.2f };
+  Point2D p4 = { 3.3f, 4.4f };
+  Point2D p5 = { 6.6f, 7.7f };
+  Point2D p6 = { 8.8f, 9.9f };
+  Point2D p7 = { 0.0f, 0.0f };
+  Box2D b1 = { p1, p2 };
+  Box2D b2 = { p3, p4 };
+  Box2D b3 = { p5, p6 };
+  Box2D b4 = { p7, p1 };
+  EXPECT_EQ(b1.Intersects(b2), true);
+  EXPECT_EQ(b1.Intersects(b4), true);
+  EXPECT_EQ(b1.Intersects(b3), false);
+}

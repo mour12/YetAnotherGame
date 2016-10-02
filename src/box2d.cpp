@@ -61,6 +61,21 @@ float Box2D::Perimeter() const
   return (this->Height() + this->Width()) * 2;
 }
 
+bool Box2D::Intersects(Box2D const & obj)
+{
+  if  (leftLowCorner().x() > obj.rightUpCorner().x()
+    || leftLowCorner().y() > obj.rightUpCorner().y()
+    || rightUpCorner().x() < obj.leftLowCorner().x()
+    || rightUpCorner().y() < obj.leftLowCorner().y())
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+}
+
 bool Box2D::operator == (Box2D const & obj) const
 {
   return (m_leftLowCorner == obj.m_leftLowCorner) && (m_rightUpCorner == obj.m_rightUpCorner);

@@ -23,6 +23,7 @@ public:
 
   float Area() const;
   float Perimeter() const;
+  bool Intersects(Box2D const & obj);
 
   bool operator == (Box2D const & obj) const;
   Box2D & operator = (Box2D const & obj);
