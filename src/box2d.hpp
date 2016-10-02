@@ -12,20 +12,20 @@ public:
     m_rightUpCorner(Point2D())
   {}
 
-  Box2D( Box2D const & obj ) :
+  Box2D(Box2D const & obj) :
     m_leftLowCorner(obj.m_leftLowCorner),
     m_rightUpCorner(obj.m_rightUpCorner)
   {}
 
-  Box2D( Point2D const & leftLowCorner, Point2D const & rightUpCorner ) :
+  Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner) :
     m_leftLowCorner(leftLowCorner),
     m_rightUpCorner(rightUpCorner)
   {}
 
-  Box2D( Box2D && obj )
+  Box2D(Box2D && obj)
   {
-    std::swap( m_leftLowCorner, obj.m_leftLowCorner );
-    std::swap( m_rightUpCorner, obj.m_rightUpCorner );
+    std::swap(m_leftLowCorner, obj.m_leftLowCorner);
+    std::swap(m_rightUpCorner, obj.m_rightUpCorner);
   }
 
   Box2D(std::initializer_list<Point2D> const & lst)
@@ -45,12 +45,12 @@ public:
   Point2D const & leftLowCorner() const { return m_leftLowCorner; }
   Point2D const & rightUpCorner() const { return m_rightUpCorner; }
 
-  float area() const
+  float Area() const
   {
     return std::abs(m_rightUpCorner.x() - m_leftLowCorner.x()) * std::abs(m_rightUpCorner.y() - m_leftLowCorner.y());
   }
 
-  float perimeter() const
+  float Perimeter() const
   {
     return (std::abs(m_rightUpCorner.x() - m_leftLowCorner.x()) + std::abs(m_rightUpCorner.y() - m_leftLowCorner.y())) * 2;
   }
