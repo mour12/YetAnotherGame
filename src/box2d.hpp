@@ -7,92 +7,35 @@ class Box2D
 {
 public:
 
-  Box2D() :
-    m_leftLowCorner(Point2D()),
-    m_rightUpCorner(Point2D())
-  {}
-
-  Box2D(Box2D const & obj) :
-    m_leftLowCorner(obj.m_leftLowCorner),
-    m_rightUpCorner(obj.m_rightUpCorner)
-  {}
-
-  Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner) :
-    m_leftLowCorner(leftLowCorner),
-    m_rightUpCorner(rightUpCorner)
-  {}
-
-  Box2D(Box2D && obj)
-  {
-    std::swap(m_leftLowCorner, obj.m_leftLowCorner);
-    std::swap(m_rightUpCorner, obj.m_rightUpCorner);
-  }
-
-  Box2D(std::initializer_list<Point2D> const & lst)
-  {
-    Point2D * vals[] = { &m_leftLowCorner, &m_rightUpCorner };
-    int const count = sizeof(vals) / sizeof(vals[0]);
-    auto it = lst.begin();
-    for (int i = 0; i < count && it != lst.end(); i++, ++it)
-      *vals[i] = *it;
-  }
+  Box2D();
+  Box2D(Box2D const & obj);
+  Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner);
+  Box2D(Box2D && obj);
+  Box2D(std::initializer_list<Point2D> const & lst);
 
   virtual ~Box2D() {}
 
-  Point2D & leftLowCorner() { return m_leftLowCorner; }
-  Point2D & rightUpCorner() { return m_rightUpCorner; }
+  Point2D const & leftLowCorner() const;
+  Point2D const & rightUpCorner() const;
 
-  Point2D const & leftLowCorner() const { return m_leftLowCorner; }
-  Point2D const & rightUpCorner() const { return m_rightUpCorner; }
+  float Width() const;
+  float Height() const;
 
-  float Area() const
-  {
-    return std::abs(m_rightUpCorner.x() - m_leftLowCorner.x()) * std::abs(m_rightUpCorner.y() - m_leftLowCorner.y());
-  }
+  float Area() const;
+  float Perimeter() const;
 
-  float Perimeter() const
-  {
-    return (std::abs(m_rightUpCorner.x() - m_leftLowCorner.x()) + std::abs(m_rightUpCorner.y() - m_leftLowCorner.y())) * 2;
-  }
-
-  bool operator == (Box2D const & obj) const
-  {
-    return (m_leftLowCorner == obj.m_leftLowCorner) && (m_rightUpCorner == obj.m_rightUpCorner);
-  }
-
-  Box2D & operator = (Box2D const & obj)
-  {
-    if (this == &obj) return *this;
-    m_leftLowCorner = obj.m_leftLowCorner;
-    m_rightUpCorner = obj.m_rightUpCorner;
-    return *this;
-  }
-
-  bool operator != (Box2D const & obj) const
-  {
-    return !operator==(obj);
-  }
-
-  bool operator < (Box2D const & obj) const
-  {
-    return (this->Area() < obj.Area()) ? true : false;//TODO: Implement comparison using epsilon
-  }
-
-  Point2D operator [] (unsigned int index) const
-  {
-    if (index >= 2) throw std::out_of_range("Index must be 0 or 1");
-    return index == 0 ? m_leftLowCorner : m_rightUpCorner;
-  }
+  bool operator == (Box2D const & obj) const;
+  Box2D & operator = (Box2D const & obj);
+  bool operator != (Box2D const & obj) const;
+  bool operator < (Box2D const & obj) const;
+  Point2D operator [] (unsigned int index) const;
 
 private:
 
   Point2D m_leftLowCorner;
   Point2D m_rightUpCorner;
+
+  std::pair<Point2D,Point2D> ValidatePoints(Point2D p1, Point2D p2);
 };
 
-
-inline std::ostream & operator << (std::ostream & os, Box2D const & obj)
-{
-  os << "Box2D {" << obj.leftLowCorner() << ", " << obj.rightUpCorner() << "}";
-  return os;
-}
+std::ostream & operator << (std::ostream & os, Box2D const & obj);

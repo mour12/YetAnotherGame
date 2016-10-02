@@ -21,6 +21,9 @@ TEST(box2d_test, test_construction)
 
   Box2D b3 = b2;
   EXPECT_EQ(b3, b2);
+
+  Box2D b4 = Box2D(p2, p1);
+  EXPECT_EQ(b4, b2);
 }
 
 TEST(box2d_test, test_moving)
@@ -60,10 +63,10 @@ TEST(box2d_test, test_initializer_list)
   EXPECT_EQ(b2.rightUpCorner().y(), 3.0f);
 
   Box2D b3 = { p1 };
-  EXPECT_EQ(b3.leftLowCorner().x(), 1.0f);
-  EXPECT_EQ(b3.leftLowCorner().y(), 2.0f);
-  EXPECT_EQ(b3.rightUpCorner().x(), 0.0f);
-  EXPECT_EQ(b3.rightUpCorner().y(), 0.0f);
+  EXPECT_EQ(b3.leftLowCorner().x(), 0.0f);
+  EXPECT_EQ(b3.leftLowCorner().y(), 0.0f);
+  EXPECT_EQ(b3.rightUpCorner().x(), 1.0f);
+  EXPECT_EQ(b3.rightUpCorner().y(), 2.0f);
 }
 
 TEST(box2d_test, test_assignment)
@@ -119,6 +122,22 @@ TEST(box2d_test, test_output)
   EXPECT_EQ(s.str(), "Box2D {Point2D {1.1, 2.2}, Point2D {3.3, 4.4}}");
 }
 
+TEST(box2d_test, test_width)
+{
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 4.0f, 4.0f };
+  Box2D b1 = { p1, p2 };
+  EXPECT_FLOAT_EQ(b1.Width(), 3.0f);
+}
+
+TEST(box2d_test, test_height)
+{
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 4.0f, 4.0f };
+  Box2D b1 = { p1, p2 };
+  EXPECT_FLOAT_EQ(b1.Height(), 2.0f);
+}
+
 TEST(box2d_test, test_area)
 {
   Point2D p1 = { 1.0f, 2.0f };
@@ -127,8 +146,8 @@ TEST(box2d_test, test_area)
   Point2D p4 = { 3.3f, 4.4f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p3, p4 };
-  EXPECT_FLOAT_EQ(b1.Area(), 4.0);
-  EXPECT_FLOAT_EQ(b2.Area(), 4.84);
+  EXPECT_FLOAT_EQ(b1.Area(), 4.0f);
+  EXPECT_FLOAT_EQ(b2.Area(), 4.84f);
 }
 
 TEST(box2d_test, test_perimeter)
@@ -139,6 +158,6 @@ TEST(box2d_test, test_perimeter)
   Point2D p4 = { 3.3f, 4.4f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p3, p4 };
-  EXPECT_FLOAT_EQ(b1.Perimeter(), 8.0);
-  EXPECT_FLOAT_EQ(b2.Perimeter(), 8.8);
+  EXPECT_FLOAT_EQ(b1.Perimeter(), 8.0f);
+  EXPECT_FLOAT_EQ(b2.Perimeter(), 8.8f);
 }
