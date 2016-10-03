@@ -39,7 +39,7 @@ Ray2D & Ray2D::operator=(Ray2D const & obj)
   return *this;
 }
 
-Ray2D& Ray2D::operator=(Ray2D && obj)
+Ray2D & Ray2D::operator=(Ray2D && obj)
 {
   std::swap(m_origin, obj.m_origin);
   std::swap(m_direction, obj.m_direction);
@@ -97,7 +97,7 @@ Ray2D & Ray2D::operator-=(Ray2D const & obj)
   return *this;
 }
 
-Ray2D& Ray2D::operator*=(float scale)
+Ray2D & Ray2D::operator*=(float scale)
 {
   m_origin *= scale;
   m_direction *= Sign(scale); // TODO: Check for zero-vector direction
@@ -105,7 +105,7 @@ Ray2D& Ray2D::operator*=(float scale)
   return *this;
 }
 
-Ray2D& Ray2D::operator/=(float scale) // TODO: Check for division by zero
+Ray2D & Ray2D::operator/=(float scale) // TODO: Check for division by zero
 {
   m_origin /= scale;
   m_direction /= Sign(scale);
