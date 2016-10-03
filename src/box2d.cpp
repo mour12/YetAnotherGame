@@ -57,7 +57,7 @@ float Box2D::Perimeter() const
 }
 
 bool Box2D::Intersects(Box2D const & obj) const
-{ 
+{
   return !(leftBottomCorner().x() > obj.rightTopCorner().x()
     || leftBottomCorner().y() > obj.rightTopCorner().y()
     || rightTopCorner().x() < obj.leftBottomCorner().x()
