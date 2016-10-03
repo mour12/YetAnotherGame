@@ -13,7 +13,7 @@ public:
   Box2D(Box2D && obj);
   Box2D(std::initializer_list<Point2D> const & lst);
 
-  virtual ~Box2D() {}
+  //virtual ~Box2D() {}
 
   Point2D const & leftBottomCorner() const;
   Point2D const & rightTopCorner() const;
