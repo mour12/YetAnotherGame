@@ -1,9 +1,10 @@
 #pragma once
 
-#include "point2d.hpp"
 #include <initializer_list>
 #include <functional>
 #include <ostream>
+#include "point2d.hpp"
+#include "box2d.hpp"
 
 class Ray2D
 {
@@ -35,12 +36,16 @@ public:
   Point2D const & origin() const;
   Point2D const & direction() const;
 
+  bool Intersects(Box2D const & box);
+
 private:
   Point2D m_origin = {0.0f, 0.0f};
   Point2D m_direction = {1.0f, 0.0f};
 
   void NormalizeDirection();
   bool EqualWithEps(float f1, float f2) const;
+  int Sign(float f) const;
+  bool Intersects(Point2D const & p1, Point2D const & p2);
 };
 
 std::ostream & operator<<(std::ostream & os, Ray2D const & obj);

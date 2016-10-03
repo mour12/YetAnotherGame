@@ -88,6 +88,25 @@ TEST(ray2d_test, test_calculus)
   EXPECT_EQ(r1, Ray2D( { 1.2f, 2.4f }, { 0.873421751f, -0.486964521f } ));
 }
 
+TEST(ray2d_test, test_intersection)
+{
+  Ray2D r1 = { { 1.2f, 2.4f }, { 3.6f, 4.8f } };
+  Box2D b1 = { { 3.6f, 3.6f }, { 7.2f, 7.2f } };
+  Box2D b2 = { { -3.6f, -3.6f }, { -7.2f, -7.2f } };
+  EXPECT_TRUE(r1.Intersects(b1));
+  EXPECT_FALSE(r1.Intersects(b2));
+
+  Ray2D r2 = { { 1.2f, 2.4f }, { 4.8f, 0.0f } };
+  Box2D b3 = { { 3.6f, 1.2f }, { 4.8f, 3.6f } };
+  EXPECT_FALSE(r2.Intersects(b1));
+  EXPECT_TRUE(r2.Intersects(b3));
+
+  Ray2D r3 = { { 1.2f, 2.4f }, { 0.0f, 4.8f } };
+  Box2D b4 = { { 0.0f, 3.6f }, { 2.4f, 4.8f } };
+  EXPECT_FALSE(r3.Intersects(b1));
+  EXPECT_TRUE(r3.Intersects(b4));
+}
+
 TEST(ray2d_test, test_output)
 {
   std::stringstream s;
