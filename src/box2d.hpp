@@ -7,13 +7,13 @@ class Box2D
 {
 public:
 
-  Box2D();
+  Box2D() = default;
   Box2D(Box2D const & obj);
   Box2D(Point2D const & leftBottomCorner, Point2D const & rightTopCorner);
   Box2D(Box2D && obj);
   Box2D(std::initializer_list<Point2D> const & lst);
 
-  virtual ~Box2D() {}
+  //virtual ~Box2D() {}
 
   Point2D const & leftBottomCorner() const;
   Point2D const & rightTopCorner() const;
@@ -23,9 +23,11 @@ public:
 
   float Area() const;
   float Perimeter() const;
+  bool Intersects(Box2D const & obj) const;
 
   bool operator == (Box2D const & obj) const;
   Box2D & operator = (Box2D const & obj);
+  Box2D & operator = (Box2D && obj);
   bool operator != (Box2D const & obj) const;
   bool operator < (Box2D const & obj) const;
   Point2D operator [] (unsigned int index) const;

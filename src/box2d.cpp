@@ -2,11 +2,6 @@
 #include <cmath>
 #include <iostream>
 
-Box2D::Box2D() :
-  m_leftBottomCorner(Point2D()),
-  m_rightTopCorner(Point2D())
-{}
-
 Box2D::Box2D(Box2D const & obj) :
   m_leftBottomCorner(obj.m_leftBottomCorner),
   m_rightTopCorner(obj.m_rightTopCorner)
@@ -43,12 +38,12 @@ Point2D const & Box2D::rightTopCorner() const { return m_rightTopCorner; }
 
 float Box2D::Width() const
 {
-  return fabsf(m_rightTopCorner.x() - m_leftBottomCorner.x());
+  return m_rightTopCorner.x() - m_leftBottomCorner.x();
 }
 
 float Box2D::Height() const
 {
-  return fabsf(m_rightTopCorner.y() - m_leftBottomCorner.y());
+  return m_rightTopCorner.y() - m_leftBottomCorner.y();
 }
 
 float Box2D::Area() const
@@ -61,16 +56,31 @@ float Box2D::Perimeter() const
   return (this->Height() + this->Width()) * 2;
 }
 
+bool Box2D::Intersects(Box2D const & obj) const
+{
+  return !(leftBottomCorner().x() > obj.rightTopCorner().x()
+    || leftBottomCorner().y() > obj.rightTopCorner().y()
+    || rightTopCorner().x() < obj.leftBottomCorner().x()
+    || rightTopCorner().y() < obj.leftBottomCorner().y());
+}
+
 bool Box2D::operator == (Box2D const & obj) const
 {
   return (m_leftBottomCorner == obj.m_leftBottomCorner) && (m_rightTopCorner == obj.m_rightTopCorner);
 }
 
-Box2D & Box2D::operator = (Box2D const & obj)
+Box2D &Box2D::operator = (Box2D const & obj)
 {
   if (this == &obj) return *this;
   m_leftBottomCorner = obj.m_leftBottomCorner;
   m_rightTopCorner = obj.m_rightTopCorner;
+  return *this;
+}
+
+Box2D &Box2D::operator = (Box2D && obj)
+{
+  std::swap(m_leftBottomCorner, obj.m_leftBottomCorner);
+  std::swap(m_rightTopCorner, obj.m_rightTopCorner);
   return *this;
 }
 
