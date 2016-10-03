@@ -2,27 +2,22 @@
 #include <cmath>
 #include <iostream>
 
-Box2D::Box2D() :
-  m_leftLowCorner(Point2D()),
-  m_rightUpCorner(Point2D())
-{}
-
 Box2D::Box2D(Box2D const & obj) :
-  m_leftLowCorner(obj.m_leftLowCorner),
-  m_rightUpCorner(obj.m_rightUpCorner)
+  m_leftBottomCorner(obj.m_leftBottomCorner),
+  m_rightTopCorner(obj.m_rightTopCorner)
 {}
 
-Box2D::Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner)
+Box2D::Box2D(Point2D const & leftBottomCorner, Point2D const & rightTopCorner)
 {
-  std::pair<Point2D, Point2D> validPoints = ValidatePoints(leftLowCorner, rightUpCorner);
-  m_leftLowCorner = validPoints.first;
-  m_rightUpCorner = validPoints.second;
+  std::pair<Point2D, Point2D> validPoints = ValidatePoints(leftBottomCorner, rightTopCorner);
+  m_leftBottomCorner = validPoints.first;
+  m_rightTopCorner = validPoints.second;
 }
 
 Box2D::Box2D(Box2D && obj)
 {
-  std::swap(m_leftLowCorner, obj.m_leftLowCorner);
-  std::swap(m_rightUpCorner, obj.m_rightUpCorner);
+  std::swap(m_leftBottomCorner, obj.m_leftBottomCorner);
+  std::swap(m_rightTopCorner, obj.m_rightTopCorner);
 }
 
 Box2D::Box2D(std::initializer_list<Point2D> const & lst)
@@ -34,21 +29,21 @@ Box2D::Box2D(std::initializer_list<Point2D> const & lst)
   for (int i = 0; i < count && it != lst.end(); i++, ++it)
     *vals[i] = *it;
   std::pair<Point2D, Point2D> validPoints = ValidatePoints(p1, p2);
-  m_leftLowCorner = validPoints.first;
-  m_rightUpCorner = validPoints.second;
+  m_leftBottomCorner = validPoints.first;
+  m_rightTopCorner = validPoints.second;
 }
 
-Point2D const & Box2D::leftLowCorner() const { return m_leftLowCorner; }
-Point2D const & Box2D::rightUpCorner() const { return m_rightUpCorner; }
+Point2D const & Box2D::leftBottomCorner() const { return m_leftBottomCorner; }
+Point2D const & Box2D::rightTopCorner() const { return m_rightTopCorner; }
 
 float Box2D::Width() const
 {
-  return fabsf(m_rightUpCorner.x() - m_leftLowCorner.x());
+  return m_rightTopCorner.x() - m_leftBottomCorner.x();
 }
 
 float Box2D::Height() const
 {
-  return fabsf(m_rightUpCorner.y() - m_leftLowCorner.y());
+  return m_rightTopCorner.y() - m_leftBottomCorner.y();
 }
 
 float Box2D::Area() const
@@ -61,16 +56,31 @@ float Box2D::Perimeter() const
   return (this->Height() + this->Width()) * 2;
 }
 
-bool Box2D::operator == (Box2D const & obj) const
-{
-  return (m_leftLowCorner == obj.m_leftLowCorner) && (m_rightUpCorner == obj.m_rightUpCorner);
+bool Box2D::Intersects(Box2D const & obj) const
+{ 
+  return !(leftBottomCorner().x() > obj.rightTopCorner().x()
+    || leftBottomCorner().y() > obj.rightTopCorner().y()
+    || rightTopCorner().x() < obj.leftBottomCorner().x()
+    || rightTopCorner().y() < obj.leftBottomCorner().y());
 }
 
-Box2D & Box2D::operator = (Box2D const & obj)
+bool Box2D::operator == (Box2D const & obj) const
+{
+  return (m_leftBottomCorner == obj.m_leftBottomCorner) && (m_rightTopCorner == obj.m_rightTopCorner);
+}
+
+Box2D &Box2D::operator = (Box2D const & obj)
 {
   if (this == &obj) return *this;
-  m_leftLowCorner = obj.m_leftLowCorner;
-  m_rightUpCorner = obj.m_rightUpCorner;
+  m_leftBottomCorner = obj.m_leftBottomCorner;
+  m_rightTopCorner = obj.m_rightTopCorner;
+  return *this;
+}
+
+Box2D &Box2D::operator = (Box2D && obj)
+{
+  std::swap(m_leftBottomCorner, obj.m_leftBottomCorner);
+  std::swap(m_rightTopCorner, obj.m_rightTopCorner);
   return *this;
 }
 
@@ -87,7 +97,7 @@ bool Box2D::operator < (Box2D const & obj) const
 Point2D Box2D::operator [] (unsigned int index) const
 {
   if (index >= 2) throw std::out_of_range("Index must be 0 or 1");
-  return index == 0 ? m_leftLowCorner : m_rightUpCorner;
+  return index == 0 ? m_leftBottomCorner : m_rightTopCorner;
 }
 
 std::pair<Point2D,Point2D> Box2D::ValidatePoints(Point2D p1, Point2D p2)
@@ -115,6 +125,6 @@ std::pair<Point2D,Point2D> Box2D::ValidatePoints(Point2D p1, Point2D p2)
 
 std::ostream & operator << (std::ostream & os, Box2D const & obj)
 {
-  os << "Box2D {" << obj.leftLowCorner() << ", " << obj.rightUpCorner() << "}";
+  os << "Box2D {" << obj.leftBottomCorner() << ", " << obj.rightTopCorner() << "}";
   return os;
 }

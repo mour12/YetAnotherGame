@@ -7,33 +7,35 @@ class Box2D
 {
 public:
 
-  Box2D();
+  Box2D() = default;
   Box2D(Box2D const & obj);
-  Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner);
+  Box2D(Point2D const & leftBottomCorner, Point2D const & rightTopCorner);
   Box2D(Box2D && obj);
   Box2D(std::initializer_list<Point2D> const & lst);
 
-  virtual ~Box2D() {}
+  //virtual ~Box2D() {}
 
-  Point2D const & leftLowCorner() const;
-  Point2D const & rightUpCorner() const;
+  Point2D const & leftBottomCorner() const;
+  Point2D const & rightTopCorner() const;
 
   float Width() const;
   float Height() const;
 
   float Area() const;
   float Perimeter() const;
+  bool Intersects(Box2D const & obj) const;
 
   bool operator == (Box2D const & obj) const;
   Box2D & operator = (Box2D const & obj);
+  Box2D & operator = (Box2D && obj);
   bool operator != (Box2D const & obj) const;
   bool operator < (Box2D const & obj) const;
   Point2D operator [] (unsigned int index) const;
 
 private:
 
-  Point2D m_leftLowCorner;
-  Point2D m_rightUpCorner;
+  Point2D m_leftBottomCorner;
+  Point2D m_rightTopCorner;
 
   std::pair<Point2D,Point2D> ValidatePoints(Point2D p1, Point2D p2);
 };
