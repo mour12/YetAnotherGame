@@ -38,7 +38,7 @@ TEST(ray2d_test, test_initializer_list)
 TEST(ray2d_test, test_moving)
 {
   Ray2D r1 = Ray2D( { 1.2f, 2.4f }, { 0.6f, 0.8f } );
-  Ray2D r2 = std::move(r1);
+  Ray2D r2 = Ray2D(std::move(r1));
   EXPECT_FLOAT_EQ(r2.origin().x(), 1.2f);
   EXPECT_FLOAT_EQ(r2.origin().y(), 2.4f);
   EXPECT_FLOAT_EQ(r2.direction().x(), 0.6f);
@@ -53,6 +53,12 @@ TEST(ray2d_test, test_assignment)
   EXPECT_FLOAT_EQ(r1.origin().y(), 2.4f);
   EXPECT_FLOAT_EQ(r1.direction().x(), 0.6f);
   EXPECT_FLOAT_EQ(r1.direction().y(), 0.8f);
+
+  auto r2 = std::move(r1);
+  EXPECT_FLOAT_EQ(r2.origin().x(), 1.2f);
+  EXPECT_FLOAT_EQ(r2.origin().y(), 2.4f);
+  EXPECT_FLOAT_EQ(r2.direction().x(), 0.6f);
+  EXPECT_FLOAT_EQ(r2.direction().y(), 0.8f);
 }
 
 TEST(ray2d_test, test_equality)

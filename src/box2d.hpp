@@ -9,14 +9,14 @@ public:
 
   Box2D();
   Box2D(Box2D const & obj);
-  Box2D(Point2D const & leftLowCorner, Point2D const & rightUpCorner);
+  Box2D(Point2D const & leftBottomCorner, Point2D const & rightTopCorner);
   Box2D(Box2D && obj);
   Box2D(std::initializer_list<Point2D> const & lst);
 
   virtual ~Box2D() {}
 
-  Point2D const & leftLowCorner() const;
-  Point2D const & rightUpCorner() const;
+  Point2D const & leftBottomCorner() const;
+  Point2D const & rightTopCorner() const;
 
   float Width() const;
   float Height() const;
@@ -32,8 +32,8 @@ public:
 
 private:
 
-  Point2D m_leftLowCorner;
-  Point2D m_rightUpCorner;
+  Point2D m_leftBottomCorner;
+  Point2D m_rightTopCorner;
 
   std::pair<Point2D,Point2D> ValidatePoints(Point2D p1, Point2D p2);
 };
