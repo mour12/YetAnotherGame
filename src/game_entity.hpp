@@ -11,6 +11,7 @@ public:
   GameEntity(GameEntity const & obj);
   GameEntity(Box2D const & box, Velocity const & velocity);
   virtual ~GameEntity() {}
+  void update();
 
   virtual GameEntity & operator=(GameEntity const & obj);
 

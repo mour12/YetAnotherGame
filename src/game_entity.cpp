@@ -1,3 +1,5 @@
+#include <exception>
+#include <stdexcept>
 #include "game_entity.hpp"
 
 GameEntity::GameEntity(GameEntity const & obj)
@@ -36,3 +38,8 @@ Velocity & GameEntity::velocity() { return m_velocity; }
 Box2D const & GameEntity::box() const { return m_box; }
 
 Velocity const & GameEntity::velocity() const { return m_velocity; }
+
+void GameEntity::update()
+{
+  throw std::runtime_error("Not Implemented");
+}
