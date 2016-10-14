@@ -13,7 +13,6 @@ public:
   Ray2D() = default;
   Ray2D(Ray2D const & obj);
   Ray2D(Point2D const & origin, Direction2D const & direction);
-  Ray2D(std::initializer_list<float> const & lst);
   Ray2D(Ray2D && obj);
 
   Ray2D & operator=(Ray2D const & obj);
