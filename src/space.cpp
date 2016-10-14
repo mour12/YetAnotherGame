@@ -23,13 +23,13 @@ std::vector<std::shared_ptr<GameEntity>> & Space::gameEntities()
   return m_gameEntities;
 }
 
-void Space::update()
+void Space::Update()
 {
   if (m_gameEntities.size() != 0)
   {
     for (auto gameEntity: m_gameEntities)
     {
-      gameEntity->update();
+      gameEntity->Update();
     }
   }
   else

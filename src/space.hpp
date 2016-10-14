@@ -10,7 +10,7 @@ public:
   Space() = default;
   Space(float sizeX, float sizeY);
 
-  void update();
+  void Update();
 
   float const & sizeX() const;
   float const & sizeY() const;

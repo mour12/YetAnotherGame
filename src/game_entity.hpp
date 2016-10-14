@@ -1,17 +1,15 @@
 #pragma once
 
-#include "point2d.hpp"
 #include "box2d.hpp"
-#include "velocity.hpp"
+#include "direction2d.hpp"
 
 class GameEntity
 {
 public:
   GameEntity() = default;
   GameEntity(GameEntity const & obj);
-  GameEntity(Box2D const & box, Velocity const & velocity);
+  GameEntity(Box2D const & box, Direction2D const & direction, float value);
   virtual ~GameEntity() {}
-  void update();
 
   virtual GameEntity & operator=(GameEntity const & obj);
 
@@ -20,12 +18,17 @@ public:
 
   virtual Point2D const & Сoordinates() const;
 
-  Velocity & velocity();
+  void Update();
+
+  Direction2D & direction();
+  float & velocity();
 
   Box2D const & box() const;
-  Velocity const & velocity() const;
+  Direction2D const & direction() const;
+  float const & velocity() const;
 
 private:
   Box2D m_box;
-  Velocity m_velocity;
+  Direction2D m_direction;
+  float m_velocity = 0.0f;
 };
