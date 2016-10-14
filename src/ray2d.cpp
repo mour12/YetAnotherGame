@@ -104,10 +104,10 @@ Direction2D const & Ray2D::direction() const { return m_direction; }
 
 bool Ray2D::Intersects(Box2D const & box) const
 {
-  return Intersects(box.leftBottomCorner(), Point2D(box.leftBottomCorner().x(), box.rightTopCorner().y()))
-         || Intersects(Point2D(box.leftBottomCorner().x(), box.rightTopCorner().y()), box.rightTopCorner())
-         || Intersects(Point2D(box.rightTopCorner().x(), box.leftBottomCorner().y()), box.rightTopCorner())
-         || Intersects(box.leftBottomCorner(), Point2D(box.rightTopCorner().x(), box.leftBottomCorner().y()));
+  return Intersects(box.LeftBottomCorner(), Point2D(box.LeftBottomCorner().x(), box.RightTopCorner().y()))
+         || Intersects(Point2D(box.LeftBottomCorner().x(), box.RightTopCorner().y()), box.RightTopCorner())
+         || Intersects(Point2D(box.RightTopCorner().x(), box.LeftBottomCorner().y()), box.RightTopCorner())
+         || Intersects(box.LeftBottomCorner(), Point2D(box.RightTopCorner().x(), box.LeftBottomCorner().y()));
 }
 
 bool Ray2D::EqualWithEps(float v1, float v2) const
