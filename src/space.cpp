@@ -14,7 +14,6 @@ Space::~Space()
       gameEntity->~GameEntity();
     }
   }
-  delete m_gameEntities;
 }
 
 float const & Space::sizeX() const

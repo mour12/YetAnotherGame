@@ -29,16 +29,10 @@ bool GameEntity::operator!=(GameEntity const & obj) const
   return !operator==(obj);
 }
 
-Point2D const& GameEntity::Сoordinates() const
+Point2D const & GameEntity::Сoordinates() const
 {
   return m_box.Center();
 }
-
-Velocity & GameEntity::velocity() { return m_velocity; }
-
-Box2D const & GameEntity::box() const { return m_box; }
-
-Velocity const & GameEntity::velocity() const { return m_velocity; }
 
 void GameEntity::Update()
 {
