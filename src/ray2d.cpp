@@ -7,23 +7,9 @@ Ray2D::Ray2D(Ray2D const & obj)
   : m_origin(obj.m_origin), m_direction(obj.m_direction)
 {}
 
-Ray2D::Ray2D(Point2D const & origin, Point2D const & direction)
+Ray2D::Ray2D(Point2D const & origin, Direction2D const & direction)
   : m_origin(origin), m_direction(direction)
-{
-  NormalizeDirection();
-}
-
-Ray2D::Ray2D(std::initializer_list<Point2D> const & lst)
-{
-  Point2D * vals[] = { &m_origin, &m_direction };
-  int const count = sizeof(vals) / sizeof(vals[0]);
-  auto it = lst.begin();
-  for (int i = 0; i < count && it != lst.end(); ++i, ++it)
-  {
-    *vals[i] = *it;
-  }
-  NormalizeDirection();
-}
+{}
 
 Ray2D::Ray2D(Ray2D && obj)
 {
@@ -71,21 +57,22 @@ Ray2D Ray2D::operator-(Ray2D const & obj) const
   return {m_origin - obj.m_origin, m_direction - obj.m_direction};
 }
 
-Ray2D Ray2D::operator*(float scale) const
+Ray2D Ray2D::operator*(float scale) const // TODO: Check for multiply by zero
 {
-  return {m_origin * scale, m_direction * scale};
+  if (Sign(scale) == 1) return {m_origin * scale, m_direction};
+  else return {m_origin * scale, -m_direction};
 }
 
 Ray2D Ray2D::operator/(float scale) const // TODO: Check for division by zero
 {
-  return {m_origin / scale, m_direction / scale};
+  if (Sign(scale) == 1) return {m_origin / scale, m_direction};
+  else return {m_origin / scale, -m_direction};
 }
 
 Ray2D & Ray2D::operator+=(Ray2D const & obj)
 {
   m_origin += obj.m_origin;
   m_direction += obj.m_direction;
-  NormalizeDirection();
   return *this;
 }
 
@@ -93,30 +80,27 @@ Ray2D & Ray2D::operator-=(Ray2D const & obj)
 {
   m_origin -= obj.m_origin;
   m_direction -= obj.m_direction;
-  NormalizeDirection();
   return *this;
 }
 
 Ray2D & Ray2D::operator*=(float scale)
 {
   m_origin *= scale;
-  m_direction *= Sign(scale); // TODO: Check for zero-vector direction
-
+  if (Sign(scale) == -1) m_direction = -m_direction; // TODO: Check for zero-vector direction
   return *this;
 }
 
 Ray2D & Ray2D::operator/=(float scale) // TODO: Check for division by zero
 {
   m_origin /= scale;
-  m_direction /= Sign(scale);
-
+  if (Sign(scale) == -1) m_direction = -m_direction;
   return *this;
 }
 
 Point2D & Ray2D::origin() { return m_origin; }
 
 Point2D const & Ray2D::origin() const { return m_origin; }
-Point2D const & Ray2D::direction() const { return m_direction; }
+Direction2D const & Ray2D::direction() const { return m_direction; }
 
 bool Ray2D::Intersects(Box2D const & box) const
 {
@@ -124,12 +108,6 @@ bool Ray2D::Intersects(Box2D const & box) const
          || Intersects(Point2D(box.leftBottomCorner().x(), box.rightTopCorner().y()), box.rightTopCorner())
          || Intersects(Point2D(box.rightTopCorner().x(), box.leftBottomCorner().y()), box.rightTopCorner())
          || Intersects(box.leftBottomCorner(), Point2D(box.rightTopCorner().x(), box.leftBottomCorner().y()));
-}
-
-void Ray2D::NormalizeDirection() // TODO: check for division by zero
-{
-  float length = sqrtf(m_direction.x() * m_direction.x() + m_direction.y() * m_direction.y());
-  m_direction /= length;
 }
 
 bool Ray2D::EqualWithEps(float v1, float v2) const
@@ -172,6 +150,6 @@ bool Ray2D::Intersects(Point2D const & p1, Point2D const & p2) const
 
 std::ostream & operator<<(std::ostream & os, Ray2D const & obj)
 {
-  os << "Ray2D {Origin {" << obj.origin().x() << ", " << obj.origin().y() << "}, Direction {" << obj.direction().x() << ", " << obj.direction().y() << "}}";
+  os << "Ray2D {Origin {" << obj.origin().x() << ", " << obj.origin().y() << "}, " << obj.direction() << "}";
   return os;
 }

@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include "direction2d.hpp"
-//#include <unordered_set>
 
 TEST(direction2d_test, test_construction)
 {
