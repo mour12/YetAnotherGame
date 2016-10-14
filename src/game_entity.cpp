@@ -29,7 +29,7 @@ bool GameEntity::operator!=(GameEntity const & obj) const
   return !operator==(obj);
 }
 
-Point2D const & GameEntity::Сoordinates() const
+Point2D GameEntity::Сoordinates() const
 {
   return m_box.Center();
 }

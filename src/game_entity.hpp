@@ -11,12 +11,12 @@ public:
   GameEntity(Box2D const & box, Direction2D const & direction, float value);
   virtual ~GameEntity() {}
 
-  virtual GameEntity & operator=(GameEntity const & obj);
+  GameEntity & operator=(GameEntity const & obj);
 
-  virtual bool operator==(GameEntity const & obj) const;
-  virtual bool operator!=(GameEntity const & obj) const;
+  bool operator==(GameEntity const & obj) const;
+  bool operator!=(GameEntity const & obj) const;
 
-  virtual Point2D const & Сoordinates() const;
+  Point2D Сoordinates() const;
 
   void Update();
 
@@ -27,7 +27,7 @@ public:
   Direction2D const & direction() const;
   float const & velocity() const;
 
-private:
+protected:
   Box2D m_box;
   Direction2D m_direction;
   float m_velocity = 0.0f;
