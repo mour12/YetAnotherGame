@@ -6,18 +6,18 @@
 TEST(box2d_test, test_construction)
 {
   Box2D b1;
-  EXPECT_EQ(b1.LeftBottomCorner().x(), 0.0f);
-  EXPECT_EQ(b1.LeftBottomCorner().y(), 0.0f);
-  EXPECT_EQ(b1.RightTopCorner().x(), 0.0f);
-  EXPECT_EQ(b1.RightTopCorner().y(), 0.0f);
+  EXPECT_EQ(b1.leftBottomCorner().x(), 0.0f);
+  EXPECT_EQ(b1.leftBottomCorner().y(), 0.0f);
+  EXPECT_EQ(b1.rightTopCorner().x(), 0.0f);
+  EXPECT_EQ(b1.rightTopCorner().y(), 0.0f);
 
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 2.2f, 4.4f };
   Box2D b2 = Box2D(p1, p2);
-  EXPECT_EQ(b2.LeftBottomCorner().x(), 1.2f);
-  EXPECT_EQ(b2.LeftBottomCorner().y(), 2.4f);
-  EXPECT_EQ(b2.RightTopCorner().x(), 2.2f);
-  EXPECT_EQ(b2.RightTopCorner().y(), 4.4f);
+  EXPECT_EQ(b2.leftBottomCorner().x(), 1.2f);
+  EXPECT_EQ(b2.leftBottomCorner().y(), 2.4f);
+  EXPECT_EQ(b2.rightTopCorner().x(), 2.2f);
+  EXPECT_EQ(b2.rightTopCorner().y(), 4.4f);
 
   Box2D b3 = b2;
   EXPECT_EQ(b3, b2);
@@ -33,15 +33,15 @@ TEST(box2d_test, test_move_constructor)
   Box2D b1 = { p1, p2 };
   Box2D b2 = std::move(b1);
 
-  EXPECT_EQ(b2.LeftBottomCorner().x(), 1.0f);
-  EXPECT_EQ(b2.LeftBottomCorner().y(), 2.0f);
-  EXPECT_EQ(b2.RightTopCorner().x(), 2.0f);
-  EXPECT_EQ(b2.RightTopCorner().y(), 3.0f);
+  EXPECT_EQ(b2.leftBottomCorner().x(), 1.0f);
+  EXPECT_EQ(b2.leftBottomCorner().y(), 2.0f);
+  EXPECT_EQ(b2.rightTopCorner().x(), 2.0f);
+  EXPECT_EQ(b2.rightTopCorner().y(), 3.0f);
 
-  EXPECT_EQ(b1.LeftBottomCorner().x(), 0.0f);
-  EXPECT_EQ(b1.LeftBottomCorner().y(), 0.0f);
-  EXPECT_EQ(b1.RightTopCorner().x(), 0.0f);
-  EXPECT_EQ(b1.RightTopCorner().y(), 0.0f);
+  EXPECT_EQ(b1.leftBottomCorner().x(), 0.0f);
+  EXPECT_EQ(b1.leftBottomCorner().y(), 0.0f);
+  EXPECT_EQ(b1.rightTopCorner().x(), 0.0f);
+  EXPECT_EQ(b1.rightTopCorner().y(), 0.0f);
 }
 
 TEST(box2d_test, test_initializer_list)
@@ -51,22 +51,22 @@ TEST(box2d_test, test_initializer_list)
   Point2D p3 = { 3.0f, 4.0f };
 
   Box2D b1 = { p1, p2 };
-  EXPECT_EQ(b1.LeftBottomCorner().x(), 1.0f);
-  EXPECT_EQ(b1.LeftBottomCorner().y(), 2.0f);
-  EXPECT_EQ(b1.RightTopCorner().x(), 2.0f);
-  EXPECT_EQ(b1.RightTopCorner().y(), 3.0f);
+  EXPECT_EQ(b1.leftBottomCorner().x(), 1.0f);
+  EXPECT_EQ(b1.leftBottomCorner().y(), 2.0f);
+  EXPECT_EQ(b1.rightTopCorner().x(), 2.0f);
+  EXPECT_EQ(b1.rightTopCorner().y(), 3.0f);
 
   Box2D b2 = { p1, p2, p3 };
-  EXPECT_EQ(b2.LeftBottomCorner().x(), 1.0f);
-  EXPECT_EQ(b2.LeftBottomCorner().y(), 2.0f);
-  EXPECT_EQ(b2.RightTopCorner().x(), 2.0f);
-  EXPECT_EQ(b2.RightTopCorner().y(), 3.0f);
+  EXPECT_EQ(b2.leftBottomCorner().x(), 1.0f);
+  EXPECT_EQ(b2.leftBottomCorner().y(), 2.0f);
+  EXPECT_EQ(b2.rightTopCorner().x(), 2.0f);
+  EXPECT_EQ(b2.rightTopCorner().y(), 3.0f);
 
   Box2D b3 = { p1 };
-  EXPECT_EQ(b3.LeftBottomCorner().x(), 0.0f);
-  EXPECT_EQ(b3.LeftBottomCorner().y(), 0.0f);
-  EXPECT_EQ(b3.RightTopCorner().x(), 1.0f);
-  EXPECT_EQ(b3.RightTopCorner().y(), 2.0f);
+  EXPECT_EQ(b3.leftBottomCorner().x(), 0.0f);
+  EXPECT_EQ(b3.leftBottomCorner().y(), 0.0f);
+  EXPECT_EQ(b3.rightTopCorner().x(), 1.0f);
+  EXPECT_EQ(b3.rightTopCorner().y(), 2.0f);
 }
 
 TEST(box2d_test, test_assignment)

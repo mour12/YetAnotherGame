@@ -15,8 +15,8 @@ public:
 
   //virtual ~Box2D() {}
 
-  Point2D const & LeftBottomCorner() const;
-  Point2D const & RightTopCorner() const;
+  Point2D const & leftBottomCorner() const;
+  Point2D const & rightTopCorner() const;
   Point2D Center() const;
 
   float Width() const;
