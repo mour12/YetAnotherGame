@@ -2,7 +2,8 @@
 
 #include "point2d.hpp"
 #include "box2d.hpp"
-#include "ray2d.hpp"
+#include "velocity.hpp"
+
 
 class GameEntity
 {
@@ -12,4 +13,5 @@ public:
 
 private:
   Box2D box;
+  Velocity velocity;
 };
