@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-class Space
+class Space final
 {
 public:
   Space() = default;
