@@ -5,6 +5,18 @@ Space::Space(float sizeX, float sizeY) :
   m_sizeY(sizeY)
 {}
 
+Space::~Space()
+{
+  if (m_gameEntities.size() != 0)
+  {
+    for (auto gameEntity: m_gameEntities)
+    {
+      gameEntity->~GameEntity();
+    }
+  }
+  delete m_gameEntities;
+}
+
 float const & Space::sizeX() const
 {
   return m_sizeX;

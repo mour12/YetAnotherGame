@@ -10,6 +10,7 @@ public:
   GameEntity(GameEntity const & obj);
   GameEntity(Box2D const & box, Direction2D const & direction, float value);
   virtual ~GameEntity() {}
+  void Update();
 
   virtual GameEntity & operator=(GameEntity const & obj);
 

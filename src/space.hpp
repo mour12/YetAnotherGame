@@ -9,6 +9,7 @@ class Space
 public:
   Space() = default;
   Space(float sizeX, float sizeY);
+  ~Space();
 
   void Update();
 
