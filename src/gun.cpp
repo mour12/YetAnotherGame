@@ -28,3 +28,13 @@ bool Gun::operator!=(Gun const & obj) const
 {
   return !operator==(obj);
 }
+
+Bullet Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
+{
+  Point2D leftBottomCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2 - 3, m_box.rightTopCorner().y());
+  Point2D rightTopCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2  + 3, m_box.rightTopCorner().y());
+  Direction2D direction(0.0f, 1.0f);
+  Box2D box(leftBottomCorner, rightTopCorner);
+  std::shared_ptr<Bullet> bulletPtr = std::shared_ptr<Bullet>(new Bullet(box, direction, 10, 1, m_spacePtr));
+  m_spacePtr.lock()->gameEntities().push_back(bulletPtr);
+}
