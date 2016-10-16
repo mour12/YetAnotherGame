@@ -3,11 +3,11 @@
 #include "game_entity.hpp"
 
 GameEntity::GameEntity(GameEntity const & obj)
-  : m_box(obj.m_box), m_direction(obj.m_direction), m_velocity(obj.m_velocity)
+  : m_box(obj.m_box), m_direction(obj.m_direction), m_velocity(obj.m_velocity), m_spacePtr(obj.m_spacePtr)
 {}
 
-GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float velocity)
-  : m_box(box), m_direction(direction), m_velocity(velocity)
+GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float velocity, std::weak_ptr<Space> spacePtr)
+  : m_box(box), m_direction(direction), m_velocity(velocity), m_spacePtr(spacePtr)
 {}
 
 GameEntity & GameEntity::operator=(GameEntity const & obj)
@@ -16,12 +16,13 @@ GameEntity & GameEntity::operator=(GameEntity const & obj)
   m_box = obj.m_box;
   m_direction = obj.m_direction;
   m_velocity = obj.m_velocity;
+  m_spacePtr = obj.m_spacePtr;
   return *this;
 }
 
 bool GameEntity::operator==(GameEntity const & obj) const
 {
-  return m_box == obj.m_box && m_direction == obj.m_direction && m_velocity == obj.m_velocity;
+  return m_box == obj.m_box && m_direction == obj.m_direction && m_velocity == obj.m_velocity && m_spacePtr. == obj.m_spacePtr;
 }
 
 bool GameEntity::operator!=(GameEntity const & obj) const
@@ -42,6 +43,7 @@ void GameEntity::Update()
 Direction2D & GameEntity::direction() { return m_direction; };
 float & GameEntity::velocity() { return m_velocity; };
 
+std::weak_ptr<Space> const GameEntity::spacePtr() const { return m_spacePtr; }
 Box2D const & GameEntity::box() const { return m_box; }
 Direction2D const & GameEntity::direction() const { return m_direction; };
 float const & GameEntity::velocity() const { return  m_velocity; };
