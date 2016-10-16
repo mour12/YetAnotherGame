@@ -68,6 +68,18 @@ TEST(bullet_test, test_equality)
 
   Bullet bullet1 = Bullet(box, direction, 10.0f, 10, spacePtr);
   Bullet bullet2 = Bullet(bullet1);
-
   EXPECT_EQ(bullet1, bullet2);
+}
+
+TEST(bullet_test, test_coordinates)
+{
+  Point2D leftBottomCorner(1.0f, 3.0f);
+  Point2D rightTopCorner(3.0f, 5.0f);
+  Direction2D direction(0.0f, 1.0f);
+  Box2D box(leftBottomCorner, rightTopCorner);
+  std::weak_ptr<Space> spacePtr;
+  spacePtr = std::make_shared<Space>(Space());
+
+  Bullet bullet = Bullet(box, direction, 10.0f, 10, spacePtr);;
+  EXPECT_EQ(bullet.Сoordinates(), Point2D(2.0f, 4.0f));
 }

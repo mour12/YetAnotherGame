@@ -65,6 +65,17 @@ TEST(obstacle_test, test_equality)
 
   Obstacle obstacle1 = Obstacle(box, 15, spacePtr);
   Obstacle obstacle2 = Obstacle(obstacle1);
-
   EXPECT_EQ(obstacle1, obstacle2);
+}
+
+TEST(obstacle_test, test_coordinates)
+{
+  Point2D leftBottomCorner(1.0f, 3.0f);
+  Point2D rightTopCorner(3.0f, 5.0f);
+  Box2D box(leftBottomCorner, rightTopCorner);
+  std::weak_ptr<Space> spacePtr;
+  spacePtr = std::make_shared<Space>(Space());
+
+  Obstacle obstacle = Obstacle(box, 15, spacePtr);;
+  EXPECT_EQ(obstacle.Сoordinates(), Point2D(2.0f, 4.0f));
 }

@@ -16,14 +16,8 @@ Space::~Space()
   }
 }
 
-float const & Space::sizeX() const
-{
-  return m_sizeX;
-}
-float const & Space::sizeY() const
-{
-  return m_sizeY;
-}
+float const & Space::sizeX() const { return m_sizeX;}
+float const & Space::sizeY() const { return m_sizeY;}
 
 std::vector<std::shared_ptr<GameEntity>> const & Space::gameEntities() const
 {
