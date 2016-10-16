@@ -3,6 +3,9 @@
 #include "box2d.hpp"
 #include "direction2d.hpp"
 #include "space.hpp"
+#include <memory>
+
+class Space;
 
 class GameEntity
 {

@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+class GameEntity;
+
 class Space final
 {
 public:

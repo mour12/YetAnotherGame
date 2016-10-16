@@ -22,7 +22,7 @@ GameEntity & GameEntity::operator=(GameEntity const & obj)
 
 bool GameEntity::operator==(GameEntity const & obj) const
 {
-  return m_box == obj.m_box && m_direction == obj.m_direction && m_velocity == obj.m_velocity && m_spacePtr. == obj.m_spacePtr;
+  return m_box == obj.m_box && m_direction == obj.m_direction && m_velocity == obj.m_velocity && m_spacePtr.lock() == obj.m_spacePtr.lock();
 }
 
 bool GameEntity::operator!=(GameEntity const & obj) const
