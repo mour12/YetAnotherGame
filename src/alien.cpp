@@ -38,7 +38,8 @@ Bullet Alien::Shoot() // TODO: Вынести размеры, скорость �
 {
   Point2D leftBottomCorner(m_route.origin().x() - 3, m_route.origin().y() - 3);
   Point2D rightTopCorner(m_route.origin().x() + 3, m_route.origin().y() + 3);
+  Direction2D direction(0.0f, 1.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
-  std::shared_ptr<Bullet> bulletPtr = std::shared_ptr<Bullet>(new Bullet(box, m_route.direction(), 10, 1, m_spacePtr));
+  auto bulletPtr = std::make_shared<Bullet>(box, direction, 10, 1, m_spacePtr);
   m_spacePtr.lock()->gameEntities().push_back(bulletPtr);
 }

@@ -35,6 +35,6 @@ Bullet Gun::Shoot() // TODO: Вынести размеры, скорость и 
   Point2D rightTopCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2  + 3, m_box.rightTopCorner().y() + 6);
   Direction2D direction(0.0f, 1.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
-  std::shared_ptr<Bullet> bulletPtr = std::shared_ptr<Bullet>(new Bullet(box, direction, 10, 1, m_spacePtr));
+  auto bulletPtr = std::make_shared<Bullet>(box, direction, 10, 1, m_spacePtr);
   m_spacePtr.lock()->gameEntities().push_back(bulletPtr);
 }

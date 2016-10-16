@@ -47,8 +47,10 @@ void GameEntity::Update()
 
 Direction2D & GameEntity::direction() { return m_direction; }
 float & GameEntity::velocity() { return m_velocity; }
+int & GameEntity::health() { return m_health; }
 
 std::weak_ptr<Space> const GameEntity::spacePtr() const { return m_spacePtr; }
 Box2D const & GameEntity::box() const { return m_box; }
 Direction2D const & GameEntity::direction() const { return m_direction; }
 float const & GameEntity::velocity() const { return  m_velocity; }
+int const & GameEntity::health() const { return m_health; }

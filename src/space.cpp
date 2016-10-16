@@ -40,7 +40,7 @@ void Space::Update()
   {
     for (auto &gameEntity: m_gameEntities)
     {
-      gameEntity->Update();
+      gameEntity->Update(); //Not implemented on GameEntity side
     }
   }
   else

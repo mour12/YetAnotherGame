@@ -26,11 +26,13 @@ public:
 
   Direction2D & direction();
   float & velocity();
+  int & health();
 
   std::weak_ptr<Space> const spacePtr() const;
   Box2D const & box() const;
   Direction2D const & direction() const;
   float const & velocity() const;
+  int const & health()  const;
 
 protected:
   std::weak_ptr<Space> m_spacePtr;
