@@ -9,7 +9,7 @@ Space::~Space()
 {
   if (m_gameEntities.size() != 0)
   {
-    for (auto gameEntity: m_gameEntities)
+    for (auto &gameEntity: m_gameEntities)
     {
       gameEntity->~GameEntity();
     }
@@ -38,7 +38,7 @@ void Space::Update()
 {
   if (m_gameEntities.size() != 0)
   {
-    for (auto gameEntity: m_gameEntities)
+    for (auto &gameEntity: m_gameEntities)
     {
       gameEntity->Update();
     }

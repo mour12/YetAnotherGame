@@ -12,7 +12,7 @@ class GameEntity
 public:
   GameEntity() = default;
   GameEntity(GameEntity const & obj);
-  GameEntity(Box2D const & box, Direction2D const & direction, float velocity, std::weak_ptr<Space> spacePtr);
+  GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> spacePtr);
   virtual ~GameEntity() {}
 
   GameEntity & operator=(GameEntity const & obj);
@@ -37,4 +37,5 @@ protected:
   Box2D m_box;
   Direction2D m_direction;
   float m_velocity = 0.0f;
+  int m_health = 1;
 };
