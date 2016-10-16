@@ -33,3 +33,12 @@ bool Alien::operator!=(Alien const & obj) const
 Ray2D & Alien::route() { return m_route; }
 
 Ray2D const & Alien::route() const { return m_route; }
+
+Bullet Alien::Shoot() // TODO: Вынести размеры, скорость и хп пули
+{
+  Point2D leftBottomCorner(m_route.origin().x() - 3, m_route.origin().y() - 3);
+  Point2D rightTopCorner(m_route.origin().x() + 3, m_route.origin().y() + 3);
+  Box2D box(leftBottomCorner, rightTopCorner);
+  std::shared_ptr<Bullet> bulletPtr = std::shared_ptr<Bullet>(new Bullet(box, m_route.direction(), 10, 1, m_spacePtr));
+  m_spacePtr.lock()->gameEntities().push_back(bulletPtr);
+}
