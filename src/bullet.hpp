@@ -8,7 +8,7 @@ public:
   Bullet() = default;
   Bullet(Bullet const & obj);
   Bullet(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> spacePtr);
-  ~Bullet() {}
+  ~Bullet() override {}
 
   Bullet & operator=(Bullet const & obj);
 
