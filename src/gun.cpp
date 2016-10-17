@@ -1,6 +1,6 @@
 #include "gun.hpp"
 
-Gun::Gun(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> spacePtr)
+Gun::Gun(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr)
 {}
 

@@ -6,7 +6,7 @@ Obstacle::Obstacle(Obstacle const & obj)
   : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr)
 {}
 
-Obstacle::Obstacle(Box2D const & box, int health, std::weak_ptr<Space> spacePtr)
+Obstacle::Obstacle(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, Direction2D(), 0, health, spacePtr)
 {}
 

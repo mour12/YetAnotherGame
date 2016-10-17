@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "space.hpp"
-#include "obstacle.hpp"
+#include "game_entity.hpp"
 #include <unordered_set>
 
 TEST(space_test, test_construction)
@@ -15,13 +15,13 @@ TEST(space_test, test_construction)
   Point2D leftBottomCorner(1.0f, 3.0f);
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
-  std::weak_ptr<Space> spacePtr;
-  spacePtr = std::make_shared<Space>(space2);
-  Obstacle obstacle = Obstacle(box, 15, spacePtr);
+  Direction2D direction(1.0f, 0.0f);
+  std::weak_ptr<Space> spacePtr = std::make_shared<Space>(space2);
+  GameEntity gameEntity = GameEntity(box, direction, 1.0f, 15, spacePtr);
 
-  space2.gameEntities().push_back(std::make_shared<GameEntity>(static_cast<GameEntity>(obstacle)));
+  space2.gameEntities().push_back(std::make_shared<GameEntity>(gameEntity));
   EXPECT_EQ(space2.sizeX(), 100.0f);
   EXPECT_EQ(space2.sizeY(), 100.0f);
   EXPECT_EQ(space2.gameEntities().size(), 1);
-  EXPECT_EQ(*(space2.gameEntities()[0]), obstacle);
+  EXPECT_EQ(*(space2.gameEntities()[0]), gameEntity);
 }

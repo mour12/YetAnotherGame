@@ -5,17 +5,6 @@ Space::Space(float sizeX, float sizeY) :
   m_sizeY(sizeY)
 {}
 
-Space::~Space()
-{
-  if (m_gameEntities.size() != 0)
-  {
-    for (auto &gameEntity: m_gameEntities)
-    {
-      gameEntity->~GameEntity();
-    }
-  }
-}
-
 float const & Space::sizeX() const { return m_sizeX;}
 float const & Space::sizeY() const { return m_sizeY;}
 

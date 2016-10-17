@@ -11,7 +11,7 @@ class Space final
 public:
   Space() = default;
   Space(float sizeX, float sizeY);
-  ~Space();
+  ~Space() {};
 
   void Update();//Not implemented on GameEntity side
 

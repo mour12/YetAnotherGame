@@ -15,8 +15,7 @@ TEST(game_entity_test, test_construction)
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
-  std::weak_ptr<Space> spacePtr;
-  spacePtr = std::make_shared<Space>(Space());
+  std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   GameEntity gameEntity2 = GameEntity(box, direction, 1.0f, 15, spacePtr);
   EXPECT_EQ(gameEntity2.box(), box);
@@ -39,8 +38,7 @@ TEST(game_entity_test, test_assignment)
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
-  std::weak_ptr<Space> spacePtr;
-  spacePtr = std::make_shared<Space>(Space());
+  std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   GameEntity gameEntity1 = GameEntity(box, direction, 1.0f, 15, spacePtr);
   EXPECT_EQ(gameEntity1.box(), box);
@@ -63,8 +61,7 @@ TEST(game_entity_test, test_equality)
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
-  std::weak_ptr<Space> spacePtr;
-  spacePtr = std::make_shared<Space>(Space());
+  std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   GameEntity gameEntity1 = GameEntity(box, direction, 1.0f, 15, spacePtr);
   GameEntity gameEntity2 = GameEntity(gameEntity1);
@@ -77,8 +74,7 @@ TEST(game_entity_test, test_coordinates)
   Point2D rightTopCorner(3.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
-  std::weak_ptr<Space> spacePtr;
-  spacePtr = std::make_shared<Space>(Space());
+  std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   GameEntity gameEntity = GameEntity(box, direction, 1.0f, 15, spacePtr);
   EXPECT_EQ(gameEntity.Сoordinates(), Point2D(2.0f, 4.0f));

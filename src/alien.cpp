@@ -1,6 +1,6 @@
 #include "alien.hpp"
 
-Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> spacePtr)
+Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr), m_route(route)
 {}
 
