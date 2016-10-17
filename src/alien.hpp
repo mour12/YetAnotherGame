@@ -2,7 +2,7 @@
 #include "ray2d.hpp"
 #include "bullet.hpp"
 
-class Alien : GameEntity
+class Alien : public GameEntity
 {
 public:
   Alien() = default;

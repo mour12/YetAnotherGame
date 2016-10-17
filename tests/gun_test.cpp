@@ -93,11 +93,11 @@ TEST(gun_test, test_shooting)
   spacePtr->gameEntities().push_back(std::make_shared<GameEntity>(static_cast<GameEntity>(gun)));
   gun.Shoot();
 
-  Point2D bulletLeftBottomCorner(17, 50);
-  Point2D bulletRightTopCorner(23, 56);
+  Point2D bulletLeftBottomCorner(17.0f, 50.0f);
+  Point2D bulletRightTopCorner(23.0f, 56.0f);
   Direction2D bulletDirection(0.0f, 1.0f);
   Box2D bulletBox(bulletLeftBottomCorner, bulletRightTopCorner);
-  Bullet bullet(bulletBox, bulletDirection, 10, 1, spacePtr);
+  Bullet bullet(bulletBox, bulletDirection, 10.0f, 1, spacePtr);
 
   EXPECT_EQ(spacePtr->gameEntities().size(), 2);
   EXPECT_EQ(*(spacePtr->gameEntities()[0]), gun);
