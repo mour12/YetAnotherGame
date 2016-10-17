@@ -22,7 +22,7 @@ Alien & Alien::operator=(Alien const & obj)
 
 bool Alien::operator==(Alien const & obj) const
 {
-  return static_cast<GameEntity>(*this) == static_cast<GameEntity>(obj) && m_route == obj.m_route;
+  return *static_cast<GameEntity const *>(this) == *static_cast<GameEntity const *>(&obj) && m_route == obj.m_route;
 }
 
 bool Alien::operator!=(Alien const & obj) const
@@ -34,7 +34,7 @@ Ray2D & Alien::route() { return m_route; }
 
 Ray2D const & Alien::route() const { return m_route; }
 
-Bullet Alien::Shoot() // TODO: Вынести размеры, скорость и хп пули
+void Alien::Shoot() // TODO: Вынести размеры, скорость и хп пули
 {
   Point2D leftBottomCorner(m_route.origin().x() - 3, m_route.origin().y() - 3);
   Point2D rightTopCorner(m_route.origin().x() + 3, m_route.origin().y() + 3);

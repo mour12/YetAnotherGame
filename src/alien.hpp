@@ -19,7 +19,7 @@ public:
 
   Ray2D const & route() const;
 
-  Bullet Shoot();
+  void Shoot();
 
 protected:
   Ray2D m_route;

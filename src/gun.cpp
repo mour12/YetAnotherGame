@@ -21,7 +21,7 @@ Gun & Gun::operator=(Gun const & obj)
 
 bool Gun::operator==(Gun const & obj) const
 {
-  return static_cast<GameEntity>(*this) == static_cast<GameEntity>(obj);
+  return *static_cast<GameEntity const *>(this) == *static_cast<GameEntity const *>(&obj);
 }
 
 bool Gun::operator!=(Gun const & obj) const
@@ -29,7 +29,7 @@ bool Gun::operator!=(Gun const & obj) const
   return !operator==(obj);
 }
 
-Bullet Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
+void Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
 {
   Point2D leftBottomCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2 - 3, m_box.rightTopCorner().y());
   Point2D rightTopCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2  + 3, m_box.rightTopCorner().y() + 6);

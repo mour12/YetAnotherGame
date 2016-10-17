@@ -15,5 +15,5 @@ public:
   bool operator==(Gun const & obj) const;
   bool operator!=(Gun const & obj) const;
 
-  Bullet Shoot();
+  void Shoot();
 };

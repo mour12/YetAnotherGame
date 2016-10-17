@@ -13,7 +13,7 @@ public:
   GameEntity() = default;
   GameEntity(GameEntity const & obj);
   GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> spacePtr);
-  virtual ~GameEntity() {}
+  virtual ~GameEntity() {} // TODO: разобраться с чистым виртуальным деструктором
 
   GameEntity & operator=(GameEntity const & obj);
 
@@ -22,7 +22,7 @@ public:
 
   Point2D Сoordinates() const;
 
-  virtual void Update();
+  virtual void Update() {};
 
   Direction2D & direction();
   float & velocity();

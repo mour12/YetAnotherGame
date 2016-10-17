@@ -23,7 +23,7 @@ Obstacle & Obstacle::operator=(Obstacle const & obj)
 
 bool Obstacle::operator==(Obstacle const & obj) const
 {
-  return static_cast<GameEntity>(*this) == static_cast<GameEntity>(obj);
+  return *static_cast<GameEntity const *>(this) == *static_cast<GameEntity const *>(&obj);
 }
 
 bool Obstacle::operator!=(Obstacle const & obj) const

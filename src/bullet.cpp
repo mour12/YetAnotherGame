@@ -23,7 +23,7 @@ Bullet & Bullet::operator=(Bullet const & obj)
 
 bool Bullet::operator==(Bullet const & obj) const
 {
-  return static_cast<GameEntity>(*this) == static_cast<GameEntity>(obj);
+  return *static_cast<GameEntity const *>(this) == *static_cast<GameEntity const *>(&obj);
 }
 
 bool Bullet::operator!=(Bullet const & obj) const

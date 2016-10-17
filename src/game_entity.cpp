@@ -40,11 +40,6 @@ Point2D GameEntity::Сoordinates() const
   return m_box.Center();
 }
 
-void GameEntity::Update()
-{
-  throw std::runtime_error("Not Implemented");
-}
-
 Direction2D & GameEntity::direction() { return m_direction; }
 float & GameEntity::velocity() { return m_velocity; }
 int & GameEntity::health() { return m_health; }
