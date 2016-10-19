@@ -90,7 +90,7 @@ TEST(gun_test, test_shooting)
   Direction2D direction(1.0f, 1.0f);
 
   Gun gun = Gun(box, direction, 1.0f, 15, spacePtr);
-  spacePtr->gameEntities().push_back(std::make_shared<GameEntity>(static_cast<GameEntity>(gun)));
+  spacePtr->AddGameEntity(std::make_shared<GameEntity>(static_cast<GameEntity>(gun)));
   gun.Shoot();
 
   Point2D bulletLeftBottomCorner(17.0f, 50.0f);

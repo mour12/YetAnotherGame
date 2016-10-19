@@ -12,22 +12,20 @@ std::vector<std::shared_ptr<GameEntity>> const & Space::gameEntities() const
 {
   return m_gameEntities;
 }
-std::vector<std::shared_ptr<GameEntity>> & Space::gameEntities()
-{
-  return m_gameEntities;
-}
 
 void Space::Update()
 {
-  if (m_gameEntities.size() != 0)
+  if (m_gameEntities.empty()) return;
+  for (auto & gameEntity: m_gameEntities)
   {
-    for (auto &gameEntity: m_gameEntities)
-    {
-      gameEntity->Update(); //Not implemented on GameEntity side
-    }
+    gameEntity->Update(); //Not implemented on GameEntity side
   }
-  else
+}
+
+void Space::AddGameEntity(std::shared_ptr<GameEntity> gameEntityPtr)
+{
+  if (gameEntityPtr != nullptr) // TODO: сделать выброс исключения при nullptr
   {
-    //
+    m_gameEntities.push_back(gameEntityPtr);
   }
 }

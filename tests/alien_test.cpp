@@ -99,7 +99,7 @@ TEST(alien_test, test_shooting)
   Ray2D route(Point2D(20.0f, 30.0f), Direction2D(0.0f, -1.0f));
 
   Alien alien = Alien(box, direction, 1.0f, 15, route, spacePtr);
-  spacePtr->gameEntities().push_back(std::make_shared<GameEntity>(static_cast<GameEntity>(alien)));
+  spacePtr->AddGameEntity(std::make_shared<GameEntity>(static_cast<GameEntity>(alien)));
   alien.Shoot();
 
   Point2D bulletLeftBottomCorner(17.0f, 24.0f);
