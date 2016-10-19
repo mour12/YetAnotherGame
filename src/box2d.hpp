@@ -17,6 +17,7 @@ public:
 
   Point2D const & leftBottomCorner() const;
   Point2D const & rightTopCorner() const;
+  Point2D Center() const;
 
   float Width() const;
   float Height() const;

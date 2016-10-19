@@ -35,6 +35,11 @@ Box2D::Box2D(std::initializer_list<Point2D> const & lst)
 
 Point2D const & Box2D::leftBottomCorner() const { return m_leftBottomCorner; }
 Point2D const & Box2D::rightTopCorner() const { return m_rightTopCorner; }
+Point2D Box2D::Center() const
+{
+  return Point2D((m_rightTopCorner.x() + m_leftBottomCorner.x()) / 2,
+                 (m_rightTopCorner.y() + m_leftBottomCorner.y()) / 2);
+}
 
 float Box2D::Width() const
 {
@@ -58,10 +63,10 @@ float Box2D::Perimeter() const
 
 bool Box2D::Intersects(Box2D const & obj) const
 {
-  return !(leftBottomCorner().x() > obj.rightTopCorner().x()
-    || leftBottomCorner().y() > obj.rightTopCorner().y()
-    || rightTopCorner().x() < obj.leftBottomCorner().x()
-    || rightTopCorner().y() < obj.leftBottomCorner().y());
+  return !(m_leftBottomCorner.x() > obj.rightTopCorner().x()
+    || m_leftBottomCorner.y() > obj.rightTopCorner().y()
+    || m_rightTopCorner.x() < obj.leftBottomCorner().x()
+    || m_rightTopCorner.y() < obj.leftBottomCorner().y());
 }
 
 bool Box2D::operator == (Box2D const & obj) const

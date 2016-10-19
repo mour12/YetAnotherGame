@@ -132,6 +132,15 @@ TEST(box2d_test, test_output)
   EXPECT_EQ(s.str(), "Box2D {Point2D {1.1, 2.2}, Point2D {3.3, 4.4}}");
 }
 
+TEST(box2d_test, test_center)
+{
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 3.0f, 4.0f };
+  Point2D p3 = { 2.0f, 3.0f };
+  Box2D b1 = { p1, p2 };
+  EXPECT_EQ(b1.Center(), p3);
+}
+
 TEST(box2d_test, test_width)
 {
   Point2D p1 = { 1.0f, 2.0f };

@@ -20,21 +20,6 @@ TEST(ray2d_test, test_construction)
   EXPECT_EQ(r3, r2);
 }
 
-TEST(ray2d_test, test_initializer_list)
-{
-  Ray2D r1 = { { 1.0f, 2.0f}, { 3.0f, 4.0f }, { 5.0f, 6.0f} };
-  EXPECT_FLOAT_EQ(r1.origin().x(), 1.0f);
-  EXPECT_FLOAT_EQ(r1.origin().y(), 2.0f);
-  EXPECT_FLOAT_EQ(r1.direction().x(), 0.6f);
-  EXPECT_FLOAT_EQ(r1.direction().y(), 0.8f);
-
-  Ray2D r2 = { { 1.0f, 2.0f } };
-  EXPECT_FLOAT_EQ(r2.origin().x(), 1.0f);
-  EXPECT_FLOAT_EQ(r2.origin().y(), 2.0f);
-  EXPECT_FLOAT_EQ(r2.direction().x(), 1.0f);
-  EXPECT_FLOAT_EQ(r2.direction().y(), 0.0f);
-}
-
 TEST(ray2d_test, test_moving)
 {
   Ray2D r1 = Ray2D( { 1.2f, 2.4f }, { 0.6f, 0.8f } );
@@ -117,5 +102,5 @@ TEST(ray2d_test, test_output)
 {
   std::stringstream s;
   s << Ray2D( { 1.2f, 2.4f }, { 0.6f, 0.8f } );
-  EXPECT_EQ(s.str(), "Ray2D {Origin {1.2, 2.4}, Direction {0.6, 0.8}}");
+  EXPECT_EQ(s.str(), "Ray2D {Origin {1.2, 2.4}, Direction2D {0.6, 0.8}}");
 }
