@@ -76,9 +76,10 @@ Direction2D & Direction2D::operator -= (Direction2D const & obj)
   return *this;
 }
 
-void Direction2D::NormalizeDirection() // TODO: check for division by zero
+void Direction2D::NormalizeDirection()
 {
   float length = sqrtf(m_x * m_x + m_y * m_y);
+  if (EqualWithEps(length, 0.0f)) throw std::invalid_argument("Length is equal to zero!");
   m_x /= length;
   m_y /= length;
 }
