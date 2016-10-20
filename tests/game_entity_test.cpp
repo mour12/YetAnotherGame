@@ -4,32 +4,25 @@
 
 TEST(game_entity_test, test_construction)
 {
-  GameEntity gameEntity1 = GameEntity();
-  EXPECT_EQ(gameEntity1.box(), Box2D());
-  EXPECT_EQ(gameEntity1.direction(), Direction2D());
-  EXPECT_EQ(gameEntity1.spacePtr().lock(), nullptr);
-  EXPECT_EQ(gameEntity1.velocity(), 0.0f);
-  EXPECT_EQ(gameEntity1.health(), 1);
-
   Point2D leftBottomCorner(1.0f, 3.0f);
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
-  GameEntity gameEntity2 = GameEntity(box, direction, 1.0f, 15, spacePtr);
+  GameEntity gameEntity1 = GameEntity(box, direction, 1.0f, 15, spacePtr);
+  EXPECT_EQ(gameEntity1.box(), box);
+  EXPECT_EQ(gameEntity1.direction(), direction);
+  EXPECT_EQ(gameEntity1.spacePtr().lock(), spacePtr.lock());
+  EXPECT_EQ(gameEntity1.velocity(), 1.0f);
+  EXPECT_EQ(gameEntity1.health(), 15);
+
+  GameEntity gameEntity2 = GameEntity(gameEntity1);
   EXPECT_EQ(gameEntity2.box(), box);
   EXPECT_EQ(gameEntity2.direction(), direction);
   EXPECT_EQ(gameEntity2.spacePtr().lock(), spacePtr.lock());
   EXPECT_EQ(gameEntity2.velocity(), 1.0f);
   EXPECT_EQ(gameEntity2.health(), 15);
-
-  GameEntity gameEntity3 = GameEntity(gameEntity2);
-  EXPECT_EQ(gameEntity3.box(), box);
-  EXPECT_EQ(gameEntity3.direction(), direction);
-  EXPECT_EQ(gameEntity3.spacePtr().lock(), spacePtr.lock());
-  EXPECT_EQ(gameEntity3.velocity(), 1.0f);
-  EXPECT_EQ(gameEntity3.health(), 15);
 }
 
 TEST(game_entity_test, test_assignment)

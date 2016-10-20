@@ -5,7 +5,6 @@
 class Obstacle: public GameEntity
 {
 public:
-  Obstacle() = default;
   Obstacle(Obstacle const & obj);
   Obstacle(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr);
   ~Obstacle() override {}

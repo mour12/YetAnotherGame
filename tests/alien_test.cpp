@@ -4,13 +4,6 @@
 
 TEST(alien_test, test_construction)
 {
-  Alien alien1 = Alien();
-  EXPECT_EQ(alien1.box(), Box2D());
-  EXPECT_EQ(alien1.direction(), Direction2D());
-  EXPECT_EQ(alien1.spacePtr().lock(), nullptr);
-  EXPECT_EQ(alien1.velocity(), 0.0f);
-  EXPECT_EQ(alien1.health(), 1);
-
   Point2D leftBottomCorner(1.0f, 3.0f);
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
@@ -18,21 +11,21 @@ TEST(alien_test, test_construction)
   Ray2D route(Point2D(1.5f, 3.0f), Direction2D(0.0f, -1.0f));
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
-  Alien alien2 = Alien(box, direction, 1.0f, 15, route, spacePtr);
+  Alien alien1 = Alien(box, direction, 1.0f, 15, route, spacePtr);
+  EXPECT_EQ(alien1.box(), box);
+  EXPECT_EQ(alien1.direction(), direction);
+  EXPECT_EQ(alien1.spacePtr().lock(), spacePtr.lock());
+  EXPECT_EQ(alien1.velocity(), 1.0f);
+  EXPECT_EQ(alien1.health(), 15);
+  EXPECT_EQ(alien1.route(), route);
+
+  Alien alien2 = Alien(alien1);
   EXPECT_EQ(alien2.box(), box);
   EXPECT_EQ(alien2.direction(), direction);
   EXPECT_EQ(alien2.spacePtr().lock(), spacePtr.lock());
   EXPECT_EQ(alien2.velocity(), 1.0f);
   EXPECT_EQ(alien2.health(), 15);
   EXPECT_EQ(alien2.route(), route);
-
-  Alien alien3 = Alien(alien2);
-  EXPECT_EQ(alien3.box(), box);
-  EXPECT_EQ(alien3.direction(), direction);
-  EXPECT_EQ(alien3.spacePtr().lock(), spacePtr.lock());
-  EXPECT_EQ(alien3.velocity(), 1.0f);
-  EXPECT_EQ(alien3.health(), 15);
-  EXPECT_EQ(alien3.route(), route);
 }
 
 TEST(alien_test, test_assignment)
