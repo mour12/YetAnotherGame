@@ -76,7 +76,7 @@ Point2D Point2D::operator * (float scale) const
 
 Point2D Point2D::operator / (float scale) const
 {
-  //TODO: обработать деление на 0.
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Division by zero!");
   return {m_x / scale, m_y / scale};
 }
 
@@ -103,7 +103,7 @@ Point2D & Point2D::operator *= (float scale)
 
 Point2D & Point2D::operator /= (float scale)
 {
-  //TODO: обработать деление на 0.
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Division by zero!");
   m_x /= scale;
   m_y /= scale;
   return *this;

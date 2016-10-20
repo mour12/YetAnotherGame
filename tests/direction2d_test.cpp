@@ -140,11 +140,11 @@ TEST(direction2d_test, test_calculus)
     d3 += d4;
     FAIL() << "Expected std::invalid_argument";
   }
-  catch(std::invalid_argument const & ex)
+  catch (std::invalid_argument const & ex)
   {
     EXPECT_EQ(ex.what(),std::string("Length is equal to zero!"));
   }
-  catch(...)
+  catch (...)
   {
     FAIL() << "Expected std::invalid_argument";
   }

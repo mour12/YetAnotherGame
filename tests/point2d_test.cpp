@@ -72,6 +72,35 @@ TEST(point2d_test, test_calculus)
 
   p1 /= 2.0f;
   EXPECT_EQ(p1, Point2D(1.2f, 2.4f));
+
+  try
+  {
+    p1 /= 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Division by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
+  try
+  {
+    p2 = p1 / 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Division by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
 }
 
 TEST(point2d_test, test_square_brackets)
