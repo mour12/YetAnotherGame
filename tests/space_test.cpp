@@ -32,4 +32,19 @@ TEST(space_test, test_adding_game_entity)
   EXPECT_EQ(space.sizeY(), 100.0f);
   EXPECT_EQ(space.gameEntities().size(), 1);
   EXPECT_EQ(*(space.gameEntities()[0]), gameEntity);
+
+  try
+  {
+    space.AddGameEntity(nullptr);
+    FAIL() << std::string("Expected invalid_argument");
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Trying to add nullptr!"));
+  }
+  catch (...)
+  {
+    FAIL() << std::string("Expected invalid_argument");
+  }
+
 }

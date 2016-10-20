@@ -18,14 +18,12 @@ void Space::Update()
   if (m_gameEntities.empty()) return;
   for (auto & gameEntity: m_gameEntities)
   {
-    gameEntity->Update(); //Not implemented on GameEntity side
+    gameEntity->Update();
   }
 }
 
 void Space::AddGameEntity(std::shared_ptr<GameEntity> gameEntityPtr)
 {
-  if (gameEntityPtr != nullptr) // TODO: сделать выброс исключения при nullptr
-  {
-    m_gameEntities.push_back(gameEntityPtr);
-  }
+  if (gameEntityPtr == nullptr) throw std::invalid_argument("Trying to add nullptr!");
+  m_gameEntities.push_back(gameEntityPtr);
 }
