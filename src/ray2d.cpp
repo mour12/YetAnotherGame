@@ -57,14 +57,16 @@ Ray2D Ray2D::operator-(Ray2D const & obj) const
   return {m_origin - obj.m_origin, m_direction - obj.m_direction};
 }
 
-Ray2D Ray2D::operator*(float scale) const // TODO: Check for multiply by zero
+Ray2D Ray2D::operator*(float scale) const
 {
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Multiply by zero!");
   if (Sign(scale) == 1) return {m_origin * scale, m_direction};
   else return {m_origin * scale, -m_direction};
 }
 
-Ray2D Ray2D::operator/(float scale) const // TODO: Check for division by zero
+Ray2D Ray2D::operator/(float scale) const
 {
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Division by zero!");
   if (Sign(scale) == 1) return {m_origin / scale, m_direction};
   else return {m_origin / scale, -m_direction};
 }
@@ -85,13 +87,15 @@ Ray2D & Ray2D::operator-=(Ray2D const & obj)
 
 Ray2D & Ray2D::operator*=(float scale)
 {
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Multiply by zero!");
   m_origin *= scale;
-  if (Sign(scale) == -1) m_direction = -m_direction; // TODO: Check for zero-vector direction
+  if (Sign(scale) == -1) m_direction = -m_direction;
   return *this;
 }
 
-Ray2D & Ray2D::operator/=(float scale) // TODO: Check for division by zero
+Ray2D & Ray2D::operator/=(float scale)
 {
+  if (EqualWithEps(scale, 0.0f)) throw std::invalid_argument("Division by zero!");
   m_origin /= scale;
   if (Sign(scale) == -1) m_direction = -m_direction;
   return *this;
@@ -124,7 +128,7 @@ int Ray2D::Sign(float f) const
 
 bool Ray2D::Intersects(Point2D const & p1, Point2D const & p2) const
 {
-  float k = m_direction.y() / m_direction.x(); // TODO: check for division by zero
+  float k = m_direction.y() / m_direction.x();
   float b = m_origin.y() - k * m_origin.x();
   // y = k * x + b
   // x = (y - b) / k
@@ -143,7 +147,7 @@ bool Ray2D::Intersects(Point2D const & p1, Point2D const & p2) const
 
     if ((m_origin.y() <= p1.y() && m_direction.y() > 0 || m_origin.y() >= p1.y() && m_direction.y() < 0)
         && (p1.y() - b) / k >= p1.x()
-        && (p1.y() - b) / k <= p2.x()) return true; // TODO: check for division by zero
+        && (p1.y() - b) / k <= p2.x()) return true;
   }
   return false;
 }
