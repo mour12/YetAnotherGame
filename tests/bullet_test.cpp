@@ -4,13 +4,6 @@
 
 TEST(bullet_test, test_construction)
 {
-  Bullet bullet1 = Bullet();
-  EXPECT_EQ(bullet1.box(), Box2D());
-  EXPECT_EQ(bullet1.direction(), Direction2D());
-  EXPECT_EQ(bullet1.spacePtr().lock(), nullptr);
-  EXPECT_EQ(bullet1.velocity(), 0.0f);
-  EXPECT_EQ(bullet1.health(), 1);
-
   Point2D leftBottomCorner(1.0f, 3.0f);
   Point2D rightTopCorner(2.0f, 5.0f);
   Direction2D direction(0.0f, 1.0f);

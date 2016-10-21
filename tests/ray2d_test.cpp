@@ -77,6 +77,63 @@ TEST(ray2d_test, test_calculus)
 
   r1 /= 2.0f;
   EXPECT_EQ(r1, Ray2D( { 1.2f, 2.4f }, { 0.873421751f, -0.486964521f } ));
+
+  try
+  {
+    r1 *= 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Multiply by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
+  try
+  {
+    r1 /= 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Division by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
+  try
+  {
+    r2 = r1 * 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Multiply by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
+  try
+  {
+    r2 = r2 / 0;
+    FAIL() << "Expected std::invalid_argument";
+  }
+  catch (std::invalid_argument const & ex)
+  {
+    EXPECT_EQ(ex.what(), std::string("Division by zero!"));
+  }
+  catch (...)
+  {
+    FAIL() << "Expected std::invalid_argument";
+  }
+
 }
 
 TEST(ray2d_test, test_intersection)

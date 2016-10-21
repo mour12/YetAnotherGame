@@ -4,32 +4,25 @@
 
 TEST(gun_test, test_construction)
 {
-  Gun gun1 = Gun();
-  EXPECT_EQ(gun1.box(), Box2D());
-  EXPECT_EQ(gun1.direction(), Direction2D());
-  EXPECT_EQ(gun1.spacePtr().lock(), nullptr);
-  EXPECT_EQ(gun1.velocity(), 0.0f);
-  EXPECT_EQ(gun1.health(), 1);
-
   Point2D leftBottomCorner(1.0f, 3.0f);
   Point2D rightTopCorner(2.0f, 5.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 1.0f);
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
-  Gun gun2 = Gun(box, direction, 1.0f, 15, spacePtr);
+  Gun gun1 = Gun(box, direction, 1.0f, 15, spacePtr);
+  EXPECT_EQ(gun1.box(), box);
+  EXPECT_EQ(gun1.direction(), direction);
+  EXPECT_EQ(gun1.spacePtr().lock(), spacePtr.lock());
+  EXPECT_EQ(gun1.velocity(), 1.0f);
+  EXPECT_EQ(gun1.health(), 15);
+
+  Gun gun2 = Gun(gun1);
   EXPECT_EQ(gun2.box(), box);
   EXPECT_EQ(gun2.direction(), direction);
   EXPECT_EQ(gun2.spacePtr().lock(), spacePtr.lock());
   EXPECT_EQ(gun2.velocity(), 1.0f);
   EXPECT_EQ(gun2.health(), 15);
-
-  Gun gun3 = Gun(gun2);
-  EXPECT_EQ(gun3.box(), box);
-  EXPECT_EQ(gun3.direction(), direction);
-  EXPECT_EQ(gun3.spacePtr().lock(), spacePtr.lock());
-  EXPECT_EQ(gun3.velocity(), 1.0f);
-  EXPECT_EQ(gun3.health(), 15);
 }
 
 TEST(gun_test, test_assignment)
