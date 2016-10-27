@@ -38,3 +38,13 @@ void Gun::Shoot() // TODO: Вынести размеры, скорость и х
   auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
+
+void Gun::serialize (std::ostream & os) const
+{
+  os << "Gun {"
+     << this->Gun::box() << ", "
+     << this->Gun::Сoordinates() << ", "
+     << this->Gun::direction() << ", "
+     << this->Gun::velocity() << ", "
+     << this->Gun::health() << "}";
+}

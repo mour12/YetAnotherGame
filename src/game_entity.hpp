@@ -21,7 +21,8 @@ public:
 
   Point2D Сoordinates() const;
 
-  virtual void Update() {};
+  virtual void Update() {}
+  virtual void serialize(std::ostream & os) const {}
 
   Direction2D & direction();
   float & velocity();
@@ -40,3 +41,5 @@ protected:
   float m_velocity = 0.0f;
   int m_health = 1;
 };
+
+std::ostream & operator << (std::ostream & os, GameEntity const & obj);

@@ -43,3 +43,14 @@ void Alien::Shoot() // TODO: Вынести размеры, скорость и 
   auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
+
+void Alien::serialize (std::ostream & os) const
+{
+  os << "Alien {"
+     << this->Alien::box() << ", "
+     << this->Alien::Сoordinates() << ", "
+     << this->Alien::route() << ", "
+     << this->Alien::direction() << ", "
+     << this->Alien::velocity() << ", "
+     << this->Alien::health() << "}";
+}

@@ -30,3 +30,13 @@ bool Bullet::operator!=(Bullet const & obj) const
 {
   return !operator==(obj);
 }
+
+void Bullet::serialize (std::ostream & os) const
+{
+  os << "Bullet {"
+     << this->Bullet::box() << ", "
+     << this->Bullet::Сoordinates() << ", "
+     << this->Bullet::direction() << ", "
+     << this->Bullet::velocity() << ", "
+     << this->Bullet::health() << "}";
+}

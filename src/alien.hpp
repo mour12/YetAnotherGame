@@ -8,6 +8,7 @@ public:
   Alien(Alien const & obj);
   Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePrt);
   ~Alien() override {}
+  void serialize(std::ostream & os) const override;
 
   Alien & operator=(Alien const & obj);
 
@@ -23,5 +24,3 @@ public:
 protected:
   Ray2D m_route;
 };
-
-//std::ostream & operator << (std::ostream & os, Alien const & obj);

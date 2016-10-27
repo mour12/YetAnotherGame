@@ -6,13 +6,6 @@
 class Logger
 {
 public:
-//  template <typename T>
-//  Logger & operator<<(T const &t)
-//  {
-//    time_t currTime = time(0);
-//    std::cout << time(&currTime) << " : " << t;
-//    return *this;
-//  }
   template <typename T>
   void log(std::ostream & os, T const &t)
   {

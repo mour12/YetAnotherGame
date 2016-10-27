@@ -8,11 +8,10 @@ public:
   Obstacle(Obstacle const & obj);
   Obstacle(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr);
   ~Obstacle() override {}
+  void serialize(std::ostream & os) const override;
 
   Obstacle & operator=(Obstacle const & obj);
 
   bool operator==(Obstacle const & obj) const;
   bool operator!=(Obstacle const & obj) const;
 };
-
-//std::ostream & operator << (std::ostream & os, Obstacle const & obj);

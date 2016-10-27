@@ -30,3 +30,11 @@ bool Obstacle::operator!=(Obstacle const & obj) const
 {
   return !operator==(obj);
 }
+
+void Obstacle::serialize (std::ostream & os) const
+{
+  os << "Obstacle {"
+     << this->Obstacle::box() << ", "
+     << this->Obstacle::Сoordinates() << ", "
+     << this->Obstacle::health() << "}";
+}
