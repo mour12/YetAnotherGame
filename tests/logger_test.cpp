@@ -10,7 +10,7 @@ Logger& logger = Logger::getInstance();
 TEST(logger_test, test_point2d)
 {
   Point2D p1;
-  logger.log(p1);
+  logger.log(std::cout, p1);
 }
 
 TEST(logger_test, test_vector_of_point2d)
@@ -20,7 +20,7 @@ TEST(logger_test, test_vector_of_point2d)
   Point2D p3;
   Point2D p4;
   std::vector<Point2D> v = {p1, p2, p3, p4};
-  logger.log(v);
+  logger.log(std::cout, v);
 }
 
 TEST(logger_test, test_box2d)

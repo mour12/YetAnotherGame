@@ -14,21 +14,21 @@ public:
 //    return *this;
 //  }
   template <typename T>
-  void log(T const &t)
+  void log(std::ostream & os, T const &t)
   {
     auto now = std::chrono::system_clock::now();
     auto now_c = std::chrono::system_clock::to_time_t(now);
-    std::cout << std::put_time(std::localtime(&now_c), "%c") << " : " << t << '\n';
+    os << std::put_time(std::localtime(&now_c), "%c") << " : " << t << std::endl;
   }
   template<typename T, template<typename, typename...> class C, typename... Args>
-  void log (C<T, Args...> const & objs)
+  void log (std::ostream & os, C<T, Args...> const & objs)
   {
     auto now = std::chrono::system_clock::now();
     auto now_c = std::chrono::system_clock::to_time_t(now);
-    std::cout << std::put_time(std::localtime(&now_c), "%c") << " : ";
+    os << std::put_time(std::localtime(&now_c), "%c") << " : ";
     for (auto const & obj : objs)
-      std::cout << obj << "; ";
-    std::cout << '\n';
+      os << obj << "; ";
+    os << std::endl;
   }
   static Logger & getInstance()
   {
