@@ -39,7 +39,7 @@ void Gun::Shoot() // TODO: Вынести размеры, скорость и х
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
 
-void Gun::ToString (std::ostream & os) const
+void Gun::ToString(std::ostream & os) const
 {
   os << "Gun {"
      << this->Gun::box() << ", "

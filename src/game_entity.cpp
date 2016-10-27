@@ -3,7 +3,7 @@
 #include "game_entity.hpp"
 
 GameEntity::GameEntity(GameEntity const & obj)
-  : m_box(obj.box()), m_direction(obj.direction()), m_velocity(obj.velocity()), m_health(obj.health()), m_spacePtr(obj.spacePtr())
+  : m_box(obj.m_box), m_direction(obj.m_direction), m_velocity(obj.m_velocity), m_health(obj.m_health), m_spacePtr(obj.m_spacePtr)
 {}
 
 GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)

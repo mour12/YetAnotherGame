@@ -44,7 +44,7 @@ void Alien::Shoot() // TODO: Вынести размеры, скорость и 
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
 
-void Alien::ToString (std::ostream & os) const
+void Alien::ToString(std::ostream & os) const
 {
   os << "Alien {"
      << this->Alien::box() << ", "
