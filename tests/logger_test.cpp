@@ -97,12 +97,14 @@ TEST(logger_test, test_space)
     Ray2D route(Point2D(1.5f, 3.0f), Direction2D(0.0f, -1.0f));
     Direction2D direction(1.0f, 0.0f);
     std::weak_ptr<Space> spacePtr = std::make_shared<Space>(space);
+
     Bullet bullet = Bullet(box, direction, 1.0f, 15, spacePtr);
     Alien alien = Alien(box, direction, 1.0f, 15, route, spacePtr);
     Gun gun = Gun(box, direction, 1.0f, 15, spacePtr);
-    space.AddGameEntity(std::make_shared<GameEntity>(bullet));
-    space.AddGameEntity(std::make_shared<GameEntity>(alien));
-    space.AddGameEntity(std::make_shared<GameEntity>(gun));
+
+    space.AddGameEntity(std::make_shared<Bullet>(bullet));
+    space.AddGameEntity(std::make_shared<Alien>(alien));
+    space.AddGameEntity(std::make_shared<Gun>(gun));
 
     logger.log(std::cout, space);
 }

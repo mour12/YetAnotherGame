@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "space.hpp"
-#include "game_entity.hpp"
+#include "gun.hpp"
 #include <unordered_set>
 
 TEST(space_test, test_construction)
@@ -25,13 +25,13 @@ TEST(space_test, test_adding_game_entity)
   Box2D box(leftBottomCorner, rightTopCorner);
   Direction2D direction(1.0f, 0.0f);
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(space);
-  GameEntity gameEntity = GameEntity(box, direction, 1.0f, 15, spacePtr);
+  Gun gun = Gun(box, direction, 1.0f, 15, spacePtr);
 
-  space.AddGameEntity(std::make_shared<GameEntity>(gameEntity));
+  space.AddGameEntity(std::make_shared<Gun>(gun));
   EXPECT_EQ(space.sizeX(), 100.0f);
   EXPECT_EQ(space.sizeY(), 100.0f);
   EXPECT_EQ(space.gameEntities().size(), 1);
-  EXPECT_EQ(*(space.gameEntities()[0]), gameEntity);
+  EXPECT_EQ(*(space.gameEntities()[0]), gun);
 
   try
   {
