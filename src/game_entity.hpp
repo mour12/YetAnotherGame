@@ -21,7 +21,7 @@ public:
   Point2D Сoordinates() const;
 
   virtual void Update() {}
-  virtual void serialize(std::ostream & os) const {}
+  virtual void ToString(std::ostream & os) const = 0;
 
   Direction2D & direction();
   float & velocity();

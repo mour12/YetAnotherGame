@@ -31,7 +31,7 @@ bool Bullet::operator!=(Bullet const & obj) const
   return !operator==(obj);
 }
 
-void Bullet::serialize (std::ostream & os) const
+void Bullet::ToString (std::ostream & os) const
 {
   os << "Bullet {"
      << this->Bullet::box() << ", "

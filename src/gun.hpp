@@ -8,7 +8,7 @@ public:
   Gun(Gun const & obj);
   Gun(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt);
   ~Gun() override {}
-  void serialize(std::ostream & os) const override;
+  void ToString(std::ostream & os) const override;
 
   Gun & operator=(Gun const & obj);
 

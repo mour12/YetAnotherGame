@@ -37,6 +37,6 @@ int const & GameEntity::health() const { return m_health; }
 
 std::ostream & operator << (std::ostream & os, GameEntity const & obj)
 {
-  obj.serialize(os);
+  obj.ToString(os);
   return os;
 }
