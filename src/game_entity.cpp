@@ -2,6 +2,10 @@
 #include <stdexcept>
 #include "game_entity.hpp"
 
+GameEntity::GameEntity(GameEntity const & obj)
+  : m_box(obj.box()), m_direction(obj.direction()), m_velocity(obj.velocity()), m_health(obj.health()), m_spacePtr(obj.spacePtr())
+{}
+
 GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
   : m_box(box), m_direction(direction), m_velocity(velocity), m_health(health), m_spacePtr(spacePtr)
 {}

@@ -19,7 +19,7 @@ public:
   float const & sizeY() const;
 
   std::vector<std::shared_ptr<GameEntity>> const & gameEntities() const;
-  void printGameEntities(std::ostream & os) const;
+  void PrintGameEntities(std::ostream & os) const;
 
   void AddGameEntity(std::shared_ptr<GameEntity> gameEntityPtr);
 

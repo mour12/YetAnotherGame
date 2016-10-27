@@ -3,7 +3,7 @@
 #include "bullet.hpp"
 
 Bullet::Bullet(Bullet const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr)
+  : GameEntity(obj)
 {}
 
 Bullet::Bullet(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)

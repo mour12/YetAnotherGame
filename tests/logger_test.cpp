@@ -9,7 +9,7 @@
 #include <sstream>
 #include <unordered_set>
 
-Logger& logger = Logger::getInstance();
+Logger & logger = Logger::GetInstance();
 
 TEST(logger_test, test_point2d)
 {
@@ -18,7 +18,7 @@ TEST(logger_test, test_point2d)
   std::string str = " : Point2D {0, 0}";
 
   Point2D p1;
-  logger.log(ss2, p1);
+  logger.Log(ss2, p1);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -39,7 +39,7 @@ TEST(logger_test, test_vector_of_point2d)
   Point2D p3;
   Point2D p4;
   std::vector<Point2D> v = {p1, p2, p3, p4};
-  logger.log(ss2, v);
+  logger.Log(ss2, v);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -56,7 +56,7 @@ TEST(logger_test, test_box2d)
   std::string str = " : Box2D {Point2D {0, 0}, Point2D {0, 0}}";
 
   Box2D b;
-  logger.log(ss2, b);
+  logger.Log(ss2, b);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -73,7 +73,7 @@ TEST(logger_test, test_ray2d)
   std::string str = " : Ray2D {Origin {0, 0}, Direction2D {1, 0}}";
 
   Ray2D r;
-  logger.log(ss2, r);
+  logger.Log(ss2, r);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -96,7 +96,7 @@ TEST(logger_test, test_gun)
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   Gun gun = Gun(box, direction, 1.0f, 15, spacePtr);
-  logger.log(ss2, gun);
+  logger.Log(ss2, gun);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -120,7 +120,7 @@ TEST(logger_test, test_alien)
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   Alien alien = Alien(box, direction, 1.0f, 15, route, spacePtr);
-  logger.log(ss2, alien);
+  logger.Log(ss2, alien);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -143,7 +143,7 @@ TEST(logger_test, test_bullet)
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   Bullet bullet = Bullet(box, direction, 1.0f, 15, spacePtr);
-  logger.log(ss2, bullet);
+  logger.Log(ss2, bullet);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -165,7 +165,7 @@ TEST(logger_test, test_obstacle)
   std::weak_ptr<Space> spacePtr = std::make_shared<Space>(Space());
 
   Obstacle obstacle = Obstacle(box, 15, spacePtr);
-  logger.log(ss2, obstacle);
+  logger.Log(ss2, obstacle);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);
@@ -198,7 +198,7 @@ TEST(logger_test, test_space)
   space.AddGameEntity(std::make_shared<Alien>(alien));
   space.AddGameEntity(std::make_shared<Gun>(gun));
 
-  logger.log(ss2, space);
+  logger.Log(ss2, space);
 
   auto now = std::chrono::system_clock::now();
   auto now_c = std::chrono::system_clock::to_time_t(now);

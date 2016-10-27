@@ -5,7 +5,7 @@ Gun::Gun(Box2D const & box, Direction2D const & direction, float velocity, int h
 {}
 
 Gun::Gun(Gun const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr)
+  : GameEntity(obj)
 {}
 
 Gun & Gun::operator=(Gun const & obj)

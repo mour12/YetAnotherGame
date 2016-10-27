@@ -5,7 +5,7 @@ Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, i
 {}
 
 Alien::Alien(Alien const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr), m_route(obj.m_route)
+  : GameEntity(obj), m_route(obj.m_route)
 {}
 
 Alien & Alien::operator=(Alien const & obj)

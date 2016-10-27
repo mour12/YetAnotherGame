@@ -28,18 +28,20 @@ void Space::AddGameEntity(std::shared_ptr<GameEntity> gameEntityPtr)
   m_gameEntities.push_back(gameEntityPtr);
 }
 
-void Space::printGameEntities(std::ostream & os) const
+void Space::PrintGameEntities(std::ostream & os) const
 {
-  os <<  "GameEntities {";
+  os << "GameEntities {";
   for (auto const & obj : this->m_gameEntities)
+  {
     os << *obj << ", ";
+  }
   os << "}";
 }
 
 std::ostream & operator << (std::ostream & os, Space const & obj)
 {
   os << "Space {" << obj.sizeX() << ", " << obj.sizeY() << ", ";
-  obj.printGameEntities(os);
+  obj.PrintGameEntities(os);
   os << "}";
   return os;
 }
