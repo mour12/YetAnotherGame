@@ -10,13 +10,10 @@ class Space;
 class GameEntity
 {
 public:
-  GameEntity() = default;
   GameEntity(GameEntity const & obj) = delete;
   GameEntity(GameEntity && obj) = delete;
   GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
   virtual ~GameEntity() {} // TODO: разобраться с чистым виртуальным деструктором
-
-  //GameEntity & operator=(GameEntity const & obj);
 
   bool operator==(GameEntity const & obj) const;
   bool operator!=(GameEntity const & obj) const;
