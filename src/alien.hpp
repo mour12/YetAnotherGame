@@ -23,3 +23,5 @@ public:
 protected:
   Ray2D m_route;
 };
+
+//std::ostream & operator << (std::ostream & os, Alien const & obj);

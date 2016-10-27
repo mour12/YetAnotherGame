@@ -14,3 +14,5 @@ public:
   bool operator==(Bullet const & obj) const;
   bool operator!=(Bullet const & obj) const;
 };
+
+//std::ostream & operator << (std::ostream & os, Bullet const & obj);

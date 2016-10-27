@@ -27,3 +27,5 @@ private:
   float m_sizeY = 0.0f;
   std::vector<std::shared_ptr<GameEntity>> m_gameEntities;
 };
+
+//std::ostream & operator << (std::ostream & os, Space const & obj);

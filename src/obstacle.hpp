@@ -14,3 +14,5 @@ public:
   bool operator==(Obstacle const & obj) const;
   bool operator!=(Obstacle const & obj) const;
 };
+
+//std::ostream & operator << (std::ostream & os, Obstacle const & obj);

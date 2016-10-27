@@ -16,3 +16,5 @@ public:
 
   void Shoot();
 };
+
+//std::ostream & operator << (std::ostream & os, Gun const & obj);
