@@ -20,6 +20,16 @@ public:
     auto now_c = std::chrono::system_clock::to_time_t(now);
     std::cout << std::put_time(std::localtime(&now_c), "%c") << " : " << t << '\n';
   }
+  template<typename T, template<typename, typename...> class C, typename... Args>
+  void log (C<T, Args...> const & objs)
+  {
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    std::cout << std::put_time(std::localtime(&now_c), "%c") << " : ";
+    for (auto const & obj : objs)
+      std::cout << obj << "; ";
+    std::cout << '\n';
+  }
   static Logger & getInstance()
   {
     static Logger instance;
