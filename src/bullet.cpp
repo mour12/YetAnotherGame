@@ -34,9 +34,9 @@ bool Bullet::operator!=(Bullet const & obj) const
 void Bullet::ToString(std::ostream & os) const
 {
   os << "Bullet {"
-     << this->Bullet::box() << ", "
-     << this->Bullet::Сoordinates() << ", "
-     << this->Bullet::direction() << ", "
-     << this->Bullet::velocity() << ", "
-     << this->Bullet::health() << "}";
+     << this->box() << ", "
+     << this->Сoordinates() << ", "
+     << this->direction() << ", "
+     << this->velocity() << ", "
+     << this->health() << "}";
 }

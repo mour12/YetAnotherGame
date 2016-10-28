@@ -47,10 +47,10 @@ void Alien::Shoot() // TODO: Вынести размеры, скорость и 
 void Alien::ToString(std::ostream & os) const
 {
   os << "Alien {"
-     << this->Alien::box() << ", "
-     << this->Alien::Сoordinates() << ", "
-     << this->Alien::route() << ", "
-     << this->Alien::direction() << ", "
-     << this->Alien::velocity() << ", "
-     << this->Alien::health() << "}";
+     << this->box() << ", "
+     << this->Сoordinates() << ", "
+     << this->route() << ", "
+     << this->direction() << ", "
+     << this->velocity() << ", "
+     << this->health() << "}";
 }
