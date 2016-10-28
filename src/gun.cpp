@@ -42,9 +42,9 @@ void Gun::Shoot() // TODO: Вынести размеры, скорость и х
 void Gun::ToString(std::ostream & os) const
 {
   os << "Gun {"
-     << this->box() << ", "
-     << this->Сoordinates() << ", "
-     << this->direction() << ", "
-     << this->velocity() << ", "
-     << this->health() << "}";
+     << box() << ", "
+     << Сoordinates() << ", "
+     << direction() << ", "
+     << velocity() << ", "
+     << health() << "}";
 }

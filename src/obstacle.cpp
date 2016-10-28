@@ -34,7 +34,7 @@ bool Obstacle::operator!=(Obstacle const & obj) const
 void Obstacle::ToString(std::ostream & os) const
 {
   os << "Obstacle {"
-     << this->box() << ", "
-     << this->Сoordinates() << ", "
-     << this->health() << "}";
+     << box() << ", "
+     << Сoordinates() << ", "
+     << health() << "}";
 }
