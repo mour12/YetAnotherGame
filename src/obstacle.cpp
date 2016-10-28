@@ -3,7 +3,7 @@
 #include "obstacle.hpp"
 
 Obstacle::Obstacle(Obstacle const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr)
+  : GameEntity(obj)
 {}
 
 Obstacle::Obstacle(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
@@ -29,4 +29,12 @@ bool Obstacle::operator==(Obstacle const & obj) const
 bool Obstacle::operator!=(Obstacle const & obj) const
 {
   return !operator==(obj);
+}
+
+void Obstacle::ToString(std::ostream & os) const
+{
+  os << "Obstacle {"
+     << box() << ", "
+     << Сoordinates() << ", "
+     << health() << "}";
 }

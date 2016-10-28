@@ -8,6 +8,7 @@ public:
   Bullet(Bullet const & obj);
   Bullet(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
   ~Bullet() override {}
+  void ToString(std::ostream & os) const override;
 
   Bullet & operator=(Bullet const & obj);
 

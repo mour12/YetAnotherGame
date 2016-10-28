@@ -10,17 +10,6 @@ GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float v
   : m_box(box), m_direction(direction), m_velocity(velocity), m_health(health), m_spacePtr(spacePtr)
 {}
 
-GameEntity & GameEntity::operator=(GameEntity const & obj)
-{
-  if (this == &obj) return *this;
-  m_box = obj.m_box;
-  m_direction = obj.m_direction;
-  m_velocity = obj.m_velocity;
-  m_health = obj.m_health;
-  m_spacePtr = obj.m_spacePtr;
-  return *this;
-}
-
 bool GameEntity::operator==(GameEntity const & obj) const
 {
   return (m_box == obj.m_box)
@@ -49,3 +38,9 @@ Box2D const & GameEntity::box() const { return m_box; }
 Direction2D const & GameEntity::direction() const { return m_direction; }
 float const & GameEntity::velocity() const { return  m_velocity; }
 int const & GameEntity::health() const { return m_health; }
+
+std::ostream & operator << (std::ostream & os, GameEntity const & obj)
+{
+  obj.ToString(os);
+  return os;
+}

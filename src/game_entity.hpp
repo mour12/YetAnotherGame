@@ -12,16 +12,15 @@ class GameEntity
 public:
   GameEntity(GameEntity const & obj);
   GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
-  virtual ~GameEntity() {} // TODO: разобраться с чистым виртуальным деструктором
-
-  GameEntity & operator=(GameEntity const & obj);
+  virtual ~GameEntity() {}
 
   bool operator==(GameEntity const & obj) const;
   bool operator!=(GameEntity const & obj) const;
 
   Point2D Сoordinates() const;
 
-  virtual void Update() {};
+  virtual void Update() {}
+  virtual void ToString(std::ostream & os) const = 0;
 
   Direction2D & direction();
   float & velocity();
@@ -40,3 +39,5 @@ protected:
   float m_velocity = 0.0f;
   int m_health = 1;
 };
+
+std::ostream & operator << (std::ostream & os, GameEntity const & obj);

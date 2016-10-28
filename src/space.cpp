@@ -27,3 +27,22 @@ void Space::AddGameEntity(std::shared_ptr<GameEntity> gameEntityPtr)
   if (gameEntityPtr == nullptr) throw std::invalid_argument("Trying to add nullptr!");
   m_gameEntities.push_back(gameEntityPtr);
 }
+
+void Space::PrintGameEntities(std::ostream & os) const
+{
+  os << "GameEntities {";
+  for (auto const & obj : this->m_gameEntities)
+  {
+    os << *obj << ", ";
+  }
+  os << "}";
+}
+
+std::ostream & operator << (std::ostream & os, Space const & obj)
+{
+  os << "Space {" << obj.sizeX() << ", " << obj.sizeY() << ", ";
+  obj.PrintGameEntities(os);
+  os << "}";
+  return os;
+}
+

@@ -5,7 +5,7 @@ Gun::Gun(Box2D const & box, Direction2D const & direction, float velocity, int h
 {}
 
 Gun::Gun(Gun const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr)
+  : GameEntity(obj)
 {}
 
 Gun & Gun::operator=(Gun const & obj)
@@ -37,4 +37,14 @@ void Gun::Shoot() // TODO: Вынести размеры, скорость и х
   Box2D box(leftBottomCorner, rightTopCorner);
   auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
+}
+
+void Gun::ToString(std::ostream & os) const
+{
+  os << "Gun {"
+     << box() << ", "
+     << Сoordinates() << ", "
+     << direction() << ", "
+     << velocity() << ", "
+     << health() << "}";
 }

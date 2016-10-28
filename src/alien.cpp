@@ -5,7 +5,7 @@ Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, i
 {}
 
 Alien::Alien(Alien const & obj)
-  : GameEntity(obj.m_box, obj.m_direction, obj.m_velocity, obj.m_health, obj.m_spacePtr), m_route(obj.m_route)
+  : GameEntity(obj), m_route(obj.m_route)
 {}
 
 Alien & Alien::operator=(Alien const & obj)
@@ -42,4 +42,15 @@ void Alien::Shoot() // TODO: Вынести размеры, скорость и 
   Box2D box(leftBottomCorner, rightTopCorner);
   auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
+}
+
+void Alien::ToString(std::ostream & os) const
+{
+  os << "Alien {"
+     << box() << ", "
+     << Сoordinates() << ", "
+     << route() << ", "
+     << direction() << ", "
+     << velocity() << ", "
+     << health() << "}";
 }
