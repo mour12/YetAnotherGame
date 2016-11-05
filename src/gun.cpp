@@ -37,13 +37,21 @@ FactoryType Gun::GetType()
 {
   return FactoryType::GunType;
 }
-std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt)
-{
-  return std::unique_ptr<GameEntity>(new Gun(box, direction, velocity, health, spacePrt));
-}
 std::unique_ptr<GameEntity> Gun::Create()
 {
   return std::unique_ptr<GameEntity>(new Gun());
+}
+std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Gun class.");
+}
+std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
+{
+  return std::unique_ptr<GameEntity>(new Gun(box, direction, velocity, health, spacePtr));
+}
+std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Gun class.");
 }
 
 void Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули

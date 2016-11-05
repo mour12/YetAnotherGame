@@ -24,7 +24,7 @@ TEST(game_entity_factory_test, test_gun)
   factory.Register(Gun().Create());
   auto gun2 = static_unique_ptr_cast<Gun>(factory.Create(FactoryType::GunType, box, direction, 1.0f, 15, spacePtr));
 
-  EXPECT_EQ(gun1, gun2);
+  EXPECT_EQ(gun1, *gun2);
 }
 
 TEST(game_entity_factory_test, test_alien)
@@ -41,7 +41,7 @@ TEST(game_entity_factory_test, test_alien)
   factory.Register(Alien().Create());
   auto alien2 = static_unique_ptr_cast<Alien>(factory.Create(FactoryType::AlienType, box, direction, 1.0f, 15, route, spacePtr));
 
-  EXPECT_EQ(alien1, alien2);
+  EXPECT_EQ(alien1, *alien2);
 }
 
 TEST(game_entity_factory_test, test_bullet)
@@ -57,7 +57,7 @@ TEST(game_entity_factory_test, test_bullet)
   factory.Register(Bullet().Create());
   auto bullet2 = static_unique_ptr_cast<Bullet>(factory.Create(FactoryType::BulletType, box, direction, 1.0f, 15, spacePtr));
 
-  EXPECT_EQ(bullet1, bullet2);
+  EXPECT_EQ(bullet1, *bullet2);
 }
 
 TEST(game_entity_factory_test, test_obstacle)
@@ -72,6 +72,6 @@ TEST(game_entity_factory_test, test_obstacle)
   factory.Register(Obstacle().Create());
   auto obstacle2 = static_unique_ptr_cast<Obstacle>(factory.Create(FactoryType::ObstacleType, box, 15, spacePtr));
 
-  EXPECT_EQ(obstacle1, obstacle2);
+  EXPECT_EQ(obstacle1, *obstacle2);
 }
 

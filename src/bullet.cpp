@@ -39,13 +39,21 @@ FactoryType Bullet::GetType()
 {
   return FactoryType::BulletType;
 }
-std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt)
-{
-  return std::unique_ptr<GameEntity>(new Bullet(box, direction, velocity, health, spacePrt));
-}
 std::unique_ptr<GameEntity> Bullet::Create()
 {
   return std::unique_ptr<GameEntity>(new Bullet());
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Bullet class.");
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
+{
+  return std::unique_ptr<GameEntity>(new Bullet(box, direction, velocity, health, spacePtr));
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Bullet class.");
 }
 
 void Bullet::ToString(std::ostream & os) const
