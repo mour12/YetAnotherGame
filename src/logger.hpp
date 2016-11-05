@@ -34,4 +34,6 @@ private:
   ~Logger() {}
   Logger(Logger const &) = delete;
   Logger & operator=(Logger const &) = delete;
+  Logger(Logger const &&) = delete;
+  Logger & operator=(Logger const &&) = delete;
 };

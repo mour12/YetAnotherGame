@@ -1,3 +1,6 @@
+#pragma once
+
+#include "factory_type.hpp"
 #include "game_entity.hpp"
 #include "ray2d.hpp"
 #include "bullet.hpp"
@@ -5,10 +8,16 @@
 class Gun : public GameEntity
 {
 public:
+  Gun() = default;
   Gun(Gun const & obj);
+  Gun(Gun const && obj);
   Gun(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt);
   ~Gun() override {}
   void ToString(std::ostream & os) const override;
+
+  FactoryType GetType() override;
+  std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt) override;
+  std::unique_ptr<GameEntity> Create() override;
 
   Gun & operator=(Gun const & obj);
 

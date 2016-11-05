@@ -6,6 +6,10 @@ Obstacle::Obstacle(Obstacle const & obj)
   : GameEntity(obj)
 {}
 
+Obstacle::Obstacle(Obstacle const &&obj)
+  : GameEntity(obj)
+{}
+
 Obstacle::Obstacle(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, Direction2D(), 0, health, spacePtr)
 {}
@@ -29,6 +33,19 @@ bool Obstacle::operator==(Obstacle const & obj) const
 bool Obstacle::operator!=(Obstacle const & obj) const
 {
   return !operator==(obj);
+}
+
+FactoryType Obstacle::GetType()
+{
+  return FactoryType::ObstacleType;
+}
+std::unique_ptr<GameEntity> Obstacle::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePrt)
+{
+  return std::unique_ptr<GameEntity>(new Obstacle(box, health, spacePrt));
+}
+std::unique_ptr<GameEntity> Obstacle::Create()
+{
+  return std::unique_ptr<GameEntity>(new Obstacle());
 }
 
 void Obstacle::ToString(std::ostream & os) const

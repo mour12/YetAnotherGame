@@ -6,6 +6,10 @@ Bullet::Bullet(Bullet const & obj)
   : GameEntity(obj)
 {}
 
+Bullet::Bullet(Bullet const && obj)
+  : GameEntity(obj)
+{}
+
 Bullet::Bullet(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr)
 {}
@@ -29,6 +33,19 @@ bool Bullet::operator==(Bullet const & obj) const
 bool Bullet::operator!=(Bullet const & obj) const
 {
   return !operator==(obj);
+}
+
+FactoryType Bullet::GetType()
+{
+  return FactoryType::BulletType;
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt)
+{
+  return std::unique_ptr<GameEntity>(new Bullet(box, direction, velocity, health, spacePrt));
+}
+std::unique_ptr<GameEntity> Bullet::Create()
+{
+  return std::unique_ptr<GameEntity>(new Bullet());
 }
 
 void Bullet::ToString(std::ostream & os) const

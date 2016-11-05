@@ -8,6 +8,10 @@ Gun::Gun(Gun const & obj)
   : GameEntity(obj)
 {}
 
+Gun::Gun(Gun const && obj)
+  : GameEntity(obj)
+{}
+
 Gun & Gun::operator=(Gun const & obj)
 {
   if (this == &obj) return *this;
@@ -27,6 +31,19 @@ bool Gun::operator==(Gun const & obj) const
 bool Gun::operator!=(Gun const & obj) const
 {
   return !operator==(obj);
+}
+
+FactoryType Gun::GetType()
+{
+  return FactoryType::GunType;
+}
+std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePrt)
+{
+  return std::unique_ptr<GameEntity>(new Gun(box, direction, velocity, health, spacePrt));
+}
+std::unique_ptr<GameEntity> Gun::Create()
+{
+  return std::unique_ptr<GameEntity>(new Gun());
 }
 
 void Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
