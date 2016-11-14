@@ -18,7 +18,10 @@ void Observable::Notify() const
 {
   for (auto observer : observers)
   {
-    observer.lock()->OnNotified(this);
+    if (observer.lock() != nullptr)
+    {
+      observer.lock()->OnNotified(this);
+    }
   }
 }
 
