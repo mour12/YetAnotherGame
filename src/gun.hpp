@@ -5,9 +5,12 @@
 #include "ray2d.hpp"
 #include "bullet.hpp"
 
+class Bullet;
+
 class Gun : public GameEntity
 {
 public:
+  using TOnUpdateHandler = std::function<void(Bullet const * const)>;
   Gun() = default;
   Gun(Gun const & obj);
   Gun(Gun const && obj);
@@ -26,5 +29,11 @@ public:
   bool operator==(Gun const & obj) const;
   bool operator!=(Gun const & obj) const;
 
+  void SetUpdateHandler(TOnUpdateHandler const & handler);
+  void Update() override;
+  void Update(Bullet const * const bullet);
   void Shoot();
+
+private:
+  TOnUpdateHandler m_updateHandler;
 };

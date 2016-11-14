@@ -1,5 +1,6 @@
 #include <exception>
 #include <stdexcept>
+#include <algorithm>
 #include "bullet.hpp"
 
 Bullet::Bullet(Bullet const & obj)
@@ -54,6 +55,27 @@ std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const 
 std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
 {
   throw std::logic_error("Not implemented in Bullet class.");
+}
+
+void Bullet::AddGunObserver(std::weak_ptr<Gun> const gun)
+{
+  if (std::find_if(gunObservers.begin(), gunObservers.end(), [&gun](std::weak_ptr<Gun> const g) {return g.lock() == gun.lock();}) == gunObservers.end())
+  {
+    gunObservers.push_back(gun);
+  }
+}
+
+void Bullet::RemoveGunObserver(std::weak_ptr<Gun> const gun)
+{
+  gunObservers.erase(std::find_if(gunObservers.begin(), gunObservers.end(), [&gun](std::weak_ptr<Gun> const g) {return g.lock() == gun.lock();}));
+}
+
+void Bullet::Notify() const
+{
+  for (auto gun : gunObservers)
+  {
+    gun.lock()->Update(this);
+  }
 }
 
 void Bullet::ToString(std::ostream & os) const

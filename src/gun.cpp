@@ -54,6 +54,23 @@ std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, int health, std::weak
   throw std::logic_error("Not implemented in Gun class.");
 }
 
+void Gun::SetUpdateHandler(TOnUpdateHandler const & handler)
+{
+  m_updateHandler = handler;
+}
+
+void Gun::Update()
+{}
+
+void Gun::Update(Bullet const * const bullet)
+{
+  Update();
+  if (m_updateHandler != nullptr)
+  {
+    m_updateHandler(bullet);
+  }
+}
+
 void Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
 {
   Point2D leftBottomCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2 - 3, m_box.rightTopCorner().y());
