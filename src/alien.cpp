@@ -75,6 +75,18 @@ std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, int health, std::we
   throw std::logic_error("Not implemented in Alien class.");
 }
 
+void Alien::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
+{
+  m_onNotifiedHandler = handler;
+}
+
+void Alien::OnNotified(Observable const * obj)
+{
+  if (m_onNotifiedHandler != nullptr)
+  {
+    m_onNotifiedHandler(obj);
+  }
+}
 
 void Alien::ToString(std::ostream & os) const
 {

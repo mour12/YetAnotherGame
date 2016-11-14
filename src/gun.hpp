@@ -4,13 +4,14 @@
 #include "game_entity.hpp"
 #include "ray2d.hpp"
 #include "bullet.hpp"
+#include "observer.hpp"
 
 class Bullet;
 
-class Gun : public GameEntity
+class Gun : public GameEntity, public Observer
 {
 public:
-  using TOnUpdateHandler = std::function<void(Bullet const * const)>;
+  using TOnNotifiedHandler = std::function<void(Observable const *)>;
   Gun() = default;
   Gun(Gun const & obj);
   Gun(Gun const && obj);
@@ -29,11 +30,10 @@ public:
   bool operator==(Gun const & obj) const;
   bool operator!=(Gun const & obj) const;
 
-  void SetUpdateHandler(TOnUpdateHandler const & handler);
-  void Update() override;
-  void Update(Bullet const * const bullet);
+  void SetOnNotifiedHandler(TOnNotifiedHandler const & handler);
+  void OnNotified(Observable const * obj) override;
   void Shoot();
 
 private:
-  TOnUpdateHandler m_updateHandler;
+  TOnNotifiedHandler m_onNotifiedHandler;
 };

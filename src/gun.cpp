@@ -54,20 +54,16 @@ std::unique_ptr<GameEntity> Gun::Create(Box2D const & box, int health, std::weak
   throw std::logic_error("Not implemented in Gun class.");
 }
 
-void Gun::SetUpdateHandler(TOnUpdateHandler const & handler)
+void Gun::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
 {
-  m_updateHandler = handler;
+  m_onNotifiedHandler = handler;
 }
 
-void Gun::Update()
-{}
-
-void Gun::Update(Bullet const * const bullet)
+void Gun::OnNotified(Observable const * obj)
 {
-  Update();
-  if (m_updateHandler != nullptr)
+  if (m_onNotifiedHandler != nullptr)
   {
-    m_updateHandler(bullet);
+    m_onNotifiedHandler(obj);
   }
 }
 
