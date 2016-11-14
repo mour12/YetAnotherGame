@@ -8,7 +8,7 @@
 class Alien : public GameEntity, public Observer
 {
 public:
-  using TOnNotifiedHandler = std::function<void(Observable const *)>;
+  using TOnNotifiedHandler = std::function<void(Observer *, Observable const *)>;
   Alien() = default;
   Alien(Alien const & obj);
   Alien(Alien const && obj);
@@ -33,7 +33,7 @@ public:
 
   void Shoot();
   void SetOnNotifiedHandler(TOnNotifiedHandler const & handler);
-  virtual void OnNotified(Observable const * obj);
+  virtual void OnNotified(Observable const * obj) override;
 
 protected:
   TOnNotifiedHandler m_onNotifiedHandler;

@@ -11,7 +11,7 @@ class Bullet;
 class Gun : public GameEntity, public Observer
 {
 public:
-  using TOnNotifiedHandler = std::function<void(Observable const *)>;
+  using TOnNotifiedHandler = std::function<void(Observer *, Observable const *)>;
   Gun() = default;
   Gun(Gun const & obj);
   Gun(Gun const && obj);

@@ -63,7 +63,7 @@ void Gun::OnNotified(Observable const * obj)
 {
   if (m_onNotifiedHandler != nullptr)
   {
-    m_onNotifiedHandler(obj);
+    m_onNotifiedHandler(this, obj);
   }
 }
 
