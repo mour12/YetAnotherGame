@@ -17,10 +17,15 @@ public:
   void ToString(std::ostream & os) const override;
 
   FactoryType GetType() override;
-  std::unique_ptr<GameEntity> Create() override;
-  std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr) override;
-  std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr) override;
-  std::unique_ptr<GameEntity> Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr) override;
+  template <typename ...Args>
+  std::unique_ptr<GameEntity> Create(Args &&... args)
+  {
+    return std::unique_ptr<GameEntity>(new Alien(std::forward<Args>(args)...));
+  }
+//  std::unique_ptr<GameEntity> Create() override;
+//  std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr) override;
+//  std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr) override;
+//  std::unique_ptr<GameEntity> Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr) override;
 
   Alien & operator=(Alien const & obj);
 

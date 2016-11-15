@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "game_entity_factory.hpp"
+#include "game_entity.hpp"
 #include "gun.hpp"
 #include "alien.hpp"
 #include "bullet.hpp"

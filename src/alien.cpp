@@ -58,22 +58,22 @@ FactoryType Alien::GetType()
 {
   return FactoryType::AlienType;
 }
-std::unique_ptr<GameEntity> Alien::Create()
-{
-  return std::unique_ptr<GameEntity>(new Alien());
-}
-std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
-{
-  return std::unique_ptr<GameEntity>(new Alien(box, direction, velocity, health, route, spacePtr));
-}
-std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
-{
-  throw std::logic_error("Not implemented in Alien class.");
-}
-std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
-{
-  throw std::logic_error("Not implemented in Alien class.");
-}
+//std::unique_ptr<GameEntity> Alien::Create()
+//{
+//  return std::unique_ptr<GameEntity>(new Alien());
+//}
+//std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
+//{
+//  return std::unique_ptr<GameEntity>(new Alien(box, direction, velocity, health, route, spacePtr));
+//}
+//std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
+//{
+//  throw std::logic_error("Not implemented in Alien class.");
+//}
+//std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
+//{
+//  throw std::logic_error("Not implemented in Alien class.");
+//}
 
 void Alien::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
 {
