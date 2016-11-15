@@ -8,6 +8,16 @@ Alien::Alien(Alien const & obj)
   : GameEntity(obj), m_route(obj.m_route)
 {}
 
+Alien::Alien(Alien const && obj)
+{
+  m_box = std::move(obj.m_box);
+  m_direction = std::move(obj.m_direction);
+  m_velocity = std::move(obj.m_velocity);
+  m_health = std::move(obj.m_health);
+  m_spacePtr = std::move(obj.m_spacePtr);
+  m_route = std::move(obj.m_route);
+}
+
 Alien & Alien::operator=(Alien const & obj)
 {
   if (this == &obj) return *this;
@@ -42,6 +52,40 @@ void Alien::Shoot() // TODO: Вынести размеры, скорость и 
   Box2D box(leftBottomCorner, rightTopCorner);
   auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
+}
+
+FactoryType Alien::GetType()
+{
+  return FactoryType::AlienType;
+}
+std::unique_ptr<GameEntity> Alien::Create()
+{
+  return std::unique_ptr<GameEntity>(new Alien());
+}
+std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
+{
+  return std::unique_ptr<GameEntity>(new Alien(box, direction, velocity, health, route, spacePtr));
+}
+std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Alien class.");
+}
+std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Alien class.");
+}
+
+void Alien::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
+{
+  m_onNotifiedHandler = handler;
+}
+
+void Alien::OnNotified(Observable const * obj)
+{
+  if (m_onNotifiedHandler != nullptr)
+  {
+    m_onNotifiedHandler(this, obj);
+  }
 }
 
 void Alien::ToString(std::ostream & os) const

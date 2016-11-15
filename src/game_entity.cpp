@@ -6,6 +6,15 @@ GameEntity::GameEntity(GameEntity const & obj)
   : m_box(obj.m_box), m_direction(obj.m_direction), m_velocity(obj.m_velocity), m_health(obj.m_health), m_spacePtr(obj.m_spacePtr)
 {}
 
+GameEntity::GameEntity(GameEntity const && obj)
+{
+  m_box = std::move(obj.m_box);
+  m_direction = std::move(obj.m_direction);
+  m_velocity = std::move(obj.m_velocity);
+  m_health = std::move(obj.m_health);
+  m_spacePtr = std::move(obj.m_spacePtr);
+}
+
 GameEntity::GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
   : m_box(box), m_direction(direction), m_velocity(velocity), m_health(health), m_spacePtr(spacePtr)
 {}

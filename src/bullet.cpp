@@ -1,8 +1,13 @@
 #include <exception>
 #include <stdexcept>
+#include <algorithm>
 #include "bullet.hpp"
 
 Bullet::Bullet(Bullet const & obj)
+  : GameEntity(obj)
+{}
+
+Bullet::Bullet(Bullet const && obj)
   : GameEntity(obj)
 {}
 
@@ -29,6 +34,27 @@ bool Bullet::operator==(Bullet const & obj) const
 bool Bullet::operator!=(Bullet const & obj) const
 {
   return !operator==(obj);
+}
+
+FactoryType Bullet::GetType()
+{
+  return FactoryType::BulletType;
+}
+std::unique_ptr<GameEntity> Bullet::Create()
+{
+  return std::unique_ptr<GameEntity>(new Bullet());
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Bullet class.");
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
+{
+  return std::unique_ptr<GameEntity>(new Bullet(box, direction, velocity, health, spacePtr));
+}
+std::unique_ptr<GameEntity> Bullet::Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr)
+{
+  throw std::logic_error("Not implemented in Bullet class.");
 }
 
 void Bullet::ToString(std::ostream & os) const

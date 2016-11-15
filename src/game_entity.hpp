@@ -1,6 +1,8 @@
 #pragma once
 
+#include "factory_type.hpp"
 #include "box2d.hpp"
+#include "ray2d.hpp"
 #include "direction2d.hpp"
 #include "space.hpp"
 #include <memory>
@@ -10,7 +12,9 @@ class Space;
 class GameEntity
 {
 public:
+  GameEntity() = default;
   GameEntity(GameEntity const & obj);
+  GameEntity(GameEntity const && obj);
   GameEntity(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
   virtual ~GameEntity() {}
 
@@ -18,6 +22,13 @@ public:
   bool operator!=(GameEntity const & obj) const;
 
   Point2D Сoordinates() const;
+
+  virtual FactoryType GetType() = 0;
+  virtual std::unique_ptr<GameEntity> Create() = 0;
+  virtual std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr) = 0;
+  virtual std::unique_ptr<GameEntity> Create(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr) = 0;
+  virtual std::unique_ptr<GameEntity> Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr) = 0;
+
 
   virtual void Update() {}
   virtual void ToString(std::ostream & os) const = 0;
