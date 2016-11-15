@@ -18,7 +18,7 @@ void Observable::Notify() const
 {
   for (auto observer : observers)
   {
-    if (observer.lock() != nullptr)
+    if (!observer.expired())
     {
       observer.lock()->OnNotified(this);
     }

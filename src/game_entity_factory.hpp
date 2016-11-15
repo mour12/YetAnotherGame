@@ -15,10 +15,6 @@ public:
   {
     return m_templates[type]->Create(std::forward<Args>(args)...);
   }
-//  std::unique_ptr<GameEntity> Create(FactoryType type);
-//  std::unique_ptr<GameEntity> Create(FactoryType type, Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePrt);
-//  std::unique_ptr<GameEntity> Create(FactoryType type, Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
-//  std::unique_ptr<GameEntity> Create(FactoryType type, Box2D const & box, int health, std::weak_ptr<Space> const spacePtr);
 
 private:
   using Templates = std::unordered_map<int, std::unique_ptr<GameEntity>>;
