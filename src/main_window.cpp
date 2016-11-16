@@ -3,48 +3,40 @@
 #include <QApplication>
 #include <QGroupBox>
 #include <QLabel>
-#include <QComboBox>
-#include <QSpinBox>
+#include <QPushButton>
 
 typedef void (QWidget::*QWidgetVoidSlot)();
 
 MainWindow::MainWindow()
 {
-  QGroupBox * box = new QGroupBox("Settings", this);
-  box->setFixedSize(600, 800);
+  QGridLayout *layout = new QGridLayout(this);
 
-  QGridLayout * layout = new QGridLayout(box);
+  QPushButton *startGame = new QPushButton("Start new game");
+  connect(startGame, SIGNAL(clicked()), SLOT(StartGame()));
+  layout->addWidget(startGame, 0, 0);
 
-  box -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+  QPushButton *settings = new QPushButton("Settings");
+  connect(settings, SIGNAL(clicked()), SLOT(OpenSettings()));
+  layout->addWidget(settings, 1, 0);
 
-  QHBoxLayout * hb1 = new QHBoxLayout();
-  hb1->addWidget(new QLabel("Difficulty"));
-  QComboBox * combobox = new QComboBox();
-  combobox->addItem("Easy");
-  combobox->addItem("Medium");
-  combobox->addItem("Hard");
-  hb1->addWidget(combobox);
-  connect(hb1, SIGNAL(currentIndexChanged(int)), SLOT(OnDifficultyChanged(int)));
-  layout->addLayout(hb1, 0, 0);
+  QPushButton *exitGame = new QPushButton("Exit");
+  connect(exitGame, SIGNAL(clicked()), SLOT(close()));
+  layout->addWidget(exitGame, 2, 0);
 
-  QHBoxLayout * hb2 = new QHBoxLayout();
-  hb2->addWidget(new QLabel("Max alien quantity"));
-  QSpinBox * spinbox = new QSpinBox();
-  spinbox->setRange(10, 1000);
-  spinbox->setValue(100);
-  hb2->addWidget(spinbox);
-  layout->addLayout(hb2, 1, 0);
+  QWidget *window = new QWidget();
+  window->setLayout(layout);
 
-  QHBoxLayout * hb3 = new QHBoxLayout();
-  hb3->addWidget(new QLabel("Alien speed"));
-  QSpinBox * spinbox2 = new QSpinBox();
-  spinbox2->setRange(1, 10);
-  spinbox2->setValue(5);
-  hb3->addWidget(spinbox2);
-  layout->addLayout(hb3, 2, 0);
+  setCentralWidget(window);
 }
 
-void MainWindow::OnDifficultyChanged(int index)
+void MainWindow::StartGame()
 {
-  std::cout << "I'm called" << index;
+  //
+}
+
+void MainWindow::OpenSettings()
+{
+  SettingsWindow *settings = new SettingsWindow();
+  settings->show();
+  settings->showFullScreen();
 }

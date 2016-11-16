@@ -1,10 +1,9 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QTimer>
 #include <QGridLayout>
-#include <QOpenGLWidget>
 #include <iostream>
+#include "settings_window.hpp"
 
 class MainWindow : public QMainWindow
 {
@@ -14,5 +13,6 @@ public:
   MainWindow();
 
 private slots:
-  void OnDifficultyChanged(int index);
+  void StartGame();
+  void OpenSettings();
 };
