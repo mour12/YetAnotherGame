@@ -9,7 +9,12 @@ typedef void (QWidget::*QWidgetVoidSlot)();
 
 MainWindow::MainWindow()
 {
-  QGridLayout *layout = new QGridLayout(this);
+  QGroupBox *box = new QGroupBox("Main menu", this);
+  QGridLayout *layout = new QGridLayout(box);
+
+  box->setFixedSize(300, 400);
+  box->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+  box->setAlignment(Qt::AlignCenter);
 
   QPushButton *startGame = new QPushButton("Start new game");
   connect(startGame, SIGNAL(clicked()), SLOT(StartGame()));
@@ -23,10 +28,7 @@ MainWindow::MainWindow()
   connect(exitGame, SIGNAL(clicked()), SLOT(close()));
   layout->addWidget(exitGame, 2, 0);
 
-  QWidget *window = new QWidget();
-  window->setLayout(layout);
-
-  setCentralWidget(window);
+  setCentralWidget(box);
 }
 
 void MainWindow::StartGame()
