@@ -1,8 +1,14 @@
-#include <iostream>
+#include <QApplication>
+#include <QMainWindow>
+#include <QSurfaceFormat>
+#include "main_window.hpp"
 
-int main()
+int main(int argc, char ** argv)
 {
-  std::cout << "Hello World!" << std::endl;
-  return 0;
-}
+  QApplication a(argc, argv);
 
+  MainWindow mw;
+  mw.show();
+  mw.showFullScreen();
+  return a.exec();
+}
