@@ -15,6 +15,7 @@ find_package(Qt5OpenGL REQUIRED)
 set(SOURCE_ROOT src)
 # Scan source folder to find all sources and put the result to SRC_LIST.
 aux_source_directory(${SOURCE_ROOT} SRC_LIST)
+qt5_wrap_cpp(QT_WRAPPED_SRC ${SRC_LIST})
 
 # JSON
 add_subdirectory(3party/jsoncpp)
