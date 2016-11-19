@@ -19,6 +19,10 @@ private:
   QOpenGLWidget * m_glWidget = nullptr;
   QStackedWidget * m_widgets = nullptr;
 
+  void InitMainMenu();
+  void InitSettings();
+  void InitGame();
+
 private slots:
   void StartGame();
   void OpenSettings();
