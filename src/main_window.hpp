@@ -4,7 +4,6 @@
 #include <QGridLayout>
 #include <iostream>
 #include <QtWidgets/QStackedWidget>
-#include "settings_window.hpp"
 
 class MainWindow : public QMainWindow
 {
