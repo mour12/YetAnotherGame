@@ -1,4 +1,5 @@
 #include "main_window.hpp"
+#include "gl_widget.hpp"
 
 #include <QApplication>
 #include <QGroupBox>
@@ -77,12 +78,20 @@ MainWindow::MainWindow()
   connect(exitSettings, SIGNAL(clicked()), SLOT(OnSettingsClosed()));
   hb3->addWidget(exitSettings);
 
+  m_glWidget = new GLWidget(centralWidget, qRgb(20, 20, 50));
+  m_glWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+  m_widgets->insertWidget(2, m_glWidget);
+  m_timer = new QTimer(this);
+  m_timer->setInterval(10);
+  connect(m_timer, &QTimer::timeout, m_glWidget, static_cast<QWidgetVoidSlot>(&QWidget::update));
+  m_timer->start();
+
   setCentralWidget(centralWidget);
 }
 
 void MainWindow::StartGame()
 {
-  //
+  m_widgets->setCurrentIndex(2);
 }
 
 void MainWindow::OpenSettings()
@@ -104,3 +113,4 @@ void MainWindow::OnSettingsClosed()
 {
   m_widgets->setCurrentIndex(0);
 }
+

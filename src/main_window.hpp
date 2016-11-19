@@ -4,6 +4,8 @@
 #include <QGridLayout>
 #include <iostream>
 #include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QOpenGLWidget>
+#include <QTimer>
 
 class MainWindow : public QMainWindow
 {
@@ -13,7 +15,9 @@ public:
   MainWindow();
 
 private:
-  QStackedWidget * m_widgets;
+  QTimer * m_timer = nullptr;
+  QOpenGLWidget * m_glWidget = nullptr;
+  QStackedWidget * m_widgets = nullptr;
 
 private slots:
   void StartGame();
