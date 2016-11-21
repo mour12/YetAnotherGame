@@ -122,7 +122,7 @@ void MainWindow::InitSettings()
 
 void MainWindow::InitGame()
 {
-  m_glWidget = new GLWidget(this, qRgb(20, 20, 50));
+  m_glWidget = new GLWidget(this, qRgb(0, 0, 0));
   m_glWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
   m_widgets->insertWidget(2, m_glWidget);
 

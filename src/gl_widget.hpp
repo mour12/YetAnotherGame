@@ -28,14 +28,6 @@ protected:
   void Update(float elapsedSeconds);
   void Render();
 
-  void mousePressEvent(QMouseEvent * e) override;
-  void mouseDoubleClickEvent(QMouseEvent * e) override;
-  void mouseMoveEvent(QMouseEvent * e) override;
-  void mouseReleaseEvent(QMouseEvent * e) override;
-  void wheelEvent(QWheelEvent * e) override;
-  void keyPressEvent(QKeyEvent * e) override;
-  void keyReleaseEvent(QKeyEvent * e) override;
-
 private:
   int L2D(int px) const { return px * devicePixelRatio(); }
 
@@ -50,5 +42,4 @@ private:
   TexturedRect * m_texturedRect = nullptr;
 
   QVector2D m_position = QVector2D(200, 200);
-  std::array<bool, 4> m_directions = { false, false, false, false };
 };
