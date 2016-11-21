@@ -28,15 +28,12 @@ void GLWidget::initializeGL()
 
   m_texture = new QOpenGLTexture(QImage("data/star.png"));
 
-<<<<<<< Updated upstream
-=======
   for (auto &star : m_stars) {
     star.setX((float)(qrand() % 100000) / 100000);
     star.setY((float)(qrand() % 100000) / 100000);
     star.setZ((float)(qrand() % 100000) / 100000);
   }
 
->>>>>>> Stashed changes
   m_time.start();
 }
 
@@ -96,12 +93,8 @@ void GLWidget::Update(float elapsedSeconds)
 
 void GLWidget::Render()
 {
-<<<<<<< Updated upstream
-  for (int i = 0; i < 100; ++i)
-=======
   for (auto &star : m_stars)
->>>>>>> Stashed changes
   {
-    m_texturedRect->Render(m_texture, QVector2D(16 + qrand() % (m_screenSize.width() - 32), 16 + qrand() % (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
+    m_texturedRect->Render(m_texture, QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
   }
 }
