@@ -29,7 +29,7 @@ private:
 
   int m_positionAttr = 0;
   int m_texCoordAttr = 0;
-  int m_texAlphaAttr = 0;
+  int m_texAlphaUniform = 0;
   int m_modelViewProjectionUniform = 0;
   int m_textureUniform = 0;
 };
