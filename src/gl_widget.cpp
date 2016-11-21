@@ -95,6 +95,6 @@ void GLWidget::Render()
 {
   for (auto &star : m_stars)
   {
-    m_texturedRect->Render(m_texture, QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
+    m_texturedRect->Render(m_texture, star.z(), QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
   }
 }

@@ -33,11 +33,13 @@ bool TexturedRect::Initialize(QOpenGLFunctions * functions)
   m_fragmentShader = new QOpenGLShader(QOpenGLShader::Fragment);
   char const * fsrc =
     "varying highp vec2 v_texCoord;\n"
+    "uniform highp float f_alpha;\n"
     "uniform sampler2D tex;\n"
     "void main(void)\n"
     "{\n"
     "  highp vec4 color = texture2D(tex, v_texCoord);\n"
-    "  gl_FragColor = clamp(color, 0.0, 1.0);\n"
+    "  highp vec4 colorWithAlpha = vec4(color.xyz, color[3] * f_alpha);\n"
+    "  gl_FragColor = clamp(colorWithAlpha, 0.0, 1.0);\n"
     "}\n";
   if (!m_fragmentShader->compileSourceCode(fsrc)) return false;
 
@@ -48,6 +50,7 @@ bool TexturedRect::Initialize(QOpenGLFunctions * functions)
 
   m_positionAttr = m_program->attributeLocation("a_position");
   m_texCoordAttr = m_program->attributeLocation("a_texCoord");
+  m_texAlphaAttr = m_program->uniformLocation("f_alpha");
   m_modelViewProjectionUniform = m_program->uniformLocation("u_modelViewProjection");
   m_textureUniform = m_program->uniformLocation("tex");
 
@@ -69,7 +72,7 @@ bool TexturedRect::Initialize(QOpenGLFunctions * functions)
   return true;
 }
 
-void TexturedRect::Render(QOpenGLTexture * texture, QVector2D const & position,
+void TexturedRect::Render(QOpenGLTexture * texture, float alpha, QVector2D const & position,
                           QSize const & size, QSize const & screenSize)
 {
   if (texture == nullptr) return;
@@ -83,6 +86,7 @@ void TexturedRect::Render(QOpenGLTexture * texture, QVector2D const & position,
   m_program->bind();
   m_program->setUniformValue(m_textureUniform, 0); // use texture unit 0
   m_program->setUniformValue(m_modelViewProjectionUniform, mvp);
+  m_program->setUniformValue(m_texAlphaAttr, alpha);
   texture->bind();
   m_program->enableAttributeArray(m_positionAttr);
   m_program->enableAttributeArray(m_texCoordAttr);

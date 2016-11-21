@@ -15,7 +15,7 @@ public:
   ~TexturedRect();
 
   bool Initialize(QOpenGLFunctions * functions);
-  void Render(QOpenGLTexture * texture, QVector2D const & position,
+  void Render(QOpenGLTexture * texture, float alpha, QVector2D const & position,
               QSize const & size, QSize const & screenSize);
 
 private:
@@ -29,6 +29,7 @@ private:
 
   int m_positionAttr = 0;
   int m_texCoordAttr = 0;
+  int m_texAlphaAttr = 0;
   int m_modelViewProjectionUniform = 0;
   int m_textureUniform = 0;
 };
