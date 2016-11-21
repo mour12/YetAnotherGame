@@ -5,6 +5,8 @@
 #include <QCoreApplication>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QGuiApplication>
+#include <cmath>
+#include <QtGui/QtGui>
 
 GLWidget::GLWidget(QWidget * p, QColor const & background)
   : m_parent(p)
@@ -29,9 +31,9 @@ void GLWidget::initializeGL()
   m_texture = new QOpenGLTexture(QImage("data/star.png"));
 
   for (auto &star : m_stars) {
-    star.setX((float)(qrand() % 100000) / 100000);
-    star.setY((float)(qrand() % 100000) / 100000);
-    star.setZ((float)(qrand() % 100000) / 100000);
+    star.setX((float)(qrand() % 1000000) / 1000000);
+    star.setY((float)(qrand() % 1000000) / 1000000);
+    star.setZ((float)(qrand() % 1000000) / 1000000 * M_PI);
   }
 
   m_time.start();
@@ -40,7 +42,7 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
   int const elapsed = m_time.elapsed();
-  Update(elapsed / 1000.0f);
+  Update();
 
   QPainter painter;
   painter.begin(this);
@@ -86,15 +88,24 @@ void GLWidget::resizeGL(int w, int h)
   m_screenSize.setHeight(h);
 }
 
-void GLWidget::Update(float elapsedSeconds)
+void GLWidget::Update()
 {
-//
+  for (auto &star : m_stars)
+  {
+    star.setZ(star.z() + 0.005f);
+    if (star[2] >= M_PI)
+    {
+      star.setZ(0.0f);
+      star.setX((float)(qrand() % 1000000) / 1000000);
+      star.setY((float)(qrand() % 1000000) / 1000000);
+    }
+  }
 }
 
 void GLWidget::Render()
 {
   for (auto &star : m_stars)
   {
-    m_texturedRect->Render(m_texture, star.z(), QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
+    m_texturedRect->Render(m_texture, sin(star.z()), QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
   }
 }

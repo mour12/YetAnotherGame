@@ -25,7 +25,7 @@ protected:
   void paintGL() override;
   void initializeGL() override;
 
-  void Update(float elapsedSeconds);
+  void Update();
   void Render();
 
 private:
@@ -41,5 +41,5 @@ private:
   QOpenGLTexture * m_texture = nullptr;
   TexturedRect * m_texturedRect = nullptr;
 
-  std::vector<QVector3D> m_stars = std::vector<QVector3D>(100);
+  std::vector<QVector3D> m_stars = std::vector<QVector3D>(150);
 };
