@@ -31,9 +31,10 @@ void GLWidget::initializeGL()
   m_texture = new QOpenGLTexture(QImage("data/star.png"));
 
   for (auto &star : m_stars) {
-    star.setX((float)(qrand() % 1000000) / 1000000);
-    star.setY((float)(qrand() % 1000000) / 1000000);
-    star.setZ((float)(qrand() % 1000000) / 1000000 * M_PI);
+    star[0] = (float)(qrand() % 1000000) / 1000000;
+    star[1] = (float)(qrand() % 1000000) / 1000000;
+    star[2] = (float)(qrand() % 1000000) / 1000000;
+    star[3] = 0.5f + (float)(qrand() % 1000000) / 1000000;
   }
 
   m_time.start();
@@ -92,20 +93,23 @@ void GLWidget::Update()
 {
   for (auto &star : m_stars)
   {
-    star.setZ(star.z() + 0.005f);
-    if (star[2] >= M_PI)
+    star[2] += 0.001f;
+    if (star[2] >= 1.0f)
     {
-      star.setZ(0.0f);
-      star.setX((float)(qrand() % 1000000) / 1000000);
-      star.setY((float)(qrand() % 1000000) / 1000000);
+      star[0] = (float)(qrand() % 1000000) / 1000000;
+      star[1] = (float)(qrand() % 1000000) / 1000000;
+      star[2] = 0.0f;
+      star[3] = 0.5f + (float)(qrand() % 1000000) / 1000000;
     }
   }
 }
 
 void GLWidget::Render()
 {
+  int constexpr kRectSize = 32;
   for (auto &star : m_stars)
   {
-    m_texturedRect->Render(m_texture, sin(star.z()), QVector2D(16 + star.x() * (m_screenSize.width() - 32), 16 + star.y() * (m_screenSize.height() - 32)), QSize(32, 32), m_screenSize);
+    int rectSize = kRectSize * star[3];
+    m_texturedRect->Render(m_texture, sin(star[2] * M_PI), QVector2D(rectSize / 2 + star[0] * (m_screenSize.width() - rectSize), rectSize / 2 + star[1] * (m_screenSize.height() - rectSize)), QSize(rectSize, rectSize), m_screenSize);
   }
 }

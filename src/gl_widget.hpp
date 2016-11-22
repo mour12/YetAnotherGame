@@ -41,5 +41,5 @@ private:
   QOpenGLTexture * m_texture = nullptr;
   TexturedRect * m_texturedRect = nullptr;
 
-  std::vector<QVector3D> m_stars = std::vector<QVector3D>(150);
+  std::vector<float[4]> m_stars = std::vector<float[4]>(150);
 };

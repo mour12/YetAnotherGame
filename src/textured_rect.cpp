@@ -38,7 +38,7 @@ bool TexturedRect::Initialize(QOpenGLFunctions * functions)
     "void main(void)\n"
     "{\n"
     "  highp vec4 color = texture2D(tex, v_texCoord);\n"
-    "  highp vec4 colorWithAlpha = vec4(color.xyz, color[3] * u_alpha);\n"
+    "  highp vec4 colorWithAlpha = vec4(color.rgb, color.a * u_alpha);\n"
     "  gl_FragColor = clamp(colorWithAlpha, 0.0, 1.0);\n"
     "}\n";
   if (!m_fragmentShader->compileSourceCode(fsrc)) return false;
