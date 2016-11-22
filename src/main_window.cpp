@@ -1,4 +1,5 @@
 #include "main_window.hpp"
+#include "gl_widget.hpp"
 
 #include <QApplication>
 #include <QGroupBox>
@@ -10,20 +11,53 @@ typedef void (QWidget::*QWidgetVoidSlot)();
 
 MainWindow::MainWindow()
 {
-  auto centralWidget = new QWidget(this);
-
-  QHBoxLayout * layout = new QHBoxLayout(centralWidget);
-  layout->setAlignment(Qt::AlignCenter);
-
-  m_widgets = new QStackedWidget(centralWidget);
+  m_widgets = new QStackedWidget(this);
   m_widgets->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-  layout->addWidget(m_widgets);
 
-  QGroupBox * mainBox = new QGroupBox("Main menu", centralWidget);
+  InitMainMenu();
+  InitSettings();
+  InitGame();
+
+  setCentralWidget(m_widgets);
+}
+
+void MainWindow::StartGame()
+{
+  m_widgets->setCurrentIndex(2);
+}
+
+void MainWindow::OpenSettings()
+{
+  m_widgets->setCurrentIndex(1);
+}
+
+void MainWindow::OnDifficultyChanged(int index)
+{
+  std::cout << "Difficulty called " << index << '\n';
+}
+
+void MainWindow::OnLanguageChanged(int index)
+{
+  std::cout << "Language called " << index << '\n';
+}
+
+void MainWindow::OnSettingsClosed()
+{
+  m_widgets->setCurrentIndex(0);
+}
+
+void MainWindow::InitMainMenu()
+{
+  auto mainWrapper = new QWidget(m_widgets);
+  auto mainWrapperLayout = new QHBoxLayout(mainWrapper);
+
+  QGroupBox * mainBox = new QGroupBox("Main menu", mainWrapper);
+  mainWrapperLayout->addWidget(mainBox);
+
   mainBox->setFixedSize(300, 400);
   mainBox->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
   mainBox->setAlignment(Qt::AlignCenter);
-  m_widgets->insertWidget(0, mainBox);
+  m_widgets->insertWidget(0, mainWrapper);
 
   QGridLayout * mainBoxLayout = new QGridLayout(mainBox);
 
@@ -38,12 +72,20 @@ MainWindow::MainWindow()
   QPushButton * exitGame = new QPushButton("Exit");
   connect(exitGame, SIGNAL(clicked()), SLOT(close()));
   mainBoxLayout->addWidget(exitGame, 2, 0);
+}
 
-  QGroupBox * settingsBox = new QGroupBox("Settings", centralWidget);
+void MainWindow::InitSettings()
+{
+  auto settingsWrapper = new QWidget(m_widgets);
+  auto settingsWrapperLayout = new QHBoxLayout(settingsWrapper);
+
+  QGroupBox * settingsBox = new QGroupBox("Settings", settingsWrapper);
+  settingsWrapperLayout->addWidget(settingsBox);
+
   settingsBox->setFixedSize(300, 400);
   settingsBox->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
   settingsBox->setAlignment(Qt::AlignCenter);
-  m_widgets->insertWidget(1, settingsBox);
+  m_widgets->insertWidget(1, settingsWrapper);
 
   QGridLayout * settingsBoxLayout = new QGridLayout(settingsBox);
 
@@ -76,31 +118,17 @@ MainWindow::MainWindow()
   QPushButton * exitSettings = new QPushButton("Back to main menu");
   connect(exitSettings, SIGNAL(clicked()), SLOT(OnSettingsClosed()));
   hb3->addWidget(exitSettings);
-
-  setCentralWidget(centralWidget);
 }
 
-void MainWindow::StartGame()
+void MainWindow::InitGame()
 {
-  //
-}
+  m_glWidget = new GLWidget(this, qRgb(0, 0, 0));
+  m_glWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+  m_widgets->insertWidget(2, m_glWidget);
 
-void MainWindow::OpenSettings()
-{
-  m_widgets->setCurrentIndex(1);
-}
+  m_timer = new QTimer(this);
+  m_timer->setInterval(10);
 
-void MainWindow::OnDifficultyChanged(int index)
-{
-  std::cout << "Difficulty called " << index << '\n';
-}
-
-void MainWindow::OnLanguageChanged(int index)
-{
-  std::cout << "Language called " << index << '\n';
-}
-
-void MainWindow::OnSettingsClosed()
-{
-  m_widgets->setCurrentIndex(0);
+  connect(m_timer, &QTimer::timeout, m_glWidget, static_cast<QWidgetVoidSlot>(&QWidget::update));
+  m_timer->start();
 }
