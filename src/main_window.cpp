@@ -1,5 +1,6 @@
 #include "main_window.hpp"
 #include "gl_widget.hpp"
+#include "xml_settings.hpp"
 
 #include <QApplication>
 #include <QGroupBox>
@@ -8,6 +9,8 @@
 #include <QtWidgets/QComboBox>
 
 typedef void (QWidget::*QWidgetVoidSlot)();
+
+XmlSettings & settings = XmlSettings::LoadSettings();
 
 MainWindow::MainWindow()
 {
@@ -33,12 +36,14 @@ void MainWindow::OpenSettings()
 
 void MainWindow::OnDifficultyChanged(int index)
 {
-  std::cout << "Difficulty called " << index << '\n';
+  settings.m_difficulty = index;
+  settings.SaveSettings();
 }
 
 void MainWindow::OnLanguageChanged(int index)
 {
-  std::cout << "Language called " << index << '\n';
+    settings.m_language = index;
+    settings.SaveSettings();
 }
 
 void MainWindow::OnSettingsClosed()
@@ -91,24 +96,24 @@ void MainWindow::InitSettings()
 
   QHBoxLayout * hb1 = new QHBoxLayout();
   settingsBoxLayout->addLayout(hb1, 0, 0);
-
   hb1->addWidget(new QLabel("Difficulty"));
 
   QComboBox * difficultyCombobox = new QComboBox();
   difficultyCombobox->addItem("Easy");
   difficultyCombobox->addItem("Medium");
   difficultyCombobox->addItem("Hard");
+  difficultyCombobox->setCurrentIndex(settings.m_difficulty);
   connect(difficultyCombobox, SIGNAL(currentIndexChanged(int)), SLOT(OnDifficultyChanged(int)));
   hb1->addWidget(difficultyCombobox);
 
   QHBoxLayout * hb2 = new QHBoxLayout();
   settingsBoxLayout->addLayout(hb2, 1, 0);
-
   hb2->addWidget(new QLabel("Language"));
 
   QComboBox * languageCombobox = new QComboBox();
   languageCombobox->addItem("RU");
   languageCombobox->addItem("EN");
+  languageCombobox->setCurrentIndex(settings.m_language);
   connect(languageCombobox, SIGNAL(currentIndexChanged(int)), SLOT(OnLanguageChanged(int)));
   hb2->addWidget(languageCombobox);
 
