@@ -22,7 +22,6 @@ private:
   void InitMainMenu();
   void InitSettings();
   void InitGame();
-  void InitSettingsXml();
 
 private slots:
   void StartGame();

@@ -29,7 +29,7 @@ TEST(logger_test, test_point2d)
   EXPECT_EQ(ss1.str(), ss2.str());
 }
 
-TEST(logger_file_test, test_point2d)
+TEST(logger_test, test_log_to_file)
 {
   std::stringstream ss;
   std::string res;
