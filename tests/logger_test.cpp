@@ -7,6 +7,7 @@
 #include "space.hpp"
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include <unordered_set>
 
 Logger & logger = Logger::GetInstance();
@@ -26,6 +27,34 @@ TEST(logger_test, test_point2d)
   ss1 << str << std::endl;
 
   EXPECT_EQ(ss1.str(), ss2.str());
+}
+
+TEST(logger_test, test_log_to_file)
+{
+  std::stringstream ss;
+  std::string res;
+  std::string str = " : Point2D {0, 0}";
+
+  Point2D p1;
+  std::ofstream fos("log.txt");
+  if (fos.is_open())
+  {
+    logger.Log(fos, p1);
+    fos.close();
+  }
+  std::ifstream fis("log.txt");
+  if (fis.is_open())
+  {
+    std::getline(fis, res);
+    fis.close();
+  }
+  auto now = std::chrono::system_clock::now();
+  auto now_c = std::chrono::system_clock::to_time_t(now);
+  ss << std::put_time(std::localtime(&now_c), "%c");
+  ss << str << std::endl;
+  res += '\n';
+
+  EXPECT_EQ(res, ss.str());
 }
 
 TEST(logger_test, test_vector_of_point2d)
