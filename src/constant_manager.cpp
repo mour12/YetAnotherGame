@@ -1,10 +1,10 @@
-#include "game_constants.hpp"
+#include "constant_manager.hpp"
 #include "game_enums.hpp"
 #include "xml_settings.hpp"
 
 XmlSettings & difficultySettings = XmlSettings::LoadSettings();
 
-float ConstantContainer::Speed()
+float ConstantManager::Speed()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -21,7 +21,7 @@ float ConstantContainer::Speed()
       break;
   }
 }
-int ConstantContainer::GunHp()
+int ConstantManager::GunHp()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -38,7 +38,7 @@ int ConstantContainer::GunHp()
       break;
   }
 }
-int ConstantContainer::BulletDamage()
+int ConstantManager::BulletDamage()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -55,7 +55,7 @@ int ConstantContainer::BulletDamage()
       break;
   }
 }
-int ConstantContainer::ObstacleQuantity()
+int ConstantManager::ObstacleQuantity()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -72,7 +72,7 @@ int ConstantContainer::ObstacleQuantity()
       break;
   }
 }
-int ConstantContainer::AlienQuantity()
+int ConstantManager::AlienQuantity()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -89,7 +89,7 @@ int ConstantContainer::AlienQuantity()
       break;
   }
 }
-float ConstantContainer::AlienSize()
+float ConstantManager::AlienSize()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
@@ -106,7 +106,7 @@ float ConstantContainer::AlienSize()
       break;
   }
 }
-float ConstantContainer::ObstacleSize()
+float ConstantManager::ObstacleSize()
 {
   switch (difficultySettings.m_difficulty) {
   case Easy:
