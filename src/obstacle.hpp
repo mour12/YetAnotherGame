@@ -1,6 +1,6 @@
 #pragma once
 
-#include "factory_type.hpp"
+#include "game_enums.hpp"
 #include "game_entity.hpp"
 
 class Obstacle: public GameEntity

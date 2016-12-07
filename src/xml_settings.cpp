@@ -11,11 +11,11 @@ XmlSettings::XmlSettings()
 
     pugi::xml_node difficulty = root.child("difficulty");
     if (!difficulty.empty())
-      m_difficulty = difficulty.attribute("value").as_int();
+      m_difficulty = static_cast<GameDifficulty>(difficulty.attribute("value").as_int());
 
     pugi::xml_node language = root.child("language");
     if (!language.empty())
-      m_language = language.attribute("value").as_int();
+      m_language = static_cast<Language>(language.attribute("value").as_int());
   }
 }
 

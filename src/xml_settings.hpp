@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 #include <string>
+#include "game_enums.hpp"
 
 class XmlSettings
 {
@@ -15,8 +16,8 @@ public:
 
   void SaveSettings();
 
-  int m_difficulty = 0;
-  int m_language = 0;
+  GameDifficulty m_difficulty = Easy;
+  Language m_language = EN;
 
 private:
   XmlSettings();
