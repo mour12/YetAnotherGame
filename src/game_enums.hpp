@@ -7,3 +7,16 @@ enum FactoryType
   BulletType,
   ObstacleType
 };
+
+enum GameDifficulty
+{
+  Easy,
+  Medium,
+  Hard
+};
+
+enum Language
+{
+  EN,
+  RU
+};

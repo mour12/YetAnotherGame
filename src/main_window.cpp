@@ -1,6 +1,7 @@
 #include "main_window.hpp"
 #include "gl_widget.hpp"
 #include "xml_settings.hpp"
+#include "language_manager.hpp"
 
 #include <QApplication>
 #include <QGroupBox>
@@ -11,6 +12,7 @@
 typedef void (QWidget::*QWidgetVoidSlot)();
 
 XmlSettings & settings = XmlSettings::LoadSettings();
+LanguageManager & language = LanguageManager::GetLanguageManager();
 
 MainWindow::MainWindow()
 {
@@ -36,13 +38,13 @@ void MainWindow::OpenSettings()
 
 void MainWindow::OnDifficultyChanged(int index)
 {
-  settings.m_difficulty = index;
+  settings.m_difficulty = static_cast<GameDifficulty>(index);
   settings.SaveSettings();
 }
 
 void MainWindow::OnLanguageChanged(int index)
 {
-    settings.m_language = index;
+    settings.m_language = static_cast<Language>(index);
     settings.SaveSettings();
 }
 
@@ -56,7 +58,7 @@ void MainWindow::InitMainMenu()
   auto mainWrapper = new QWidget(m_widgets);
   auto mainWrapperLayout = new QHBoxLayout(mainWrapper);
 
-  QGroupBox * mainBox = new QGroupBox("Main menu", mainWrapper);
+  QGroupBox * mainBox = new QGroupBox(language.MainMenu(), mainWrapper);
   mainWrapperLayout->addWidget(mainBox);
 
   mainBox->setFixedSize(300, 400);
@@ -66,15 +68,15 @@ void MainWindow::InitMainMenu()
 
   QGridLayout * mainBoxLayout = new QGridLayout(mainBox);
 
-  QPushButton * startGame = new QPushButton("Start new game");
+  QPushButton * startGame = new QPushButton(language.StartGame());
   connect(startGame, SIGNAL(clicked()), SLOT(StartGame()));
   mainBoxLayout->addWidget(startGame, 0, 0);
 
-  QPushButton * settings = new QPushButton("Settings");
+  QPushButton * settings = new QPushButton(language.Settings());
   connect(settings, SIGNAL(clicked()), SLOT(OpenSettings()));
   mainBoxLayout->addWidget(settings, 1, 0);
 
-  QPushButton * exitGame = new QPushButton("Exit");
+  QPushButton * exitGame = new QPushButton(language.ExitGame());
   connect(exitGame, SIGNAL(clicked()), SLOT(close()));
   mainBoxLayout->addWidget(exitGame, 2, 0);
 }
@@ -96,23 +98,23 @@ void MainWindow::InitSettings()
 
   QHBoxLayout * hb1 = new QHBoxLayout();
   settingsBoxLayout->addLayout(hb1, 0, 0);
-  hb1->addWidget(new QLabel("Difficulty"));
+  hb1->addWidget(new QLabel(language.Difficulty()));
 
   QComboBox * difficultyCombobox = new QComboBox();
-  difficultyCombobox->addItem("Easy");
-  difficultyCombobox->addItem("Medium");
-  difficultyCombobox->addItem("Hard");
+  difficultyCombobox->addItem(language.Easy());
+  difficultyCombobox->addItem(language.Medium());
+  difficultyCombobox->addItem(language.Hard());
   difficultyCombobox->setCurrentIndex(settings.m_difficulty);
   connect(difficultyCombobox, SIGNAL(currentIndexChanged(int)), SLOT(OnDifficultyChanged(int)));
   hb1->addWidget(difficultyCombobox);
 
   QHBoxLayout * hb2 = new QHBoxLayout();
   settingsBoxLayout->addLayout(hb2, 1, 0);
-  hb2->addWidget(new QLabel("Language"));
+  hb2->addWidget(new QLabel(language.Language()));
 
   QComboBox * languageCombobox = new QComboBox();
-  languageCombobox->addItem("RU");
-  languageCombobox->addItem("EN");
+  languageCombobox->addItem(language.En());
+  languageCombobox->addItem(language.Ru());
   languageCombobox->setCurrentIndex(settings.m_language);
   connect(languageCombobox, SIGNAL(currentIndexChanged(int)), SLOT(OnLanguageChanged(int)));
   hb2->addWidget(languageCombobox);
@@ -120,7 +122,7 @@ void MainWindow::InitSettings()
   QHBoxLayout * hb3 = new QHBoxLayout();
   settingsBoxLayout->addLayout(hb3, 2, 0);
 
-  QPushButton * exitSettings = new QPushButton("Back to main menu");
+  QPushButton * exitSettings = new QPushButton(language.BackToMainMenu());
   connect(exitSettings, SIGNAL(clicked()), SLOT(OnSettingsClosed()));
   hb3->addWidget(exitSettings);
 }

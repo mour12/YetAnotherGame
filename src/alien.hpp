@@ -1,6 +1,6 @@
 #pragma once
 
-#include "factory_type.hpp"
+#include "game_enums.hpp"
 #include "game_entity.hpp"
 #include "ray2d.hpp"
 #include "bullet.hpp"

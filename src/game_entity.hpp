@@ -1,6 +1,6 @@
 #pragma once
 
-#include "factory_type.hpp"
+#include "game_enums.hpp"
 #include "box2d.hpp"
 #include "ray2d.hpp"
 #include "direction2d.hpp"
