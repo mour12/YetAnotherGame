@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QMessageBox>
 
 typedef void (QWidget::*QWidgetVoidSlot)();
 
@@ -44,8 +45,11 @@ void MainWindow::OnDifficultyChanged(int index)
 
 void MainWindow::OnLanguageChanged(int index)
 {
-    settings.m_language = static_cast<Language>(index);
-    settings.SaveSettings();
+  settings.m_language = static_cast<Language>(index);
+  settings.SaveSettings();
+  QMessageBox msgBox;
+  msgBox.setText(language.RestartGameMessageBox());
+  msgBox.exec();
 }
 
 void MainWindow::OnSettingsClosed()

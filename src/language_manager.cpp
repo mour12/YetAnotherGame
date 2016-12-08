@@ -172,3 +172,16 @@ QString LanguageManager::BackToMainMenu()
       break;
   }
 }
+
+QString LanguageManager::RestartGameMessageBox()
+{
+  switch(languageSettings.m_language)
+  {
+    case Language::EN:
+      return "Please restart the game to change language";
+    case Language::RU:
+      return "Пожалуйста, перезапустите игру для смены языка";
+    default:
+      return "Please restart the game to change language";
+  }
+}

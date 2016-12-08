@@ -24,6 +24,7 @@ public:
   QString En();
   QString Ru();
   QString BackToMainMenu();
+  QString RestartGameMessageBox();
 
 private:
   LanguageManager() {}
