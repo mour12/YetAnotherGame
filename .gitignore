@@ -72,4 +72,7 @@ Thumbs.db
 
 # Custom
 .idea/
+build/
+build-debug/
+build-release/
 CMakeLists.txt.user
