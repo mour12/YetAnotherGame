@@ -25,6 +25,7 @@ private:
 
 private slots:
   void StartGame();
+  void StopGame();
   void OpenSettings();
   void OnDifficultyChanged(int index);
   void OnLanguageChanged(int index);

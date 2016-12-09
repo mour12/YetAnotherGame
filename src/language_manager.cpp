@@ -185,3 +185,15 @@ QString LanguageManager::RestartGameMessageBox()
       return "Please restart the game to change language";
   }
 }
+
+QString LanguageManager::PauseGame(){
+  switch(languageSettings.m_language)
+  {
+    case Language::EN:
+      return "Game paused.\nContinue?";
+    case Language::RU:
+      return "Игра приостановлена.\nПродолжить?";
+    default:
+      return "Game paused.\nContinue?";
+  }
+}

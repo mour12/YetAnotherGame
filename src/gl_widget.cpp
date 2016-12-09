@@ -1,4 +1,5 @@
 #include "gl_widget.hpp"
+#include "language_manager.hpp"
 
 #include <QPainter>
 #include <QPaintEngine>
@@ -7,6 +8,9 @@
 #include <QtGui/QGuiApplication>
 #include <cmath>
 #include <QtGui/QtGui>
+#include <QtWidgets/QMessageBox>
+
+LanguageManager & languageManager = LanguageManager::GetLanguageManager();
 
 GLWidget::GLWidget(QWidget * p, QColor const & background)
   : m_parent(p)
@@ -100,6 +104,27 @@ void GLWidget::Update()
       star[1] = (float)(qrand() % 1000000) / 1000000;
       star[2] = 0.0f;
       star[3] = 0.5f + (float)(qrand() % 1000000) / 1000000;
+    }
+  }
+}
+
+void GLWidget::keyPressEvent(QKeyEvent * e)
+{
+  if (e->key() == Qt::Key_Escape)
+  {
+    QMessageBox msgBox;
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    msgBox.setText(languageManager.PauseGame());
+    int ret = msgBox.exec();
+    switch (ret)
+    {
+      case QMessageBox::Yes:
+        return;
+      case QMessageBox::No:
+        emit StopGame();
+      default:
+        return;
     }
   }
 }

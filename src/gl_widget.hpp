@@ -20,6 +20,9 @@ public:
   GLWidget(QWidget * p, QColor const & background);
   ~GLWidget();
 
+signals:
+  void StopGame();
+
 protected:
   void resizeGL(int w, int h) override;
   void paintGL() override;
@@ -27,6 +30,8 @@ protected:
 
   void Update();
   void Render();
+
+  void keyPressEvent(QKeyEvent * e) override;
 
 private:
   int L2D(int px) const { return px * devicePixelRatio(); }
