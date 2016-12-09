@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 
+bool Alien::m_gameOver = false;
 
 Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr), m_route(route)
@@ -78,19 +79,6 @@ std::unique_ptr<GameEntity> Alien::Create(Box2D const & box, int health, std::we
   throw std::logic_error("Not implemented in Alien class.");
 }
 
-void Alien::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
-{
-  m_onNotifiedHandler = handler;
-}
-
-void Alien::OnNotified(Observable const * obj)
-{
-  if (m_onNotifiedHandler != nullptr)
-  {
-    m_onNotifiedHandler(this, obj);
-  }
-}
-
 void Alien::ToString(std::ostream & os) const
 {
   os << "Alien {"
@@ -111,7 +99,7 @@ void Alien::Update()
   }
   if (m_box.leftBottomCorner().y() == 0.0f)
   {
-    //
+    m_gameOver = true;
   }
   auto randomNumber =  std::rand() % 20;
   if (randomNumber > 10)

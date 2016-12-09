@@ -5,10 +5,9 @@
 #include "ray2d.hpp"
 #include "bullet.hpp"
 
-class Alien : public GameEntity, public Observer, public Observable
+class Alien : public GameEntity, public Observable
 {
 public:
-  using TOnNotifiedHandler = std::function<void(Observer *, Observable const *)>;
   Alien() = default;
   Alien(Alien const & obj);
   Alien(Alien const && obj);
@@ -33,10 +32,8 @@ public:
   Ray2D const & route() const;
 
   void Shoot();
-  void SetOnNotifiedHandler(TOnNotifiedHandler const & handler);
-  virtual void OnNotified(Observable const * obj) override;
 
 protected:
-  TOnNotifiedHandler m_onNotifiedHandler;
+  static bool m_gameOver;
   Ray2D m_route;
 };

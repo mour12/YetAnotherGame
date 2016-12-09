@@ -53,3 +53,16 @@ std::ostream & operator << (std::ostream & os, GameEntity const & obj)
   obj.ToString(os);
   return os;
 }
+
+void GameEntity::SetOnNotifiedHandler(TOnNotifiedHandler const & handler)
+{
+  m_onNotifiedHandler = handler;
+}
+
+void GameEntity::OnNotified(Observable const * obj)
+{
+  if (m_onNotifiedHandler != nullptr)
+  {
+    m_onNotifiedHandler(this, obj);
+  }
+}

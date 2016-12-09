@@ -8,10 +8,9 @@
 
 class Bullet;
 
-class Gun : public GameEntity, public Observer
+class Gun : public GameEntity
 {
 public:
-  using TOnNotifiedHandler = std::function<void(Observer *, Observable const *)>;
   Gun() = default;
   Gun(Gun const & obj);
   Gun(Gun const && obj);
@@ -31,8 +30,6 @@ public:
   bool operator==(Gun const & obj) const;
   bool operator!=(Gun const & obj) const;
 
-  void SetOnNotifiedHandler(TOnNotifiedHandler const & handler);
-  void OnNotified(Observable const * obj) override;
   void Shoot();
 
 private:
