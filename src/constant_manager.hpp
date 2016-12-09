@@ -10,9 +10,10 @@ public:
     return instance;
   }
 
-  float Speed();
+  float AlienSpeed();
   int GunHp();
-  int BulletDamage();
+  int AlienHp();
+  int ObstacleHp();
   int ObstacleQuantity();
   int AlienQuantity();
   float AlienSize();

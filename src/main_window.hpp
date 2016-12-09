@@ -6,6 +6,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QOpenGLWidget>
 #include <QTimer>
+#include "gl_widget.hpp"
 
 class MainWindow : public QMainWindow
 {
@@ -16,7 +17,7 @@ public:
 
 private:
   QTimer * m_timer = nullptr;
-  QOpenGLWidget * m_glWidget = nullptr;
+  GLWidget * m_glWidget = nullptr;
   QStackedWidget * m_widgets = nullptr;
 
   void InitMainMenu();

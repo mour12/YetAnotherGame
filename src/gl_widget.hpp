@@ -4,6 +4,7 @@
 #include <QOpenGLFunctions>
 #include <QTime>
 #include "textured_rect.hpp"
+#include "space.hpp"
 
 #include <array>
 
@@ -18,6 +19,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
   Q_OBJECT
 public:
   GLWidget(QWidget * p, QColor const & background);
+  void ConfigureSpace();
   ~GLWidget();
 
 signals:
@@ -29,7 +31,8 @@ protected:
   void initializeGL() override;
 
   void Update();
-  void Render();
+  void RenderStars();
+  void RenderSpace();
 
   void keyPressEvent(QKeyEvent * e) override;
 
@@ -43,8 +46,10 @@ private:
   QColor m_background;
   QSize m_screenSize;
 
-  QOpenGLTexture * m_texture = nullptr;
+  QOpenGLTexture * m_starTexture = nullptr;
+  QOpenGLTexture * m_alienTexture = nullptr;
   TexturedRect * m_texturedRect = nullptr;
 
   std::vector<float[4]> m_stars = std::vector<float[4]>(150);
+  std::shared_ptr<Space> m_spacePtr = nullptr;
 };

@@ -1,5 +1,7 @@
 #include "gl_widget.hpp"
 #include "language_manager.hpp"
+#include "constant_manager.hpp"
+#include "alien.hpp"
 
 #include <QPainter>
 #include <QPaintEngine>
@@ -9,8 +11,10 @@
 #include <cmath>
 #include <QtGui/QtGui>
 #include <QtWidgets/QMessageBox>
+#include <iostream>
 
 LanguageManager & languageManager = LanguageManager::GetLanguageManager();
+ConstantManager & constantManager = ConstantManager::GetConstantManager();
 
 GLWidget::GLWidget(QWidget * p, QColor const & background)
   : m_parent(p)
@@ -20,7 +24,8 @@ GLWidget::GLWidget(QWidget * p, QColor const & background)
 GLWidget::~GLWidget()
 {
   makeCurrent();
-  delete m_texture;
+  delete m_starTexture;
+  delete m_alienTexture;
   delete m_texturedRect;
   doneCurrent();
 }
@@ -32,7 +37,8 @@ void GLWidget::initializeGL()
   m_texturedRect = new TexturedRect();
   m_texturedRect->Initialize(this);
 
-  m_texture = new QOpenGLTexture(QImage("data/star.png"));
+  m_starTexture = new QOpenGLTexture(QImage("data/star.png"));
+  m_alienTexture = new QOpenGLTexture(QImage("data/alien.png"));
 
   for (auto &star : m_stars) {
     star[0] = (float)(qrand() % 1000000) / 1000000;
@@ -62,7 +68,8 @@ void GLWidget::paintGL()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  Render();
+  RenderStars();
+  RenderSpace();
 
   glDisable(GL_CULL_FACE);
   glDisable(GL_BLEND);
@@ -100,11 +107,29 @@ void GLWidget::Update()
     star[2] += 0.001f;
     if (star[2] >= 1.0f)
     {
-      star[0] = (float)(qrand() % 1000000) / 1000000;
-      star[1] = (float)(qrand() % 1000000) / 1000000;
+      star[0] = (float) (qrand() % 1000000) / 1000000;
+      star[1] = (float) (qrand() % 1000000) / 1000000;
       star[2] = 0.0f;
-      star[3] = 0.5f + (float)(qrand() % 1000000) / 1000000;
+      star[3] = 0.5f + (float) (qrand() % 1000000) / 1000000;
     }
+  }
+}
+
+void GLWidget::ConfigureSpace()
+{
+  m_spacePtr = std::make_shared<Space>(1.0f, 1.0f);
+  auto alienCount = constantManager.AlienQuantity();
+  auto alienSize = constantManager.AlienSize();
+  auto velocity = constantManager.AlienSpeed();
+  auto alienHealth = constantManager.AlienHp();
+  float s = (1 - 0.01f) / (alienCount + 1);
+  for (int i = 0; i < alienCount; ++i)
+  {
+    auto leftBottomCorner = Point2D(0.005f + (i + 1) * s - alienSize / 2, 1 - 0.005f);
+    auto rightTopCorner = Point2D(0.005f + (i + 1) * s + alienSize / 2, 1 - 0.005f - alienSize);
+    auto alienBox = Box2D(leftBottomCorner, rightTopCorner);
+    std::shared_ptr<Alien> alien = std::make_shared<Alien>(alienBox, Direction2D(-1.0f, 0.0f), velocity, alienHealth, Ray2D(alienBox.Center(), Direction2D(0.0f, -1.0f)), m_spacePtr);
+    m_spacePtr->AddGameEntity(alien);
   }
 }
 
@@ -129,12 +154,20 @@ void GLWidget::keyPressEvent(QKeyEvent * e)
   }
 }
 
-void GLWidget::Render()
+void GLWidget::RenderStars()
 {
   int constexpr kRectSize = 32;
   for (auto &star : m_stars)
   {
     int rectSize = kRectSize * star[3];
-    m_texturedRect->Render(m_texture, sin(star[2] * M_PI), QVector2D(rectSize / 2 + star[0] * (m_screenSize.width() - rectSize), rectSize / 2 + star[1] * (m_screenSize.height() - rectSize)), QSize(rectSize, rectSize), m_screenSize);
+    m_texturedRect->Render(m_starTexture, sin(star[2] * M_PI), QVector2D(rectSize / 2 + star[0] * (m_screenSize.width() - rectSize), rectSize / 2 + star[1] * (m_screenSize.height() - rectSize)), QSize(rectSize, rectSize), m_screenSize);
+  }
+}
+
+void GLWidget::RenderSpace()
+{
+  for (auto &gameEntity : m_spacePtr->gameEntities())
+  {
+    m_texturedRect->Render(m_alienTexture, 1.0f, QVector2D(gameEntity->box().Center().x() * m_screenSize.width(), gameEntity->box().Center().y() * m_screenSize.height()), QSize(gameEntity->box().Width() * m_screenSize.width(), gameEntity->box().Height() * m_screenSize.height()), m_screenSize);
   }
 }

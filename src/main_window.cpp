@@ -30,11 +30,13 @@ MainWindow::MainWindow()
 void MainWindow::StartGame()
 {
   m_widgets->setCurrentIndex(2);
+  m_glWidget->ConfigureSpace();
 }
 
 void MainWindow::StopGame()
 {
   m_widgets->setCurrentIndex(0);
+  this->repaint();
 }
 
 void MainWindow::OpenSettings()
@@ -147,5 +149,5 @@ void MainWindow::InitGame()
 
   connect(m_timer, &QTimer::timeout, m_glWidget, static_cast<QWidgetVoidSlot>(&QWidget::update));
   connect(m_glWidget, SIGNAL(StopGame()), this, SLOT(StopGame()));
-  m_timer->start();
+  //m_timer->start();
 }
