@@ -33,6 +33,7 @@ protected:
   void Update();
   void RenderStars();
   void RenderSpace();
+  void RenderGameEntity(std::shared_ptr<GameEntity> gameEntity, QOpenGLTexture * texture);
 
   void keyPressEvent(QKeyEvent * e) override;
 
@@ -48,6 +49,9 @@ private:
 
   QOpenGLTexture * m_starTexture = nullptr;
   QOpenGLTexture * m_alienTexture = nullptr;
+  QOpenGLTexture * m_bulletTexture = nullptr;
+  QOpenGLTexture * m_gunTexture = nullptr;
+  QOpenGLTexture * m_obstacleTexture = nullptr;
   TexturedRect * m_texturedRect = nullptr;
 
   std::vector<float[4]> m_stars = std::vector<float[4]>(150);

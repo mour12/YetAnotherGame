@@ -2,6 +2,7 @@
 #include "language_manager.hpp"
 #include "constant_manager.hpp"
 #include "alien.hpp"
+#include "obstacle.hpp"
 
 #include <QPainter>
 #include <QPaintEngine>
@@ -39,6 +40,9 @@ void GLWidget::initializeGL()
 
   m_starTexture = new QOpenGLTexture(QImage("data/star.png"));
   m_alienTexture = new QOpenGLTexture(QImage("data/alien.png"));
+  m_gunTexture = new QOpenGLTexture(QImage("data/gun.png"));
+  m_bulletTexture = new QOpenGLTexture(QImage("data/bullet.png"));
+  m_obstacleTexture = new QOpenGLTexture(QImage("data/box.jpg"));
 
   for (auto &star : m_stars) {
     star[0] = (float)(qrand() % 1000000) / 1000000;
@@ -113,24 +117,34 @@ void GLWidget::Update()
       star[3] = 0.5f + (float) (qrand() % 1000000) / 1000000;
     }
   }
+  m_spacePtr->Update();
 }
 
 void GLWidget::ConfigureSpace()
 {
   m_spacePtr = std::make_shared<Space>(1.0f, 1.0f);
-  auto alienCount = constantManager.AlienQuantity();
   auto alienSize = constantManager.AlienSize();
-  auto velocity = constantManager.AlienSpeed();
-  auto alienHealth = constantManager.AlienHp();
-  float s = (1 - 0.01f) / (alienCount + 1);
-  for (int i = 0; i < alienCount; ++i)
+  float gap = (1 - 0.01f) / (constantManager.AlienQuantity() + 1);
+  for (int i = 0; i < constantManager.AlienQuantity(); ++i)
   {
-    auto leftBottomCorner = Point2D(0.005f + (i + 1) * s - alienSize / 2, 1 - 0.005f);
-    auto rightTopCorner = Point2D(0.005f + (i + 1) * s + alienSize / 2, 1 - 0.005f - alienSize);
+    auto leftBottomCorner = Point2D(0.005f + (i + 1) * gap - alienSize / 2, 1 - 0.005f);
+    auto rightTopCorner = Point2D(0.005f + (i + 1) * gap + alienSize / 2, 1 - 0.005f - alienSize);
     auto alienBox = Box2D(leftBottomCorner, rightTopCorner);
-    std::shared_ptr<Alien> alien = std::make_shared<Alien>(alienBox, Direction2D(-1.0f, 0.0f), velocity, alienHealth, Ray2D(alienBox.Center(), Direction2D(0.0f, -1.0f)), m_spacePtr);
+    std::shared_ptr<Alien> alien = std::make_shared<Alien>(alienBox, Direction2D(-1.0f, 0.0f), constantManager.AlienSpeed(), constantManager.AlienHp(), Ray2D(alienBox.Center(), Direction2D(0.0f, -1.0f)), m_spacePtr);
     m_spacePtr->AddGameEntity(alien);
   }
+
+  auto obstacleSize = constantManager.ObstacleSize();
+  gap = (1 - 0.01f) / (constantManager.ObstacleQuantity() + 1);
+  for (int i = 0; i < constantManager.ObstacleQuantity(); ++i)
+  {
+    auto leftBottomCorner = Point2D(0.005f + (i + 1) * gap - obstacleSize / 2, 0.1f);
+    auto rightTopCorner = Point2D(0.005f + (i + 1) * gap + obstacleSize / 2, 0.1f + obstacleSize);
+    auto obstacleBox = Box2D(leftBottomCorner, rightTopCorner);
+    std::shared_ptr<Obstacle> obstacle = std::make_shared<Obstacle>(obstacleBox, constantManager.ObstacleHp(), m_spacePtr);
+    m_spacePtr->AddGameEntity(obstacle);
+  }
+
 }
 
 void GLWidget::keyPressEvent(QKeyEvent * e)
@@ -168,6 +182,25 @@ void GLWidget::RenderSpace()
 {
   for (auto &gameEntity : m_spacePtr->gameEntities())
   {
-    m_texturedRect->Render(m_alienTexture, 1.0f, QVector2D(gameEntity->box().Center().x() * m_screenSize.width(), gameEntity->box().Center().y() * m_screenSize.height()), QSize(gameEntity->box().Width() * m_screenSize.width(), gameEntity->box().Height() * m_screenSize.height()), m_screenSize);
+    switch (gameEntity->GetType())
+    {
+      case FactoryType::AlienType:
+        RenderGameEntity(gameEntity, m_alienTexture);
+        break;
+      case FactoryType::BulletType:
+        RenderGameEntity(gameEntity, m_bulletTexture);
+        break;
+      case FactoryType::GunType:
+        RenderGameEntity(gameEntity, m_gunTexture);
+        break;
+      case FactoryType::ObstacleType:
+        RenderGameEntity(gameEntity, m_obstacleTexture);
+        break;
+    }
   }
+}
+
+void GLWidget::RenderGameEntity(std::shared_ptr<GameEntity> gameEntity, QOpenGLTexture * texture)
+{
+  m_texturedRect->Render(texture, 1.0f, QVector2D(gameEntity->box().Center().x() * m_screenSize.width(), gameEntity->box().Center().y() * m_screenSize.height()), QSize(gameEntity->box().Width() * m_screenSize.width(), gameEntity->box().Height() * m_screenSize.height()), m_screenSize);
 }

@@ -36,7 +36,7 @@ void MainWindow::StartGame()
 void MainWindow::StopGame()
 {
   m_widgets->setCurrentIndex(0);
-  this->repaint();
+  m_widgets->update();
 }
 
 void MainWindow::OpenSettings()
@@ -147,7 +147,5 @@ void MainWindow::InitGame()
   m_timer = new QTimer(this);
   m_timer->setInterval(10);
 
-  connect(m_timer, &QTimer::timeout, m_glWidget, static_cast<QWidgetVoidSlot>(&QWidget::update));
   connect(m_glWidget, SIGNAL(StopGame()), this, SLOT(StopGame()));
-  //m_timer->start();
 }

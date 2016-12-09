@@ -142,16 +142,16 @@ float ConstantManager::ObstacleSize()
   switch (difficultySettings.m_difficulty)
   {
     case Easy:
-      return 30.0f;
+      return 0.08f;
       break;
     case Medium:
-      return 20.0f;
+      return 0.04f;
       break;
     case Hard:
-      return 10.0f;
+      return 0.02f;
       break;
     default:
-      return 30.0f;
+      return 0.08f;
       break;
   }
 }
