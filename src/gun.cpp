@@ -86,3 +86,8 @@ void Gun::ToString(std::ostream & os) const
      << velocity() << ", "
      << health() << "}";
 }
+
+void Gun::Update()
+{
+  m_box.Move(m_velocity, m_direction);
+}

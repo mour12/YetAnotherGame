@@ -66,3 +66,13 @@ void Bullet::ToString(std::ostream & os) const
      << velocity() << ", "
      << health() << "}";
 }
+
+void Bullet::Update()
+{
+  m_box.Move(m_velocity, m_direction);
+  Notify();
+  if (m_box.leftBottomCorner().y() == 0.0f || m_box.rightTopCorner().y() == 1.0f)
+  {
+    m_health = 0;
+  }
+}

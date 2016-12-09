@@ -5,7 +5,7 @@
 #include "ray2d.hpp"
 #include "bullet.hpp"
 
-class Alien : public GameEntity, public Observer
+class Alien : public GameEntity, public Observer, public Observable
 {
 public:
   using TOnNotifiedHandler = std::function<void(Observer *, Observable const *)>;
@@ -15,6 +15,7 @@ public:
   Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePrt);
   ~Alien() override {}
   void ToString(std::ostream & os) const override;
+  void Update() override;
 
   FactoryType GetType() override;
   std::unique_ptr<GameEntity> Create() override;

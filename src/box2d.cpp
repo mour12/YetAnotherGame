@@ -69,6 +69,32 @@ bool Box2D::Intersects(Box2D const & obj) const
     || m_rightTopCorner.y() < obj.leftBottomCorner().y());
 }
 
+void Box2D::Move(float velocity, Direction2D direction)
+{
+  Point2D newLeftBottomCorner(m_leftBottomCorner.x() + velocity * direction.x(),
+                              m_leftBottomCorner.y() + velocity * direction.y());
+  Point2D newRightTopCorner(m_rightTopCorner.x() + velocity * direction.x(),
+                            m_rightTopCorner.y() + velocity * direction.y());
+  if (newLeftBottomCorner.x() <= 0.0f)
+  {
+    newLeftBottomCorner.x() = 0.0f;
+  }
+  if (newLeftBottomCorner.y() <= 0.0f)
+  {
+    newLeftBottomCorner.y() = 0.0f;
+  }
+  if (newRightTopCorner.x() >= 1.0f)
+  {
+    newRightTopCorner.x() = 1.0f;
+  }
+  if (newRightTopCorner.y() >= 1.0f)
+  {
+    newRightTopCorner.y() = 1.0f;
+  }
+  m_rightTopCorner = newLeftBottomCorner;
+  m_rightTopCorner = newRightTopCorner;
+}
+
 bool Box2D::operator == (Box2D const & obj) const
 {
   return (m_leftBottomCorner == obj.m_leftBottomCorner) && (m_rightTopCorner == obj.m_rightTopCorner);

@@ -13,7 +13,7 @@ public:
   Space(float sizeX, float sizeY);
   ~Space() {}
 
-  void Update();//Not implemented on GameEntity side
+  void Update();
 
   float const & sizeX() const;
   float const & sizeY() const;

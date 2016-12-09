@@ -1,5 +1,8 @@
 #include "alien.hpp"
 
+#include <stdlib.h>
+
+
 Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr), m_route(route)
 {}
@@ -97,4 +100,22 @@ void Alien::ToString(std::ostream & os) const
      << direction() << ", "
      << velocity() << ", "
      << health() << "}";
+}
+
+void Alien::Update()
+{
+  m_box.Move(m_velocity, m_direction);
+  if (m_box.leftBottomCorner().x() == 0.0f || m_box.rightTopCorner().x() == 1.0f)
+  {
+    Notify();
+  }
+  if (m_box.leftBottomCorner().y() == 0.0f)
+  {
+    //
+  }
+  auto randomNumber =  std::rand() % 20;
+  if (randomNumber > 10)
+  {
+    Shoot();
+  }
 }

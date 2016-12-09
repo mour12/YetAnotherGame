@@ -63,3 +63,5 @@ void Obstacle::ToString(std::ostream & os) const
      << Сoordinates() << ", "
      << health() << "}";
 }
+
+void Obstacle::Update() {}

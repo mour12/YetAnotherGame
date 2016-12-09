@@ -19,6 +19,7 @@ public:
   std::unique_ptr<GameEntity> Create(Box2D const & box, int health, std::weak_ptr<Space> const spacePtr) override;
 
   void ToString(std::ostream & os) const override;
+  void Update() override;
 
   Obstacle & operator=(Obstacle const & obj);
 

@@ -16,6 +16,7 @@ public:
   Bullet(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr);
   ~Bullet() override {}
   void ToString(std::ostream & os) const override;
+  void Update() override;
 
   FactoryType GetType() override;
   std::unique_ptr<GameEntity> Create() override;
