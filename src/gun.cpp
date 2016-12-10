@@ -1,5 +1,4 @@
 #include "gun.hpp"
-#include "constant_manager.hpp"
 
 Gun::Gun(Box2D const & box, Direction2D const & direction, float velocity, int health, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr)
@@ -68,14 +67,13 @@ void Gun::OnNotified(Observable const * obj)
   }
 }
 
-void Gun::Shoot()
+void Gun::Shoot() // TODO: Вынести размеры, скорость и хп пули
 {
-  ConstantManager & localConstantManager = ConstantManager::GetConstantManager();
-  Point2D leftBottomCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2 - localConstantManager.BulletSize() / 2, m_box.rightTopCorner().y());
-  Point2D rightTopCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2  + localConstantManager.BulletSize() / 2, m_box.rightTopCorner().y() + localConstantManager.BulletSize());
+  Point2D leftBottomCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2 - 3, m_box.rightTopCorner().y());
+  Point2D rightTopCorner(m_box.leftBottomCorner().x() + m_box.Width() / 2  + 3, m_box.rightTopCorner().y() + 6);
   Direction2D direction(0.0f, 1.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
-  auto bulletPtr = std::make_shared<Bullet>(box, direction, localConstantManager.BulletSpeed(), 1, m_spacePtr);
+  auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
 
