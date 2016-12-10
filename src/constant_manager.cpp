@@ -9,18 +9,42 @@ float ConstantManager::AlienSpeed()
   switch (difficultySettings.m_difficulty)
   {
     case Easy:
-      return 10.0f;
+      return 0.0002f;
       break;
     case Medium:
-      return 20.0f;
+      return 0.001f;
       break;
     case Hard:
-      return 30.0f;
+      return 0.005f;
       break;
     default:
-      return 10.0f;
+      return 0.0002f;
       break;
   }
+}
+
+float ConstantManager::GunSpeed()
+{
+  switch (difficultySettings.m_difficulty)
+  {
+    case Easy:
+      return 0.005f;
+      break;
+    case Medium:
+      return 0.001f;
+      break;
+    case Hard:
+      return 0.0002f;
+      break;
+    default:
+      return 0.005f;
+      break;
+  }
+}
+
+float ConstantManager::BulletSpeed()
+{
+  return 0.001f;
 }
 
 int ConstantManager::GunHp()
@@ -137,6 +161,25 @@ float ConstantManager::AlienSize()
   }
 }
 
+float ConstantManager::GunSize()
+{
+  switch (difficultySettings.m_difficulty)
+  {
+    case Easy:
+      return 0.02f;
+      break;
+    case Medium:
+      return 0.05f;
+      break;
+    case Hard:
+      return 0.10f;
+      break;
+    default:
+      return 0.02f;
+      break;
+  }
+}
+
 float ConstantManager::ObstacleSize()
 {
   switch (difficultySettings.m_difficulty)
@@ -154,4 +197,9 @@ float ConstantManager::ObstacleSize()
       return 0.08f;
       break;
   }
+}
+
+float ConstantManager::BulletSize()
+{
+  return 0.01f;
 }

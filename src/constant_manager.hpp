@@ -11,13 +11,17 @@ public:
   }
 
   float AlienSpeed();
+  float GunSpeed();
   int GunHp();
   int AlienHp();
   int ObstacleHp();
   int ObstacleQuantity();
   int AlienQuantity();
   float AlienSize();
+  float GunSize();
   float ObstacleSize();
+  float BulletSize();
+  float BulletSpeed();
 
 private:
   ConstantManager() {}

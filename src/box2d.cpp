@@ -69,7 +69,7 @@ bool Box2D::Intersects(Box2D const & obj) const
     || m_rightTopCorner.y() < obj.leftBottomCorner().y());
 }
 
-void Box2D::Move(float velocity, Direction2D direction)
+void Box2D::Move(float const & velocity, Direction2D const & direction)
 {
   Point2D newLeftBottomCorner(m_leftBottomCorner.x() + velocity * direction.x(),
                               m_leftBottomCorner.y() + velocity * direction.y());
@@ -77,21 +77,25 @@ void Box2D::Move(float velocity, Direction2D direction)
                             m_rightTopCorner.y() + velocity * direction.y());
   if (newLeftBottomCorner.x() <= 0.0f)
   {
+    newRightTopCorner.x() -= newLeftBottomCorner.x();
     newLeftBottomCorner.x() = 0.0f;
   }
   if (newLeftBottomCorner.y() <= 0.0f)
   {
+    newRightTopCorner.y() -= newLeftBottomCorner.y();
     newLeftBottomCorner.y() = 0.0f;
   }
   if (newRightTopCorner.x() >= 1.0f)
   {
+    newLeftBottomCorner.x() -= newRightTopCorner.x() - 1.0f;
     newRightTopCorner.x() = 1.0f;
   }
   if (newRightTopCorner.y() >= 1.0f)
   {
+    newLeftBottomCorner.y() -= newRightTopCorner.y() - 1.0f;
     newRightTopCorner.y() = 1.0f;
   }
-  m_rightTopCorner = newLeftBottomCorner;
+  m_leftBottomCorner = newLeftBottomCorner;
   m_rightTopCorner = newRightTopCorner;
 }
 
@@ -122,7 +126,7 @@ bool Box2D::operator != (Box2D const & obj) const
 
 bool Box2D::operator < (Box2D const & obj) const
 {
-  return this->Area() < obj.Area();//TODO: Implement comparison using epsilon
+  return this->Area() < obj.Area();
 }
 
 Point2D Box2D::operator [] (unsigned int index) const

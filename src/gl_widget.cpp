@@ -138,13 +138,19 @@ void GLWidget::ConfigureSpace()
   gap = (1 - 0.01f) / (constantManager.ObstacleQuantity() + 1);
   for (int i = 0; i < constantManager.ObstacleQuantity(); ++i)
   {
-    auto leftBottomCorner = Point2D(0.005f + (i + 1) * gap - obstacleSize / 2, 0.1f);
-    auto rightTopCorner = Point2D(0.005f + (i + 1) * gap + obstacleSize / 2, 0.1f + obstacleSize);
+    auto leftBottomCorner = Point2D(0.005f + (i + 1) * gap - obstacleSize / 2, 0.3f);
+    auto rightTopCorner = Point2D(0.005f + (i + 1) * gap + obstacleSize / 2, 0.3f + obstacleSize);
     auto obstacleBox = Box2D(leftBottomCorner, rightTopCorner);
     std::shared_ptr<Obstacle> obstacle = std::make_shared<Obstacle>(obstacleBox, constantManager.ObstacleHp(), m_spacePtr);
     m_spacePtr->AddGameEntity(obstacle);
   }
 
+  auto gunSize = constantManager.GunSize();
+  auto leftBottomCorner = Point2D(0.5f - gunSize / 2, 0.1f);
+  auto rightTopCorner = Point2D(0.5f + gunSize / 2, 0.1f + gunSize);
+  auto gunBox = Box2D(leftBottomCorner, rightTopCorner);
+  std::shared_ptr<Gun> gun = std::make_shared<Gun>(gunBox, Direction2D(), 0.0f, constantManager.GunHp(), m_spacePtr);
+  m_spacePtr->AddGameEntity(gun);
 }
 
 void GLWidget::keyPressEvent(QKeyEvent * e)
@@ -164,6 +170,59 @@ void GLWidget::keyPressEvent(QKeyEvent * e)
         emit StopGame();
       default:
         return;
+    }
+  }
+
+  if (e->key() == Qt::Key_Left)
+  {
+    for (auto & gameEntity : m_spacePtr->gameEntities())
+    {
+      if (gameEntity->GetType() == FactoryType::GunType)
+      {
+        gameEntity->direction() = Direction2D(-1.0f, 0.0f);
+        gameEntity->velocity() = constantManager.GunSpeed();
+        return;
+      }
+    }
+  }
+
+  if (e->key() == Qt::Key_Right)
+  {
+    for (auto & gameEntity : m_spacePtr->gameEntities())
+    {
+      if (gameEntity->GetType() == FactoryType::GunType)
+      {
+        gameEntity->direction() = Direction2D(1.0f, 0.0f);
+        gameEntity->velocity() = constantManager.GunSpeed();
+        return;
+      }
+    }
+  }
+
+  if (e->key() == Qt::Key_Space)
+  {
+    for (auto & gameEntity : m_spacePtr->gameEntities())
+    {
+      if (gameEntity->GetType() == FactoryType::GunType)
+      {
+        std::static_pointer_cast<Gun>(gameEntity)->Shoot();
+        return;
+      }
+    }
+  }
+}
+
+void GLWidget::keyReleaseEvent(QKeyEvent * e)
+{
+  if (e->key() == Qt::Key_Left || e->key() == Qt::Key_Right)
+  {
+    for (auto & gameEntity : m_spacePtr->gameEntities())
+    {
+      if (gameEntity->GetType() == FactoryType::GunType)
+      {
+        gameEntity->velocity() = 0.0f;
+        return;
+      }
     }
   }
 }

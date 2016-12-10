@@ -36,6 +36,7 @@ protected:
   void RenderGameEntity(std::shared_ptr<GameEntity> gameEntity, QOpenGLTexture * texture);
 
   void keyPressEvent(QKeyEvent * e) override;
+  void keyReleaseEvent(QKeyEvent * e) override;
 
 private:
   int L2D(int px) const { return px * devicePixelRatio(); }

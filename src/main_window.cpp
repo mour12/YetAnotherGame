@@ -36,7 +36,7 @@ void MainWindow::StartGame()
 void MainWindow::StopGame()
 {
   m_widgets->setCurrentIndex(0);
-  m_widgets->update();
+  m_widgets[0].repaint();
 }
 
 void MainWindow::OpenSettings()

@@ -26,7 +26,7 @@ public:
   float Area() const;
   float Perimeter() const;
   bool Intersects(Box2D const & obj) const;
-  void Move(float velocity, Direction2D direction);
+  void Move(float const & velocity, Direction2D const & direction);
 
   bool operator == (Box2D const & obj) const;
   Box2D & operator = (Box2D const & obj);

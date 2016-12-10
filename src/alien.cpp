@@ -1,20 +1,28 @@
 #include "alien.hpp"
+#include "constant_manager.hpp"
 
 #include <stdlib.h>
 
+Direction2D Alien::m_alienDirection = Direction2D(-1.0f, 0.0f);
+bool Alien::allMoveDown = false;
 
 Alien::Alien(Box2D const & box, Direction2D const & direction, float velocity, int health, Ray2D const & route, std::weak_ptr<Space> const spacePtr)
   : GameEntity(box, direction, velocity, health, spacePtr), m_route(route)
-{}
+{
+  m_alienDirection = direction;
+}
 
 Alien::Alien(Alien const & obj)
   : GameEntity(obj), m_route(obj.m_route)
-{}
+{
+  m_alienDirection = obj.m_alienDirection;
+}
 
 Alien::Alien(Alien const && obj)
 {
   m_box = std::move(obj.m_box);
   m_direction = std::move(obj.m_direction);
+  m_alienDirection = std::move(obj.m_alienDirection);
   m_velocity = std::move(obj.m_velocity);
   m_health = std::move(obj.m_health);
   m_spacePtr = std::move(obj.m_spacePtr);
@@ -26,6 +34,7 @@ Alien & Alien::operator=(Alien const & obj)
   if (this == &obj) return *this;
   m_box = obj.m_box;
   m_direction = obj.m_direction;
+  m_alienDirection = obj.m_alienDirection;
   m_velocity = obj.m_velocity;
   m_health = obj.m_health;
   m_route = obj.m_route;
@@ -47,13 +56,14 @@ Ray2D & Alien::route() { return m_route; }
 
 Ray2D const & Alien::route() const { return m_route; }
 
-void Alien::Shoot() // TODO: Вынести размеры, скорость и хп пули
+void Alien::Shoot()
 {
-  Point2D leftBottomCorner(m_route.origin().x() - 3, m_route.origin().y() - 6);
-  Point2D rightTopCorner(m_route.origin().x() + 3, m_route.origin().y());
+  ConstantManager & localConstantManager = ConstantManager::GetConstantManager();
+  Point2D leftBottomCorner(m_box.Center().x() - localConstantManager.BulletSize() / 2, m_box.Center().y() - m_box.Height() / 2 - localConstantManager.BulletSize());
+  Point2D rightTopCorner(m_box.Center().x() + localConstantManager.BulletSize() / 2, m_box.Center().y() - m_box.Height() / 2);
   Direction2D direction(0.0f, -1.0f);
   Box2D box(leftBottomCorner, rightTopCorner);
-  auto bulletPtr = std::make_shared<Bullet>(box, direction, 10.0f, 1, m_spacePtr);
+  auto bulletPtr = std::make_shared<Bullet>(box, direction, localConstantManager.BulletSpeed(), 1, m_spacePtr);
   m_spacePtr.lock()->AddGameEntity(bulletPtr);
 }
 
@@ -104,17 +114,28 @@ void Alien::ToString(std::ostream & os) const
 
 void Alien::Update()
 {
-  m_box.Move(m_velocity, m_direction);
-  if (m_box.leftBottomCorner().x() == 0.0f || m_box.rightTopCorner().x() == 1.0f)
+  m_box.Move(m_velocity, m_alienDirection);
+  if (m_box.leftBottomCorner().x() <= 0.0f)
   {
-    Notify();
+    allMoveDown = !allMoveDown;
+    m_alienDirection = Direction2D(1.0f, 0.0f);
+  }
+  else if (m_box.rightTopCorner().x() >= 1.0f)
+  {
+    allMoveDown = !allMoveDown;
+    m_alienDirection = Direction2D(-1.0f, 0.0f);
+  }
+  if (allMoveDown != moveDown)
+  {
+    m_box.Move(0.02f, Direction2D(0.0f, -1.0f));
+    moveDown = allMoveDown;
   }
   if (m_box.leftBottomCorner().y() == 0.0f)
   {
     //
   }
-  auto randomNumber =  std::rand() % 20;
-  if (randomNumber > 10)
+  auto randomNumber =  std::rand() % 10000;
+  if (randomNumber < 10)
   {
     Shoot();
   }

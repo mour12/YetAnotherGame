@@ -15,10 +15,37 @@ std::vector<std::shared_ptr<GameEntity>> const & Space::gameEntities() const
 
 void Space::Update()
 {
-  if (m_gameEntities.empty()) return;
-  for (auto & gameEntity: m_gameEntities)
+  for (int i = 0; i < m_gameEntities.size(); ++i)
   {
-    gameEntity->Update();
+    m_gameEntities[i]->Update();
+  }
+
+  for (int i = 0; i < m_gameEntities.size(); ++i)
+  {
+    if (m_gameEntities[i]->GetType() == FactoryType::BulletType && m_gameEntities[i]->health() > 0)
+    {
+      for (int j = 0; j < m_gameEntities.size(); ++j)
+      {
+        if (i != j && m_gameEntities[i]->box().Intersects(m_gameEntities[j]->box()))
+        {
+          m_gameEntities[i]->health() = 0;
+          m_gameEntities[j]->health()--;
+          break;
+        }
+      }
+    }
+  }
+
+  for (auto it = m_gameEntities.begin(); it != m_gameEntities.end(); )
+  {
+    if ((*it)->health() <= 0)
+    {
+      it = m_gameEntities.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
   }
 }
 
